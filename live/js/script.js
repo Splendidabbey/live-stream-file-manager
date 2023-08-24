@@ -8,6 +8,7 @@
   const viewerCount = document.getElementById("viewer-count");
   const maxComments = 5; // Maximum number of displayed comments
   const estimatedViewers = 1000;
+  guestRandomNumber = Math.floor(Math.random() * (estimatedViewers - 99 + 1)) + 99;
 
   video.controls = false; // Disable controls
   video.autoplay = false; // No autoplay
@@ -27,23 +28,25 @@
   let commentCount = 0;
 
   commentButton.addEventListener("click", function() {
-    const commentText = commentInput.value.trim();
-    if (commentText !== "") {
-      addComment(commentText);
-      commentInput.value = "";
+    if(joinButton.disabled !== false) {
+      const commentText = commentInput.value.trim();
+      if (commentText !== "") {
+        addComment(commentText);
+        commentInput.value = "";
+      }
+    } else {
+      alert("You've to join first!");
     }
   });
 
   function addComment(text) {
     const profilePics = [
       "male.png",
-      "female.png",
-      "male.png"
       // Add more profile picture filenames here
     ];
 
     const names = [
-      "Guest",
+      `Guest ${guestRandomNumber}`,
       // Add more names here
     ];
 
