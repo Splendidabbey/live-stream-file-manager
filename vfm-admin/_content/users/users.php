@@ -9,8 +9,8 @@
   ),
   1 => 
   array (
-    'name' => 'user1',
-    'pass' => '$1$5086Kcnx$G9twYz80d0Gcv0tJUaG.w0',
+    'name' => 'apostle',
+    'pass' => '$1$ueqg637X$S1e5BtDRj7X674n/cNrb20',
     'role' => 'admin',
     'dir' => '["User1"]',
     'quota' => '1024',

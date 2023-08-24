@@ -121,6 +121,11 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                                 <?php echo $setUp->getString("size"); ?>
                             </span>
                         </td>
+                        <td class="taglia reduce small h-filesize d-none d-md-table-cell">
+                            <span class="text-center nowrap">
+                                <?php echo "<b>Go Live</b>"; ?>
+                            </span>
+                        </td>
                         <td class="reduce small h-filedate d-none d-md-table-cell">
                             <span class="text-center sorta nowrap">
                                 <?php echo $setUp->getString("last_changed"); ?>
