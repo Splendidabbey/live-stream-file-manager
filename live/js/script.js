@@ -9,23 +9,22 @@
   const maxComments = 5; // Maximum number of displayed comments
   const estimatedViewers = 1000;
   guestRandomNumber = Math.floor(Math.random() * (estimatedViewers - 99 + 1)) + 99;
+  let commentCount = 0;
 
   video.controls = false; // Disable controls
   video.autoplay = false; // No autoplay
 
   updateViewerCount(); // Initial update
+  setInterval(addRandomComment, 3000); // Add random comment every 3 second
   function startVideo() {
     video.play();
     playButton.style.display = "none";
     joinButton.disabled = true;
-    setInterval(addRandomComment, 3000); // Add random comment every 3 second
     setInterval(updateViewerCount, 5000); // Update every 5 seconds
   }
 
   playButton.addEventListener("click", startVideo);
   joinButton.addEventListener("click", startVideo);
-
-  let commentCount = 0;
 
   commentButton.addEventListener("click", function() {
     if(joinButton.disabled !== false) {
