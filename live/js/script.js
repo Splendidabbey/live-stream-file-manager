@@ -88,13 +88,32 @@
       // Add more profile picture filenames here
     ];
 
+    // const names = [
+    //   "Alice",
+    //   "Bob",
+    //   "Charlie",
+    //   "David",
+    //   // Add more names here
+    // ];
+
     const names = [
-      "Alice",
-      "Bob",
-      "Charlie",
-      "David",
-      // Add more names here
+      // English Names
+      "James", "Mary", "John", "Patricia", "Michael", "Jennifer", "David", "Linda", "Joseph", "Elizabeth",
+      "William", "Susan", "Daniel", "Jessica", "Richard", "Sarah", "Matthew", "Karen", "Anthony", "Nancy",
+      
+      // Igbo Names
+      "Chukwudi", "Chinwe", "Obinna", "Ada", "Ugochukwu", "Nkechi", "Chijioke", "Ifunanya", "Uche", "Chidinma",
+      "Emeka", "Uju", "Ikenna", "Ngozi", "Nnamdi", "Chinyere", "Ifeoma", "Okechukwu", "Amaka", "Chiemeka",
+      
+      // Hausa Names
+      "Abdullahi", "Aisha", "Muhammad", "Zainab", "Ibrahim", "Fatima", "Suleiman", "Hauwa", "Nasir", "Khadija",
+      "Aliyu", "Safiya", "Ahmad", "Amina", "Mustafa", "Rukayya", "Usman", "Maryam", "Haruna", "Zainab",
+      
+      // Yoruba Names
+      "Olumide", "Yetunde", "Adeolu", "Bolatito", "Adebayo", "Adebisi", "Oluwaseun", "Ayobami", "Olufemi", "Folake",
+      "Oluwakemi", "Oluwatobi", "Olusegun", "Oluwabunmi", "Oluwatosin", "Oluwaseyi", "Adesola", "Oluwatoyin", "Oludare", "Oluwafemi"
     ];
+    
 
     const comments = [
       "This livestream is amazing!",
