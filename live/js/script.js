@@ -1,8 +1,10 @@
   const video = document.getElementById("livestream-video");
   const playButton = document.getElementById("play-button");
   const joinButton = document.getElementById("join-button");
-  const finishButton = document.getElementById("finish-button");
+  // const finishButton = document.getElementById("finish-button");
   const commentList = document.getElementById("comments-list");
+  const commentInput = document.getElementById("comment-input");
+  const commentButton = document.getElementById("comment-button");
   const viewerCount = document.getElementById("viewer-count");
   const maxComments = 5; // Maximum number of displayed comments
   const estimatedViewers = 1000;
@@ -14,8 +16,7 @@
   function startVideo() {
     video.play();
     playButton.style.display = "none";
-    joinButton.style.display = "none";
-    finishButton.classList.remove("d-none");
+    joinButton.disabled = true;
     setInterval(addRandomComment, 3000); // Add random comment every 3 second
     setInterval(updateViewerCount, 5000); // Update every 5 seconds
   }
@@ -24,6 +25,49 @@
   joinButton.addEventListener("click", startVideo);
 
   let commentCount = 0;
+
+  commentButton.addEventListener("click", function() {
+    const commentText = commentInput.value.trim();
+    if (commentText !== "") {
+      addComment(commentText);
+      commentInput.value = "";
+    }
+  });
+
+  function addComment(text) {
+    const profilePics = [
+      "male.png",
+      "female.png",
+      "male.png"
+      // Add more profile picture filenames here
+    ];
+
+    const names = [
+      "Guest",
+      // Add more names here
+    ];
+
+    const randomProfilePic = profilePics[Math.floor(Math.random() * profilePics.length)];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+
+    const commentItem = document.createElement("li");
+    commentItem.className = "comment-item";
+    commentItem.innerHTML = `
+      <div class="comment-avatar">
+        <img src="img/${randomProfilePic}" alt="${randomName}'s profile picture">
+      </div>
+      <div class="comment-content">
+        <p class="comment-name">${randomName}</p>
+        <p class="comment-text">${text}</p>
+      </div>
+    `;
+
+    commentList.appendChild(commentItem);
+    commentCount++; // Increment the comment count
+    if (commentCount > maxComments) {
+      commentList.removeChild(commentList.firstElementChild);
+    }
+  }
 
   // Function to add random comments
   function addRandomComment() {

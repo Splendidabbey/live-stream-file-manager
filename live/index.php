@@ -54,10 +54,6 @@
       <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
       JOIN
     </button>
-    <button id="finish-button" class="btn btn-danger btn-lg m-2 d-none" type="button">
-      <i class="fas fa-hourglass-end" aria-hidden="true"></i>
-      FINISH
-    </button>
   </div>
   <script src="js/script.js"></script>
 </body>
