@@ -1,0 +1,170 @@
+/* Reset some default styles */
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the livestream container */
+.livestream-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Style the video container */
+.video-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+/* Style the video */
+#livestream-video {
+  width: 100%;
+}
+
+/* Style the comments container */
+.comments-container {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f5f7f9;
+}
+
+/* Style the comments list */
+#comments-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Style the comment input */
+#comment-input {
+  width: 100%;
+  padding: 5px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Style the comment button */
+#comment-button {
+  display: block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style the stream information */
+.stream-info {
+  margin-top: 20px;
+}
+
+/* Additional styling for viewer count */
+#viewer-count {
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Style for the video container */
+.video-wrapper {
+  position: relative;
+  max-width: 100%;
+}
+
+/* Style for the "Live" box */
+.live-box {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+
+/* Style for the play button */
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 20px;
+  cursor: pointer;
+  display: none; /* Hide initially */
+  z-index: 1;
+}
+
+/* Show the play button on hover */
+.video-wrapper:hover .play-button {
+  display: block;
+}
+
+.under-div {
+  border: #acb0b6 1px solid;
+}
+
+
+/* Your existing styles */
+
+/* Style for the comment items */
+.comment-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.comment-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment-content {
+  margin-left: 10px;
+}
+
+.comment-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.comment-text {
+  margin: 0;
+}
+
+/* Style for the JOIN and FINISH buttons */
+.join-button, .finish-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.join-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.finish-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Additional styles... */
+
