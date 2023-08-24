@@ -14,10 +14,16 @@
       <div class="col-md-9 livestream-container">
         <div class="video-container">
           <div class="video-wrapper">
-            <video id="livestream-video" autoplay oncontextmenu="return false;">
-              <source src="vid.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
+            <?php
+              // Get the value of the "url" parameter from the query string
+              $videoUrl = isset($_GET['url']) ? $_GET['url'] : '';
+
+              // Output the video element with the dynamically set source
+              echo '<video id="livestream-video" autoplay oncontextmenu="return false;">';
+              echo '<source src="../'. $videoUrl . '" type="video/mp4">';
+              echo 'Your browser does not support the video tag.';
+              echo '</video>';
+            ?>
             <div class="live-box">LIVE</div>
             <button id="play-button" class="play-button"><i class="fas fa-play"></i></button>
           </div>

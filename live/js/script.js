@@ -10,13 +10,13 @@
   video.controls = false; // Disable controls
   video.autoplay = false; // No autoplay
 
+  updateViewerCount(); // Initial update
   function startVideo() {
     video.play();
     playButton.style.display = "none";
     joinButton.style.display = "none";
     finishButton.classList.remove("d-none");
     setInterval(addRandomComment, 3000); // Add random comment every 3 second
-    updateViewerCount(); // Initial update
     setInterval(updateViewerCount, 5000); // Update every 5 seconds
   }
 

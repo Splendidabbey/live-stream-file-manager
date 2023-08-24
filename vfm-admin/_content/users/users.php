@@ -12,7 +12,7 @@
     'name' => 'apostle',
     'pass' => '$1$ueqg637X$S1e5BtDRj7X674n/cNrb20',
     'role' => 'admin',
-    'dir' => '["User1"]',
+    'dir' => '["Webinar"]',
     'quota' => '1024',
   ),
 );

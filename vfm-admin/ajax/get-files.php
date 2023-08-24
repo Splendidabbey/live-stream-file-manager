@@ -313,7 +313,7 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
 
                 $data['size'] = '<span class="text-center">'.$formatsize.'</span>';
 
-                $data['live_url'] = '<a class="btn btn-success text-light b-2" href="'.$thisdir.''.$normalizedName.'.'.$ext.'" role="button">Go live</a>';
+                $data['live_url'] = '<a class="btn btn-success text-light b-2" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'" role="button">Go live</a>';
 
                 $data['last_change'] = '<span class="text-center">'.$formattime.'</span>';
 
