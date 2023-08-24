@@ -86,10 +86,10 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
             </div> <!-- .btn-group -->
             <?php
             if ($gateKeeper->isAllowed('sendfiles_enable') && $gateKeeper->isAllowed('download_enable')) { ?>
-            <button class="btn btn-primary manda">
-                <i class="bi bi-send"></i> 
-                <?php echo $setUp->getString("share"); ?>
-            </button>
+            <!-- <button class="btn btn-primary manda"> -->
+                <!-- <i class="bi bi-send"></i>  -->
+                <!--?php echo $setUp->getString("share"); ?-->
+            <!-- </button> -->
                 <?php
             } ?>
             <?php
