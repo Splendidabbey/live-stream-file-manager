@@ -16,6 +16,8 @@
 
   updateViewerCount(); // Initial update
   setInterval(addRandomComment, 3000); // Add random comment every 3 second
+  video.addEventListener("timeupdate", checkVideoProgress); // Check video progress
+
   function startVideo() {
     video.play();
     playButton.style.display = "none";
@@ -240,6 +242,74 @@
     // viewerCount.textContent = parseInt(viewerCount.textContent) + 1; // Increase viewer count
   }
 
+  function addNiceComment() {
+    if (commentCount >= maxComments) {
+      // Remove the oldest comment if the maximum comment count is reached
+      commentList.removeChild(commentList.firstElementChild);
+    } else {
+      commentCount++;
+    }
+
+    const profilePics = [
+      "male.png",
+      "female.png",
+      "male.png"
+      // Add more profile picture filenames here
+    ];
+
+    // const names = [
+    //   "Alice",
+    //   "Bob",
+    //   "Charlie",
+    //   "David",
+    //   // Add more names here
+    // ];
+
+    const names = [
+      // English-Neutral Names
+      "Alex", "Jordan", "Taylor", "Sam", "Casey", "Morgan", "Dakota", "Avery", "Riley", "Quinn",
+      
+      // Igbo-Neutral Names
+      "Chioma", "Chinonso", "Chizoba", "Obioma", "Uzoma", "Uchenna", "Kenechukwu", "Onyekachi", "Ogechukwu", "Chukwudi",
+      
+      // Hausa-Neutral Names
+      "Zahra", "Kamal", "Nur", "Zain", "Idris", "Amin", "Musa", "Nasir", "Kadija", "Jamila",
+      
+      // Yoruba-Neutral Names
+      "Taiwo", "Kehinde", "Dapo", "Ayomide", "Oluwaseun", "Oyin", "Opeyemi", "Oluwadamilola", "Oluwadare", "Adebola"
+    ];
+    
+    
+
+    const comments = [
+      "I will subscribe straight away!",
+      "Count me in. Paying for this straight up!",
+      "This content is worth every penny.",
+      "Signing up for the premium experience!",
+      "I'm becoming a member right after this!"
+    ];
+    
+
+    const randomProfilePic = profilePics[Math.floor(Math.random() * profilePics.length)];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    const randomComment = comments[Math.floor(Math.random() * comments.length)];
+
+    const commentItem = document.createElement("li");
+    commentItem.className = "comment-item";
+    commentItem.innerHTML = `
+      <div class="comment-avatar">
+        <img src="img/${randomProfilePic}" alt="${randomName}'s profile picture">
+      </div>
+      <div class="comment-content">
+        <p class="comment-name">${randomName}</p>
+        <p class="comment-text">${randomComment}</p>
+      </div>
+    `;
+
+    commentList.appendChild(commentItem);
+    // viewerCount.textContent = parseInt(viewerCount.textContent) + 1; // Increase viewer count
+  }
+
   // Simulate updating viewer count within a specified range
   function updateViewerCount() {
     const userSuppliedNumber = estimatedViewers; // Example user-supplied number
@@ -249,3 +319,11 @@
     viewerCount.textContent = randomViewers;
   }
 
+
+  function checkVideoProgress() {
+    const videoProgress = (video.currentTime / video.duration) * 100;
+    if (videoProgress >= 30 && !commentButton.disabled) {
+      addNiceComment(); // Add comments at 30% towards the end
+    }
+  }
+  
