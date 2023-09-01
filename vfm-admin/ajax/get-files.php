@@ -335,7 +335,11 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
                 }
                 $data['delete'] .= '>';
                 $data['delete'] .= '<i class="bi bi-cloud-arrow-down"></i> '.$setUp->getString("download").'</a></li>';
-
+                
+                if (1 == 1) {
+                    $data['delete'] .= '<li>
+                    <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'"><i class="bi bi-eye"></i> Go live</a></li>';
+                }
                 if ($gateKeeper->isAllowed('rename_enable')) {
                     $data['delete'] .= '<li>
                     <a class="rename dropdown-item" data-thisdir="'.$thisdir.'" data-thisext="'.$ext.'" data-thisname="'.$normalizedName.'" data-oldname="'.base64_encode($withoutExt).'" href="javascript:void(0)">
