@@ -84,6 +84,11 @@ if ($gateKeeper->isAccessAllowed()) :
         // 'visible' => false,
     );
     $filecoulmns[] = array(
+        'class' => 'mini reduce nowrap d-none d-md-table-cell',
+        'data' => 'add_cta',
+        // 'visible' => false,
+    );
+    $filecoulmns[] = array(
         'class' => 'mini reduce d-none d-md-table-cell nowrap',
         'data' => 'last_change',
         // 'visible' => false,

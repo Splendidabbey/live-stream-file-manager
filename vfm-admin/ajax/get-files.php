@@ -315,6 +315,8 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
 
                 $data['live_url'] = '<a class="btn btn-success text-light b-2" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'" role="button">Go live</a>';
 
+                $data['add_cta'] = '<a class="add_cta btn btn-success text-light b-2" role="button" href="live/save-video-data.php?video_name='.$normalizedName.'&cta_value=type in your CTA">Add CTA</a>';
+
                 $data['last_change'] = '<span class="text-center">'.$formattime.'</span>';
 
                 if ($gateKeeper->isAllowed('rename_enable')) {
@@ -340,11 +342,18 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
                     $data['delete'] .= '<li>
                     <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'"><i class="bi bi-eye"></i> Go live</a></li>';
                 }
-                if ($gateKeeper->isAllowed('rename_enable')) {
+                if (1 == 1) {
                     $data['delete'] .= '<li>
-                    <a class="rename dropdown-item" data-thisdir="'.$thisdir.'" data-thisext="'.$ext.'" data-thisname="'.$normalizedName.'" data-oldname="'.base64_encode($withoutExt).'" href="javascript:void(0)">
+                    <a class="add-cta dropdown-item" data-thisdir="'.$thisdir.'" data-thisext="'.$ext.'" data-thisname="'.$normalizedName.'" data-oldname="'.base64_encode($withoutExt).'" href="javascript:void(0)">
                     <i class="bi bi-pencil-square"></i> '.$setUp->getString("rename").'</a></li>';
                 }
+                if ($gateKeeper->isAllowed('rename_enable')) {
+                    $data['delete'] .= '<li>
+                    <a class="dropdown-item" data-thisdir="'.$thisdir.'" data-thisext="'.$ext.'" data-thisname="'.$normalizedName.'" data-oldname="'.base64_encode($withoutExt).'" href="live/save-video-data.php?video_name='.$normalizedName.'&cta_value=type in your CTA">
+                    <i class="bi bi-cart-plus-fill"></i>AddCTA</a></li>';
+                }
+        
+
                 if ($gateKeeper->isAllowed('delete_enable')) {
                     $data['delete'] .= '<li>
                     <a class="del dropdown-item" href="javascript:void(0)" data-link="'.$thisdel.'&h='.$cash.'" data-name="'.$thisfile.'"><i class="bi bi-trash"></i> '.$setUp->getString("delete").'</a></li>';
@@ -361,4 +370,3 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
 $response['data'] = $totaldata;
 
 echo json_encode($response);
-exit;
