@@ -14,6 +14,14 @@ let commentCount = 0;
 video.controls = false; // Disable controls
 video.autoplay = false; // No autoplay
 
+
+// Check if there's stored video progress and resume playback
+const storedVideoProgress = localStorage.getItem('videoProgress');
+if (storedVideoProgress !== null) {
+  video.currentTime = parseFloat(storedVideoProgress);
+}
+
+
 updateViewerCount(); // Initial update
 setInterval(addRandomComment, 3000); // Add random comment every 3 second
 video.addEventListener("timeupdate", checkVideoProgress); // Check video progress
@@ -325,4 +333,7 @@ function checkVideoProgress() {
   if (videoProgress >= 30 && !commentButton.disabled) {
     addNiceComment(); // Add comments at 30% towards the end
   }
+
+  // Store the video progress in local storage
+  localStorage.setItem('videoProgress', video.currentTime);
 }
