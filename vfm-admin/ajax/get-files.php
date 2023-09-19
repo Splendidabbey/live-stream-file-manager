@@ -380,10 +380,13 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
                         <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'"><i class="bi bi-eye"></i> <span class="badge bg-danger">Live Url</span></a></li>';
                     }
                 }
+                $data['delete'] .= '<li>
+                <a class="dropdown-item" href="live/schedule.php?video_name='.$normalizedName.'"><i class="bi bi-pencil-square"></i>Live Details</a></li>';
+
                 if (1 == 1) {
                     $data['delete'] .= '<li>
                     <a class="add-cta dropdown-item" data-thisdir="'.$thisdir.'" data-thisext="'.$ext.'" data-thisname="'.$normalizedName.'" data-oldname="'.base64_encode($withoutExt).'" href="javascript:void(0)">
-                    <i class="bi bi-pencil-square"></i> '.$setUp->getString("rename").'</a></li>';
+                    <i class="bi bi-pencil"></i> '.$setUp->getString("rename").'</a></li>';
                 }
                 if ($gateKeeper->isAllowed('rename_enable')) {
                     $data['delete'] .= '<li>
