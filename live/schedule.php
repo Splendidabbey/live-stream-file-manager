@@ -2,11 +2,28 @@
 require_once('includes/conndb.php');
 require_once('includes/function.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") $videoName = $_GET['video_name'] ? $_GET['video_name'] : "";
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $videoName = $_GET['video_name'] ? $_GET['video_name'] : "";
+    // Get the user's timezone using JavaScript and add it as a GET parameter
+    echo '<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const userTimezone = urlParams.get("userTimezone");
+  
+    if (!userTimezone) {
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const newUrl = window.location.href + (window.location.search ? "&" : "?") + "userTimezone=" + encodeURIComponent(timezone);
+      window.location.href = newUrl;
+    }
+  </script>
+  ';
+}
+
 $liveOn = null;
 $videoInfo = null;
 
 $queryResult = queryVideo($mysqli, $videoName);
+
+$viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
 
 if (!empty($queryResult)) {
     // Process the query result, e.g., display it or perform actions
@@ -73,7 +90,7 @@ if (empty(!$videoName)) {
         <div class="container">';
             if(hasBeenScheduled($mysqli, $videoName)) {
                 echo'
-                <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"'. $videoName .'"</em> has been scheduled to start '. $liveOn .'</h1>';
+                <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"'. $videoName .'"</em> has been scheduled to start '. convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) .'</h1>';
                 if(isLiveOn($liveOn, $userTimezone)) {
                     echo '<em style="color: #198754;">video is currently live</em>';
                 } else {
@@ -95,7 +112,15 @@ if (empty(!$videoName)) {
                 <input type="datetime-local" name="liveOn" required>
                 <input type="hidden" name="userTimezone" id="userTimezone" value="">
                 <input type="submit" name="submit" value="Schedule/Update" onclick="captureTimezone()">
-            </form>
+            </form>';
+            if(hasBeenScheduled($mysqli, $videoName)) {
+                echo '
+                <form action="includes/schedule-video.php" method="post">
+                    <input type="hidden" name="videoName" value="' . $videoName . '">
+                    <input style="color: #ffffff; background-color: #ff0000;" type="submit" name="delete" value="Delete Schedule">
+                </form>';
+            }
+        echo'
         </div>
     </body>
     </html>

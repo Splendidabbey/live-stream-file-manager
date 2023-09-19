@@ -1,4 +1,26 @@
 <?php
+function convertToUserTimezone($liveOn, $userTimezone, $newUserTimezone) {
+    if($userTimezone == $newUserTimezone) {
+        // Create DateTime object for the original time in the user's timezone
+        $userDateTime = new DateTime($liveOn, new DateTimeZone($userTimezone));
+
+        // Convert the DateTime object to the new timezone
+        // $userDateTime->setTimezone(new DateTimeZone($userTimezone));
+    
+        // Format the current time in the new timezone
+        return $userDateTime->format('Y-m-d g:i:s A');
+    } else {
+        // Create DateTime object for the original time in the user's timezone
+        $userDateTime = new DateTime($liveOn, new DateTimeZone($userTimezone));
+    
+        // Convert the DateTime object to the new timezone
+        $userDateTime->setTimezone(new DateTimeZone($newUserTimezone));
+    
+        // Format the current time in the new timezone
+        return $userDateTime->format('Y-m-d g:i:s A');
+    }
+}
+
 function isLiveOn($liveOn, $userTimezone) {
     if(empty($liveOn) || empty($userTimezone)){
         return false;

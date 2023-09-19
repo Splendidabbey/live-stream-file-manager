@@ -174,3 +174,35 @@ body, html {
   align-items: center;
   height: 100vh; /* Adjust as needed */
 }
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 30px;
+}
+h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+/* CTA Button Styles */
+.cta-button {
+  display: inline-block;
+  background-color: #25d366;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+.cta-button:hover {
+  background-color: #128c7e;
+}

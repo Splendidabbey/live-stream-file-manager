@@ -5,6 +5,38 @@ require_once('includes/conndb.php');
 // Get the value of the "url" parameter from the query string
 $videoUrl = isset($_GET['url']) ? $_GET['url'] : '';
 $videoName = isset($_GET['url']) ? $_GET['video_name'] : '';
+$liveOn = null;
+$userTimezone = null;
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+  $videoName = $_GET['video_name'] ? $_GET['video_name'] : "";
+  // Get the user's timezone using JavaScript and add it as a GET parameter
+  echo '<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const userTimezone = urlParams.get("userTimezone");
+
+  if (!userTimezone) {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const newUrl = window.location.href + (window.location.search ? "&" : "?") + "userTimezone=" + encodeURIComponent(timezone);
+    window.location.href = newUrl;
+  }
+</script>
+';
+}
+
+$viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
+
+$content = '
+  <h1>The Webinar Has Ended</h1>
+  <p>Please send a chat to the host for inquiries on when the next webinar will hold.</p>
+
+  <!-- CTA button linked to WhatsApp -->
+  <a href="https://wa.me/2348136096954" target="_blank" class="cta-button">
+      Send Inquiry on WhatsApp
+  </a>
+  <br><br>
+  <p>Unfortunately, this webinar has ended.</p>
+';
 
 echo '<!DOCTYPE html>
 <html lang="en">
@@ -77,16 +109,27 @@ echo '<!DOCTYPE html>
         </body>
         </html>';
       } else {
-        echo '
-        <h1>Video is not live yet!</h1>
-        <script src="js/script.js"></script>
+        echo $content;
+        if(hasBeenScheduled($mysqli, $videoName)) {
+          if (!empty($queryResult)) {
+            // Process the query result, e.g., display it or perform actions
+            foreach ($queryResult as $row) {
+                // Access table columns using $row['column_name']
+                $videoName = $row['videoName'];
+                $liveOn = $row['liveOn'];
+                $scheduledAt = $row['scheduledAt'];
+                $userTimezone = $row['userTimezone'];
+            }
+          }
+          echo '<p>This Webinar has been scheduled to hold on <span style="color: #000000;">'. convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) .'</span><p>';
+        }
+        echo ' 
         </body>
         </html>';
       }
   } else {
-    echo '
-    <h1>Video has not been scheduled!</h1>
-    <script src="js/script.js"></script>
+    echo $content;
+    echo ' 
     </body>
     </html>';
   }

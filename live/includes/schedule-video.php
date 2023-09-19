@@ -34,11 +34,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
         // Insert the user's timezone and the converted "liveOn" datetime into the database
         $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone) VALUES (?, ?, NOW(), ?)";
         $stmt = $mysqli->prepare($insertQuery);
-        $stmt->bind_param("sss", $videoName, $liveOnUTC, $userTimezone);
+        $stmt->bind_param("sss", $videoName, $liveOn, $userTimezone);
         $stmt->execute();
         $stmt->close();
         $message = "Video scheduled successfully!";
     }
+}   else if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['delete'])) {
+    $message = "";
+    $videoName = $_POST['videoName'];
+
+    $deleteQuery = "DELETE FROM scheduled_videos WHERE videoName = ?";
+    $stmt = $mysqli->prepare($deleteQuery);
+    $stmt->bind_param("s", $videoName);
+    $stmt->execute();
+
+    // Check the affected rows before closing the statement
+    if ($stmt->affected_rows > 0) {
+        // Rows were deleted, you can set a success message
+        $message = "Video deleted successfully!";
+    } else {
+        // No rows were deleted, you can set an error message
+        $message = "No matching video found for deletion.";
+    }
+
+    $stmt->close();
+
 }
 
 // Display the message in an alert
