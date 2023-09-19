@@ -1,11 +1,18 @@
 <?php
-function isLiveOnInPast($liveOn, $userTimezone) {
+function isLiveOn($liveOn, $userTimezone) {
+    if(empty($liveOn) || empty($userTimezone)){
+        return false;
+    }
     // Create DateTime objects for the liveOn datetime and current time in the user's timezone
     $liveOnDateTime = new DateTime($liveOn, new DateTimeZone($userTimezone));
     $currentDateTime = new DateTime('now', new DateTimeZone($userTimezone));
 
     // Compare the DateTime objects to check if liveOn is in the past
-    return ($liveOnDateTime < $currentDateTime);
+    if($liveOnDateTime < $currentDateTime) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 

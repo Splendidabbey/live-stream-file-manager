@@ -170,7 +170,7 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
                         $scheduledAt = $row['scheduledAt'];
                         $userTimezone = $row['userTimezone'];
                     }
-                    $result = isLiveOnInPast($liveOn, $userTimezone);
+                    $result = isLiveOn($liveOn, $userTimezone);
                 } else {
                     $result = false;
                 };
@@ -374,10 +374,10 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
                 if (1 == 1) {
                     if($result == true) {
                         $data['delete'] .= '<li>
-                        <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'"><i class="bi bi-eye"></i> Go live</a></li>';
+                        <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'"><i class="bi bi-eye"></i><span class="badge bg-success">Live Url</span></a></li>';
                     } else {
                         $data['delete'] .= '<li>
-                        <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'"><i class="bi bi-eye"></i> Go live</a></li>';
+                        <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'"><i class="bi bi-eye"></i> <span class="badge bg-danger">Live Url</span></a></li>';
                     }
                 }
                 if (1 == 1) {

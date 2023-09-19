@@ -74,7 +74,7 @@ if (empty(!$videoName)) {
             if(hasBeenScheduled($mysqli, $videoName)) {
                 echo'
                 <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"'. $videoName .'"</em> has been scheduled to start '. $liveOn .'</h1>';
-                if(isLiveOnInPast($liveOn, $userTimezone)) {
+                if(isLiveOn($liveOn, $userTimezone)) {
                     echo '<em style="color: #198754;">video is currently live</em>';
                 } else {
                     echo '<em style="color: #FF0000;">video is not currently live</em>';

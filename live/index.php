@@ -29,7 +29,7 @@ echo '<!DOCTYPE html>
           $scheduledAt = $row['scheduledAt'];
           $userTimezone = $row['userTimezone'];
       }
-      if(isLiveOnInPast($liveOn, $userTimezone)) {
+      if(isLiveOn($liveOn, $userTimezone) == true) {
         echo '<div class="container">
           <div class="row">
             <div class="col-md-9 livestream-container">
@@ -77,19 +77,17 @@ echo '<!DOCTYPE html>
         </body>
         </html>';
       } else {
-        echo `
-          <h1>Video is not live yet!</h1>
-          <script src="js/script.js"></script>
-          </body>
-          </html>';
-        `;
+        echo '
+        <h1>Video is not live yet!</h1>
+        <script src="js/script.js"></script>
+        </body>
+        </html>';
       }
   } else {
-    echo `
-      <h1>Video has not been scheduled!</h1>
-      <script src="js/script.js"></script>
-      </body>
-      </html>';
-    `;
+    echo '
+    <h1>Video has not been scheduled!</h1>
+    <script src="js/script.js"></script>
+    </body>
+    </html>';
   }
 ?>
