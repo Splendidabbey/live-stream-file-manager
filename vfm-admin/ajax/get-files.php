@@ -39,6 +39,15 @@ $response['recordsFiltered'] = 0;
 
 $request = $_GET;
 
+require_once('../../live/includes/function.php');
+require_once('../../live/includes/conndb.php');
+
+$videoName = null;
+$liveOn = null;
+$scheduledAt = null;
+$userTimezone = null;
+$result = null;
+
 $getdir = isset($request['dir_b64']) ? filter_var($request['dir_b64'], FILTER_SANITIZE_SPECIAL_CHARS) : false;
 $locdir = $getdir ? '../../'.base64_decode($getdir) : false;
 
@@ -149,6 +158,23 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
                 $normalizedName = Utils::normalizeName($withoutExt);
                 $linktarget = (strtolower($ext) == 'pdf' || $directlinks) ? 'target="_blank"' : '';
                 $itemclass = 'class="item file w-100';
+
+                $queryResult = queryVideo($mysqli, $normalizedName);
+
+                if (!empty($queryResult)) {
+                    // Process the query result, e.g., display it or perform actions
+                    foreach ($queryResult as $row) {
+                        // Access table columns using $row['column_name']
+                        $videoName = $row['videoName'];
+                        $liveOn = $row['liveOn'];
+                        $scheduledAt = $row['scheduledAt'];
+                        $userTimezone = $row['userTimezone'];
+                    }
+                    $result = isLiveOnInPast($liveOn, $userTimezone);
+                } else {
+                    $result = false;
+                };
+
 
                 if ($file->isValidForVideo()) {
                     $itemclass .= ' vid vfm-gall';
@@ -313,9 +339,16 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
 
                 $data['size'] = '<span class="text-center">'.$formatsize.'</span>';
 
-                $data['live_url'] = '<a class="btn btn-success text-light b-2" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'" role="button">Go live</a>';
 
-                $data['add_cta'] = '<a class="add_cta btn btn-success text-light b-2" role="button" href="live/save-video-data.php?video_name='.$normalizedName.'&cta_value=type in your CTA">Add CTA</a>';
+                if($result == true) {
+                    $data['live_url'] = '<a class="btn btn-success text-light b-2" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'" role="button">live url</a>';
+                } else {
+                    $data['live_url'] = '<a class="btn btn-danger text-light b-2" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'" role="button">live url</a>';
+                }
+
+                $data['schedule_live'] = '<a class="add_cta btn btn-info text-light b-2" role="button" href="live/schedule.php?video_name='.$normalizedName.'">Live details</a>';
+
+                $data['add_cta'] = '<a class="add_cta btn btn-primary text-light b-2" role="button" href="live/save-video-data.php?video_name='.$normalizedName.'&cta_value=type in your CTA">Add CTA</a>';
 
                 $data['last_change'] = '<span class="text-center">'.$formattime.'</span>';
 
@@ -339,8 +372,13 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
                 $data['delete'] .= '<i class="bi bi-cloud-arrow-down"></i> '.$setUp->getString("download").'</a></li>';
                 
                 if (1 == 1) {
-                    $data['delete'] .= '<li>
-                    <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'"><i class="bi bi-eye"></i> Go live</a></li>';
+                    if($result == true) {
+                        $data['delete'] .= '<li>
+                        <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'"><i class="bi bi-eye"></i> Go live</a></li>';
+                    } else {
+                        $data['delete'] .= '<li>
+                        <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'"><i class="bi bi-eye"></i> Go live</a></li>';
+                    }
                 }
                 if (1 == 1) {
                     $data['delete'] .= '<li>

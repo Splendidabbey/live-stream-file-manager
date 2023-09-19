@@ -123,7 +123,12 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                         </td>
                         <td class="taglia reduce small h-filesize d-none d-md-table-cell">
                             <span class="text-center nowrap">
-                                <?php echo "<b>Go Live</b>"; ?>
+                                <?php echo "<b>Live url</b>"; ?>
+                            </span>
+                        </td>
+                        <td class="taglia reduce small h-filesize d-none d-md-table-cell">
+                            <span class="text-center nowrap">
+                                <?php echo "<b>Schedule live</b>"; ?>
                             </span>
                         </td>
                         <td class="taglia reduce small h-filesize d-none d-md-table-cell">

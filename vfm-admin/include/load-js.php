@@ -83,6 +83,11 @@ if ($gateKeeper->isAccessAllowed()) :
         'data' => 'live_url',
         // 'visible' => false,
     );
+        $filecoulmns[] = array(
+        'class' => 'mini reduce nowrap d-none d-md-table-cell',
+        'data' => 'schedule_live',
+        // 'visible' => false,
+    );
     $filecoulmns[] = array(
         'class' => 'mini reduce nowrap d-none d-md-table-cell',
         'data' => 'add_cta',
