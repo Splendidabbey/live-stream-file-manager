@@ -8,5 +8,5 @@ name: 🚀 Deploy website on push
     server: ftps://business54.web-hosting.com
     username: ${{ secrets.FTP_USERNAME }}
     password: ${{ secrets.FTP_PASSWORD }}
-    local_dir: ./ # Should always end with /
-    server_dir: /home/avalcnkt/onewebinar.net/
+    local_dir: ./home/avalcnkt/onewebinar.net/
+    server_dir: /home/avalcnkt/
