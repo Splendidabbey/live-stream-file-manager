@@ -1,3 +1,8 @@
+on:
+push:
+  branches:
+    push
+name: 🚀 Deploy website on push
   uses: dennisameling/ftp-upload-action@v1
   with:
     server: ftps://business54.web-hosting.com
