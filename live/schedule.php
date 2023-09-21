@@ -50,8 +50,9 @@ if (empty(!$videoName)) {
             }
 
             .container {
-                max-width: 400px;
-                margin: 0 auto;
+                max-width: 80vw;
+                min-height: 50vh;
+                margin: 10vh auto;
                 padding: 20px;
                 border: 1px solid #ccc;
                 border-radius: 5px;

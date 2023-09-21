@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </head>
     <body>
         <div class="centered-form">
-            <form method="post" action="">
+            <form style="max-width: 80vw;" method="post" action="">
                 <div class="mb-3">
                     <label for="video_name" class="form-label">Video Name:</label>
                     <input type="text" class="form-control" id="video_name" name="video_name" value="<?= htmlspecialchars($videoName) ?>" readonly><br>

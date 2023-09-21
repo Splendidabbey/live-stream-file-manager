@@ -27,12 +27,36 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 $viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
 
 $content = '
-  <h1>The Webinar Has Ended</h1>
-  <p>Please send a chat to the host for inquiries on when the next webinar will hold.</p>
+  <h1>Take The Bold Step Into Becoming <br>My Premium Student Where I Show You The Remaining <br>95% I Held Back In The Cause Of The Webinar.</h1>
+  <p>GT Bank: 0257821123<br>
+  Obembe Emmanuel</p>
+
+  <h1>Benefit Summary:</h1>
+  <ul type="none">
+    <li>
+      1. Get Personal Mentorship With Me Plus Crazy Profitable Strategies
+    </li>
+    <li>
+      2. How Not To Burn Your Hard Earned Money Again (Easy To Master Strategy)
+    </li>
+    <li>
+      3. How To Be In Control The Markets From Your Desk. (Strategies That Will Give You The Missing Edge Over The Market)
+    </li>
+    <li>
+      4. Crazily Profitable Signals To 20X Your Entire Trading Account.
+    </li>
+    <li>
+      5. Get Access To My Most Profitable Trading Room (Meet With Crazily Profitable Traders). ETC...
+    </li>
+  </ul><br>
+<h1>30DAYS MONEY BACK GUARANTEED</h1>
+<p>Key Into To These Testimonials Of The Transformed Lives With Just ₦50k ($100). Its Time You Took Decisive Action Towards Changing Your Financial Realities.</p>
+<p>GT Bank: 0257821123<br>
+Obembe Emmanuel</p>
 
   <!-- CTA button linked to WhatsApp -->
   <a href="https://wa.me/2348136096954" target="_blank" class="cta-button">
-      Send Inquiry on WhatsApp
+    Click here, to send Proof Of Payment👇
   </a>
   <br><br>
   <p>Unfortunately, this webinar has ended.</p>
