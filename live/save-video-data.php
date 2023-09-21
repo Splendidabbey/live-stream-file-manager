@@ -1,33 +1,30 @@
 <?php
+require_once('includes/conndb.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $videoName = isset($_POST['video_name']) ? $_POST['video_name'] : '';
     $ctaValue = isset($_POST['cta_value']) ? $_POST['cta_value'] : '';
 
     if (!empty($videoName) && !empty($ctaValue)) {
-        $jsonFilePath = 'videodata.json';
-        $jsonData = [];
+        // Check if video_name already exists in the database
+        $checkQuery = "SELECT * FROM videos_cta WHERE video_name = ?";
+        $stmt = $mysqli->prepare($checkQuery);
+        $stmt->bind_param("s", $videoName);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if (file_exists($jsonFilePath)) {
-            $jsonData = json_decode(file_get_contents($jsonFilePath), true);
+        if ($result->num_rows > 0) {
+            http_response_code(400);
+            echo json_encode(['error' => 'You have added a CTA value for this video before. Please rename the video.']);
+            exit; // Exit to prevent further processing
         }
 
-        // Check if video_name already exists in the JSON data
-        foreach ($jsonData as $item) {
-            if (isset($item['video_name']) && $item['video_name'] === $videoName) {
-                http_response_code(400);
-                echo json_encode(['error' => 'You have added a CTA value for this video before. Please rename the video.']);
-                exit; // Exit to prevent further processing
-            }
-        }
-        
-        $newData = [
-            'video_name' => $videoName,
-            'cta_value' => $ctaValue,
-            'timestamp' => time(),
-        ];
-        $jsonData[] = $newData;
+        // Insert new data into the database
+        $insertQuery = "INSERT INTO videos_cta (video_name, cta_value, timestamp) VALUES (?, ?, ?)";
+        $stmt = $mysqli->prepare($insertQuery);
+        $timestamp = time();
+        $stmt->bind_param("sss", $videoName, $ctaValue, $timestamp);
 
-        if (file_put_contents($jsonFilePath, json_encode($jsonData, JSON_PRETTY_PRINT))) {
+        if ($stmt->execute()) {
             // Data saved successfully, redirect back to the previous page
             echo '<script>window.history.go(-2);</script>';
             exit; // Exit to prevent further output
@@ -35,6 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             http_response_code(500);
             echo json_encode(['error' => 'Failed to save data']);
         }
+
+        // Close the database connection
+        $stmt->close();
+        $mysqli->close();
     } else {
         http_response_code(400);
         echo json_encode(['error' => 'Both video_name and cta_value are required']);
