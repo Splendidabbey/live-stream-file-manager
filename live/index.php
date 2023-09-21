@@ -54,7 +54,7 @@ $content = '
 <p>GT Bank: 0257821123<br>
 Obembe Emmanuel</p>
 
-  <!-- CTA button linked to WhatsApp -->
+  <!-- CTA button linked to WhatsApp --> 
   <a href="https://wa.me/2348136096954" target="_blank" class="cta-button">
     Click here, to send Proof Of Payment👇
   </a>
