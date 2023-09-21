@@ -24,7 +24,7 @@ jobs:
           **/.git*
           **/.git*/**
           **/node_modules/**
-          **/uploads**
+          **/uploads/**
           **/live/includes/conndb.php**
           **/vfm-admin/_content/users/users.php**
           **/vfm-admin/config.php**
