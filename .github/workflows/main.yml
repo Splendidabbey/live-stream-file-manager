@@ -1,7 +1,7 @@
 on: 
   push:
     branches:
-      push
+      main
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
@@ -20,3 +20,11 @@ jobs:
         protocol: ftps
         server-dir: /
         port: 21
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          /uploads
+          /live/includes/conndb.php
+          /vfm-admin/_content/users/users.php
+          /vfm-admin/config.php
