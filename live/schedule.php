@@ -134,7 +134,7 @@ if (empty(!$videoName)) {
                 </form>';
             }
             echo '
-            <input type="text" value="'. $protocol .'://'. $_SERVER['HTTP_HOST'] .'/live/?id=" id="myInput">
+            <input type="text" value="'. $protocol .'://'. $_SERVER['HTTP_HOST'] .'/live/?id='. getVideoIdByName($mysqli, $videoName) .'" id="myInput">
             <button onclick="myFunction()">Live Url</button>
             ';
         echo'
