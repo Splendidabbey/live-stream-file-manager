@@ -3,13 +3,13 @@ require_once('includes/function.php');
 require_once('includes/conndb.php');
 
 // Get the value of the "url" parameter from the query string
-$videoUrl = isset($_GET['url']) ? $_GET['url'] : '';
-$videoName = isset($_GET['url']) ? $_GET['video_name'] : '';
+$videoURL = null;
+$videoName = null;
 $liveOn = null;
 $userTimezone = null;
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-  $videoName = $_GET['video_name'] ? $_GET['video_name'] : "";
+  $id = $_GET['id'] ? $_GET['id'] : "";
   // Get the user's timezone using JavaScript and add it as a GET parameter
   echo '<script>
   const urlParams = new URLSearchParams(window.location.search);
@@ -28,7 +28,7 @@ $viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
 
 $content = '
   <h1>Take The Bold Step Into Becoming <br>My Premium Student Where I Show You The Remaining <br>95% I Held Back In The Cause Of The Webinar.</h1>
-  <p>GT Bank: 0257821123<br>
+  <p class="webinar-p">GT Bank: 0257821123<br>
   Obembe Emmanuel</p>
 
   <h1>Benefit Summary:</h1>
@@ -50,8 +50,8 @@ $content = '
     </li>
   </ul><br>
 <h1>30DAYS MONEY BACK GUARANTEED</h1>
-<p>Key Into To These Testimonials Of The Transformed Lives With Just ₦50k ($100). Its Time You Took Decisive Action Towards Changing Your Financial Realities.</p>
-<p>GT Bank: 0257821123<br>
+<p class="webinar-p">Key Into To These Testimonials Of The Transformed Lives With Just ₦50k ($100). Its Time You Took Decisive Action Towards Changing Your Financial Realities.</p>
+<p class="webinar-p">GT Bank: 0257821123<br>
 Obembe Emmanuel</p>
 
   <!-- CTA button linked to WhatsApp acc -->
@@ -59,7 +59,7 @@ Obembe Emmanuel</p>
     Click here, to send Proof Of Payment👇
   </a>
   <br><br>
-  <p>Unfortunately, this webinar has ended.</p>
+  <p class="webinar-p">Unfortunately, this webinar has ended.</p>
 ';
 
 echo '<!DOCTYPE html>
@@ -74,7 +74,7 @@ echo '<!DOCTYPE html>
 </head>
 <body>';
   // Check if the videoName exists
-  $queryResult = queryVideo($mysqli, $videoName);
+  $queryResult = queryVideoById($mysqli, $id);
 
   if (!empty($queryResult)) {
       // Process the query result, e.g., display it or perform actions
@@ -84,6 +84,7 @@ echo '<!DOCTYPE html>
           $liveOn = $row['liveOn'];
           $scheduledAt = $row['scheduledAt'];
           $userTimezone = $row['userTimezone'];
+          $videoURL = $row['videoURL'];
       }
       if(isLiveOn($liveOn, $userTimezone) == true) {
         echo '<div class="container">
@@ -94,7 +95,7 @@ echo '<!DOCTYPE html>
     
         // Output the video element with the dynamically set source
         echo '<video id="livestream-video" autoplay oncontextmenu="return false;">';
-        echo '<source src="../'. $videoUrl . '" type="video/mp4">';
+        echo '<source src="../'. $videoURL . '" type="video/mp4">';
         echo 'Your browser does not support the video tag.';
         echo '</video>';
         
@@ -134,7 +135,7 @@ echo '<!DOCTYPE html>
         </html>';
       } else {
         echo $content;
-        if(hasBeenScheduled($mysqli, $videoName)) {
+        if(hasBeenScheduledById($mysqli, $id)) {
           if (!empty($queryResult)) {
             // Process the query result, e.g., display it or perform actions
             foreach ($queryResult as $row) {
@@ -145,7 +146,7 @@ echo '<!DOCTYPE html>
                 $userTimezone = $row['userTimezone'];
             }
           }
-          echo '<p>This Webinar has been scheduled to hold on <span style="color: #000000;">'. convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) .'</span><p>';
+          echo '<p class="webinar-p">This Webinar has been scheduled to hold on <span style="color: #000000;">'. convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) .'</span></p>';
         }
         echo ' 
         </body>

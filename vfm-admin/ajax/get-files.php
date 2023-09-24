@@ -341,12 +341,12 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
 
 
                 if($result == true) {
-                    $data['live_url'] = '<a class="btn btn-success text-light b-2" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'" role="button">live url</a>';
+                    $data['live_url'] = '<a class="btn btn-success text-light b-2" href="live/?id='. getVideoIdByName($mysqli, $normalizedName) .'" role="button">live url</a>';
                 } else {
-                    $data['live_url'] = '<a class="btn btn-danger text-light b-2" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'" role="button">live url</a>';
+                    $data['live_url'] = '<a class="btn btn-danger text-light b-2" href="live/?id='. getVideoIdByName($mysqli, $normalizedName) .'" role="button">live url</a>';
                 }
 
-                $data['schedule_live'] = '<a class="add_cta btn btn-info text-light b-2" role="button" href="live/schedule.php?video_name='.$normalizedName.'">Live details</a>';
+                $data['schedule_live'] = '<a class="add_cta btn btn-info text-light b-2" role="button" href="live/schedule.php?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='.$normalizedName.'">Live details</a>';
 
                 $data['add_cta'] = '<a class="add_cta btn btn-primary text-light b-2" role="button" href="live/save-video-data.php?video_name='.$normalizedName.'&cta_value=type in your CTA">Add CTA</a>';
 
@@ -374,14 +374,14 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed('../../') && $gateK
                 if (1 == 1) {
                     if($result == true) {
                         $data['delete'] .= '<li>
-                        <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'"><i class="bi bi-eye"></i><span class="badge bg-success">Live Url</span></a></li>';
+                        <a class="dropdown-item" href="live/?id='. getVideoIdByName($mysqli, $videoName) .'"><i class="bi bi-eye"></i><span class="badge bg-success">Live Url</span></a></li>';
                     } else {
                         $data['delete'] .= '<li>
-                        <a class="dropdown-item" href="live/?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='. $normalizedName .'"><i class="bi bi-eye"></i> <span class="badge bg-danger">Live Url</span></a></li>';
+                        <a class="dropdown-item" href="live/?id='. getVideoIdByName($mysqli, $videoName) .'"><i class="bi bi-eye"></i> <span class="badge bg-danger">Live Url</span></a></li>';
                     }
                 }
                 $data['delete'] .= '<li>
-                <a class="dropdown-item" href="live/schedule.php?video_name='.$normalizedName.'"><i class="bi bi-pencil-square"></i>Live Details</a></li>';
+                <a class="dropdown-item" href="live/schedule.php?url='.$thisdir.''.$normalizedName.'.'.$ext.'&video_name='.$normalizedName.'"><i class="bi bi-pencil-square"></i>Live Details</a></li>';
 
                 if (1 == 1) {
                     $data['delete'] .= '<li>

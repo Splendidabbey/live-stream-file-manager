@@ -37,7 +37,6 @@ function isLiveOn($liveOn, $userTimezone) {
     }
 }
 
-
 function queryVideo($mysqli, $videoName) {
     $query = "SELECT * FROM scheduled_videos WHERE videoName = ?";
     $stmt = $mysqli->prepare($query);
@@ -63,4 +62,48 @@ function hasBeenScheduled($mysqli, $videoName) {
     $result = $stmt->get_result();
     $output = $result->num_rows > 0 ? true : false;
     return $output;
+}
+
+function queryVideoById($mysqli, $id) {
+    $query = "SELECT * FROM scheduled_videos WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("i", $id); // Assuming $id is an integer
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $rows = array(); // Initialize an array to store the query result
+
+    while ($row = $result->fetch_assoc()) {
+        // Append each row to the result array
+        $rows[] = $row;
+    }
+
+    return $rows; // Return the array containing the query result
+}
+
+function hasBeenScheduleBydId($mysqli, $id) {
+    $query = "SELECT * FROM scheduled_videos WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("i", $id); // Assuming $id is an integer
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $output = $result->num_rows > 0 ? true : false;
+    return $output;
+}
+
+function getVideoIdByName($mysqli, $videoName) {
+    $query = "SELECT id FROM scheduled_videos WHERE videoName = ?";
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("s", $videoName);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // If a row is found, fetch the ID and return it
+        $row = $result->fetch_assoc();
+        return $row['id'];
+    } else {
+        // If no matching video is found, return false or an error message
+        return 0;
+    }
 }

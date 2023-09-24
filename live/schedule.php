@@ -4,6 +4,7 @@ require_once('includes/function.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $videoName = $_GET['video_name'] ? $_GET['video_name'] : "";
+    $url = $_GET['url'] ? $_GET['url'] : "";
     // Get the user's timezone using JavaScript and add it as a GET parameter
     echo '<script>
     const urlParams = new URLSearchParams(window.location.search);
@@ -109,6 +110,7 @@ if (empty(!$videoName)) {
             echo '
             <form action="includes/schedule-video.php" method="post">
                 <input type="hidden" name="videoName" value="' . $videoName . '">
+                <input type="hidden" name="url" value="' . $url . '">
                 <label for="liveOn">Select Date and Time:</label>
                 <input type="datetime-local" name="liveOn" required>
                 <input type="hidden" name="userTimezone" id="userTimezone" value="">

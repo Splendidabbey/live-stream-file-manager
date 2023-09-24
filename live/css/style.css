@@ -175,18 +175,18 @@ body, html {
   height: 100vh; /* Adjust as needed */
 }
 
-body {
+/* body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
   text-align: center;
   padding: 30px;
-}
+} */
 h1 {
   color: #333;
   font-size: 24px;
   margin-bottom: 10px;
 }
-p {
+.webinar-p {
   color: #666;
   font-size: 16px;
   margin-bottom: 20px;

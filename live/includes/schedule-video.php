@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
     $videoName = $_POST['videoName'];
     $liveOn = $_POST['liveOn'];
     $userTimezone = $_POST['userTimezone'];
+    $videoURL = $_POST['url'];
 
     // Convert the "liveOn" datetime to UTC before storing it in the database
     $userTimezoneObj = new DateTimeZone($userTimezone);
@@ -22,19 +23,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Video already exists, update the liveOn datetime and userTimezone
-        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ? WHERE videoName = ?";
+        // Video already exists, update the liveOn datetime, userTimezone, and videoURL
+        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoURL = ? WHERE videoName = ?";
         $stmt = $mysqli->prepare($updateQuery);
-        $stmt->bind_param("sss", $liveOn, $userTimezone, $videoName);
+        $stmt->bind_param("ssss", $liveOn, $userTimezone, $videoURL, $videoName);
         $stmt->execute();
         $stmt->close();
         $message = "Video scheduling updated successfully!";
     } else {
         // Video doesn't exist, insert a new record
-        // Insert the user's timezone and the converted "liveOn" datetime into the database
-        $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone) VALUES (?, ?, NOW(), ?)";
+        // Insert the user's timezone, converted "liveOn" datetime, and videoURL into the database
+        $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL) VALUES (?, ?, NOW(), ?, ?)";
         $stmt = $mysqli->prepare($insertQuery);
-        $stmt->bind_param("sss", $videoName, $liveOn, $userTimezone);
+        $stmt->bind_param("ssss", $videoName, $liveOn, $userTimezone, $videoURL);
         $stmt->execute();
         $stmt->close();
         $message = "Video scheduled successfully!";
