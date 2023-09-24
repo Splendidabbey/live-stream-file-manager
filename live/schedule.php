@@ -3,6 +3,8 @@ require_once('includes/conndb.php');
 require_once('includes/function.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+
     $videoName = $_GET['video_name'] ? $_GET['video_name'] : "";
     $url = $_GET['url'] ? $_GET['url'] : "";
     // Get the user's timezone using JavaScript and add it as a GET parameter
@@ -79,6 +81,14 @@ if (empty(!$videoName)) {
                 border-radius: 5px;
                 cursor: pointer;
             }
+            button {
+                background-color: #00ff00;
+                color: #fff;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
         </style>
         <script>
             // JavaScript to capture the users timezone and add it to the form
@@ -123,6 +133,10 @@ if (empty(!$videoName)) {
                     <input style="color: #ffffff; background-color: #ff0000;" type="submit" name="delete" value="Delete Schedule">
                 </form>';
             }
+            echo '
+            <input type="text" value="'. $protocol .'://'. $_SERVER['HTTP_HOST'] .'/live/?id=" id="myInput">
+            <button onclick="myFunction()">Live Url</button>
+            ';
         echo'
         </div>
     </body>
@@ -130,5 +144,22 @@ if (empty(!$videoName)) {
     ';
 }
 ?>
+
+<script>
+function myFunction() {
+  // Get the text field
+  var copyText = document.getElementById("myInput");
+
+  // Select the text field
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+  // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+  
+  // Alert the copied text
+  alert("Copied the text: " + copyText.value);
+}
+</script>
 
 
