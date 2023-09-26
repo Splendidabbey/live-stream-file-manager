@@ -337,3 +337,9 @@ function checkVideoProgress() {
   // Store the video progress in local storage
   localStorage.setItem('videoProgress', video.currentTime);
 }
+
+video.addEventListener("ended", function() {
+  // Redirect to the desired URL when the video ends
+  console.log("Video has ended."); 
+  window.location.href = "./?end=1"; // Replace with your desired URL
+});

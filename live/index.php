@@ -7,37 +7,22 @@ $videoURL = null;
 $videoName = null;
 $liveOn = null;
 $userTimezone = null;
+$id = null;
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-  $id = $_GET['id'] ? $_GET['id'] : "";
-  // Get the user's timezone using JavaScript and add it as a GET parameter
-  echo '<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const userTimezone = urlParams.get("userTimezone");
-
-  if (!userTimezone) {
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const newUrl = window.location.href + (window.location.search ? "&" : "?") + "userTimezone=" + encodeURIComponent(timezone);
-    window.location.href = newUrl;
-  }
-</script>
-';
-}
-
-$viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
-
-$newContent = '
-<div class="info-container">
-  <h1>Unforntunately this webinar has ended.</h1>
-  <p class="webinar-p">Please click the button below to send the host an inquiry on when the next will hold.</p>
-  <a href="https://wa.me/2348136096954" target="_blank" class="cta-button">
-  Click here👇
-</a><br><br>
-</div>
-';
+echo '<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome CDN link -->
+  <title>Livestream Viewer</title>
+</head>
+<body>';
 
 $content = '
-  <div class="info-container>
+  <div class="info-container">
   <h1>Take The Bold Step Into Becoming <br>My Premium Student Where I Show You The Remaining <br>95% I Held Back In The Cause Of The Webinar.</h1>
   <p class="webinar-p">GT Bank: 0257821123<br>
   Obembe Emmanuel</p>
@@ -70,21 +55,37 @@ Obembe Emmanuel</p>
     Click here, to send Proof Of Payment👇
   </a>
   <br><br>
-  <p class="webinar-p">Unfortunately, this webinar has ended.</p>
   </div>
+  </body>
+  </html>
 ';
 
-echo '<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome CDN link -->
-  <title>Livestream Viewer</title>
-</head>
-<body>';
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
+  $id = $_GET['id'] ? $_GET['id'] : "";
+  // Get the user's timezone using JavaScript and add it as a GET parameter
+  echo '<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const userTimezone = urlParams.get("userTimezone");
+
+  if (!userTimezone) {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const newUrl = window.location.href + (window.location.search ? "&" : "?") + "userTimezone=" + encodeURIComponent(timezone);
+    window.location.href = newUrl;
+  }
+</script>
+';
+$viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
+
+$newContent = '
+<div class="info-container">
+  <h1>Unforntunately this webinar has ended.</h1>
+  <p class="webinar-p">Please click the button below to send the host an inquiry on when the next will hold.</p>
+  <a href="https://wa.me/2348136096954" target="_blank" class="cta-button">
+  Click here👇
+</a><br><br>
+</div>
+';
+
   // Check if the videoName exists
   $queryResult = queryVideoById($mysqli, $id);
 
@@ -170,4 +171,7 @@ echo '<!DOCTYPE html>
     </body>
     </html>';
   }
+} elseif ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['end'])) {
+  echo $content;
+}
 ?>
