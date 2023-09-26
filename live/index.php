@@ -27,12 +27,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 $viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
 
 $newContent = '
-<div class="info-container>
-  h1>Unforntunately this webinar has ended.</h1>
-  p class="webinar-p">Please click the button below to send the host an inquiry on when the next will hold.</p>
+<div class="info-container">
+  <h1>Unforntunately this webinar has ended.</h1>
+  <p class="webinar-p">Please click the button below to send the host an inquiry on when the next will hold.</p>
   <a href="https://wa.me/2348136096954" target="_blank" class="cta-button">
   Click here👇
-</a>
+</a><br><br>
 </div>
 ';
 
