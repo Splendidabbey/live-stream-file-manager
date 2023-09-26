@@ -26,7 +26,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 $viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
 
+$newContent = '
+<div class="info-container>
+  h1>Unforntunately this webinar has ended.</h1>
+  p class="webinar-p">Please click the button below to send the host an inquiry on when the next will hold.</p>
+  <a href="https://wa.me/2348136096954" target="_blank" class="cta-button">
+  Click here👇
+</a>
+</div>
+';
+
 $content = '
+  <div class="info-container>
   <h1>Take The Bold Step Into Becoming <br>My Premium Student Where I Show You The Remaining <br>95% I Held Back In The Cause Of The Webinar.</h1>
   <p class="webinar-p">GT Bank: 0257821123<br>
   Obembe Emmanuel</p>
@@ -60,6 +71,7 @@ Obembe Emmanuel</p>
   </a>
   <br><br>
   <p class="webinar-p">Unfortunately, this webinar has ended.</p>
+  </div>
 ';
 
 echo '<!DOCTYPE html>
@@ -134,8 +146,8 @@ echo '<!DOCTYPE html>
         </body>
         </html>';
       } else {
-        echo $content;
-        if(hasBeenScheduledById($mysqli, $id)) {
+        echo $newContent;
+        if(hasBeenScheduleBydId($mysqli, $id)) {
           if (!empty($queryResult)) {
             // Process the query result, e.g., display it or perform actions
             foreach ($queryResult as $row) {
@@ -153,7 +165,7 @@ echo '<!DOCTYPE html>
         </html>';
       }
   } else {
-    echo $content;
+    echo $newContent;
     echo ' 
     </body>
     </html>';
