@@ -11,8 +11,8 @@ const estimatedViewers = 1000;
 guestRandomNumber = Math.floor(Math.random() * (estimatedViewers - 99 + 1)) + 99;
 let commentCount = 0;
 
-video.controls = false; // Disable controls
-video.autoplay = false; // No autoplay
+// video.controls = false; // Disable controls
+video.autoplay = true; // No autoplay
 
 
 // Check if there's stored video progress and resume playback

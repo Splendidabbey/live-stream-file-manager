@@ -108,7 +108,7 @@ $newContent = '
     
         // Output the video element with Shaka Player
         echo '<div data-shaka-player-container style="max-width:80em;" data-shaka-player-cast-receiver-id="8D8C71A7">
-        <video data-shaka-player id="video" style="width:100%;height:100%"></video>
+        <video data-shaka-player id="livestream-video" style="width:100%;height:100%"></video>
         </div>';
         
         echo '<div class="live-box">LIVE</div>
@@ -148,12 +148,22 @@ $newContent = '
             const manifestUri = "../'. $videoURL .'";
 
             async function init() {
-              const video = document.getElementById("video");
-              const player = new shaka.Player(video);
+              const video = document.getElementById("livestream-video");
+              const ui = video["ui"];
+              const controls = ui.getControls();
+              const player = controls.getPlayer();
+              const config = {
+                  "controlPanelElements": ["spacer", "mute", "volume", "quality", "fullscreen"]
+              }
+              ui.configure(config);
+  
+              window.player = player;
+              window.ui = ui;
 
               try {
-                await player.load(manifestUri);
+                await player.load(manifestUri)
                 console.log("The video has now been loaded!");
+
               } catch (error) {
                 console.error("Error loading video:", error);
               }
