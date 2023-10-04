@@ -106,11 +106,10 @@ $newContent = '
               <div class="video-container">
                 <div class="video-wrapper">';
     
-        // Output the video element with the dynamically set source
-        echo '<video id="livestream-video" autoplay oncontextmenu="return false;">';
-        echo '<source src="../'. $videoURL . '" type="video/mp4">';
-        echo 'Your browser does not support the video tag.';
-        echo '</video>';
+        // Output the video element with Shaka Player
+        echo '<div data-shaka-player-container style="max-width:80em;" data-shaka-player-cast-receiver-id="8D8C71A7">
+        <video data-shaka-player id="video" style="width:100%;height:100%"></video>
+        </div>';
         
         echo '<div class="live-box">LIVE</div>
                     <button id="play-button" class="play-button"><i class="fas fa-play"></i></button>
@@ -143,6 +142,33 @@ $newContent = '
               JOIN
             </button>
           </div>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.ui.min.js"></script>
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/controls.min.css">
+          <script>
+            const manifestUri = "../'. $videoURL .'";
+
+            async function init() {
+              const video = document.getElementById("video");
+              const player = new shaka.Player(video);
+
+              try {
+                await player.load(manifestUri);
+                console.log("The video has now been loaded!");
+              } catch (error) {
+                console.error("Error loading video:", error);
+              }
+
+              // Add a click event listener to the play button
+              const playButton = document.getElementById("play-button");
+              playButton.addEventListener("click", () => {
+                // Play the video when the button is clicked
+                video.play();
+              });
+            }
+
+            // Listen to the custom shaka-ui-loaded event, to wait until the UI is loaded.
+            document.addEventListener("shaka-ui-loaded", init);
+          </script>
           <script src="js/script.js"></script>
         </body>
         </html>';
