@@ -8,7 +8,7 @@ const commentButton = document.getElementById("comment-button");
 const viewerCount = document.getElementById("viewer-count");
 const maxComments = 5; // Maximum number of displayed comments
 const estimatedViewers = 1000;
-guestRandomNumber = Math.floor(Math.random() * (estimatedViewers - 99 + 1)) + 99;
+guestRandomNumber = Math.floor(Math.random() * (estimatedViewers - 99 + 1)) + 99; 
 let commentCount = 0;
 
 // video.controls = false; // Disable controls
