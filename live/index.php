@@ -158,7 +158,13 @@ $newContent = '
               const controls = ui.getControls();
               const player = controls.getPlayer();
               const config = {
-                  "controlPanelElements": ["spacer", "mute", "volume", "quality", "fullscreen"]
+                  "controlPanelElements": ["spacer", "mute", "volume", "quality", "fullscreen"],
+                  "streaming": {
+                    "rebufferingGoal": 2,
+                    "abr": {
+                        "enabled": true // Enable adaptive bitrate selection
+                    }
+                }
               }
               ui.configure(config);
   
@@ -178,6 +184,12 @@ $newContent = '
               playButton.addEventListener("click", () => {
                 // Play the video when the button is clicked
                 video.play();
+              });
+
+              video.addEventListener("adaptation", (event) => {
+                const adaptationEvent = event.detail;
+                const currentQuality = adaptationEvent.variants[adaptationEvent.variant];
+                console.log("Selected quality:", currentQuality);
               });
             }
 

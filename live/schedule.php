@@ -46,6 +46,7 @@ if (empty(!$videoName)) {
     <!DOCTYPE html>
     <html>
     <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome CDN link -->
         <title>Schedule Video for ' . $videoName . '</title>
         <style>
             body {
@@ -99,6 +100,11 @@ if (empty(!$videoName)) {
         </script>
     </head>
     <body>
+        <div class="row mt-3">
+            <div class="col-12">
+                <a href="../"><i class="fas fa-arrow-left me-3"></i>back to home</a>
+            </div>
+        </div>
         <div class="container">';
             if(hasBeenScheduled($mysqli, $videoName)) {
                 echo'
