@@ -18,6 +18,11 @@ echo '<!DOCTYPE html>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome CDN link -->
   <title>Livestream Viewer</title>
+  <style>
+  .video-container .shaka-seek-bar-container {
+    display: none;
+  }
+  </style>
 </head>
 <body>';
 
