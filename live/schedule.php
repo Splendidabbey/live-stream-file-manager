@@ -98,6 +98,9 @@ if (empty(!$videoName)) {
                 document.getElementById("userTimezone").value = timezone;
             }
         </script>
+        <script>
+            document.addEventListener("contextmenu", event => event.preventDefault());
+        </script>
     </head>
     <body>
         <div class="row mt-3">
@@ -107,8 +110,9 @@ if (empty(!$videoName)) {
         </div>
         <div class="container">';
             if(hasBeenScheduled($mysqli, $videoName)) {
-                echo'
-                <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"'. $videoName .'"</em> has been scheduled to start '. convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) .'</h1>';
+                echo
+        '
+                <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"' . $videoName . '"</em> has been scheduled to start ' . convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) . '</h1>';
                 if(isLiveOn($liveOn, $userTimezone)) {
                     echo '<em style="color: #198754;">video is currently live</em>';
                 } else {
