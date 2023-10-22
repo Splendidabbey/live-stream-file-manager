@@ -1,4 +1,6 @@
 const video = document.getElementById("livestream-video");
+const registrationForm = document.getElementById("registration-form");
+const videoContainer = document.querySelector(".video-container");
 const playButton = document.getElementById("play-button");
 const joinButton = document.getElementById("join-button");
 // const finishButton = document.getElementById("finish-button");
@@ -31,6 +33,22 @@ function startVideo() {
   playButton.style.display = "none";
   joinButton.disabled = true;
   setInterval(updateViewerCount, 5000); // Update every 5 seconds
+}
+
+const hasWatchedVideo = localStorage.getItem('hasWatchedVideo')
+
+if(hasWatchedVideo) {
+  registrationForm.style.display = "none";
+  videoContainer.style.display = "block";
+} else {
+  registrationForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    localStorage.setItem('hasWatchedVideo', true);
+    registrationForm.style.display = "none";
+    videoContainer.style.display = "block";
+    
+    startVideo();
+  });
 }
 
 playButton.addEventListener("click", startVideo);

@@ -29,6 +29,22 @@ echo '<!DOCTYPE html>
 </head>
 <body>';
 
+$registrationForm = '
+  <div class="form-container" id="registration-form">
+    <!-- Registration Form -->
+    <form class="registration-form-container">
+      <h2>Register to join the livestream</h2>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="phoneNumber">Phone number:</label>
+      <input type="text" id="phoneNumber" name="phoneNumber" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <button type="submit">Register</button>
+    </form>
+  </div> 
+';
+
 $content = '
   <div class="info-container">
   <h1>Take The Bold Step Into Becoming <br>My Premium Student Where I Show You The Remaining <br>95% I Held Back In The Cause Of The Webinar.</h1>
@@ -108,7 +124,10 @@ $newContent = '
           $videoURL = $row['videoURL'];
       }
       if(isLiveOn($liveOn, $userTimezone) == true) {
-        echo '<div class="container">
+        echo $registrationForm;
+        echo '
+        <div style="display:none;" class="video-container">
+        <div class="container">
           <div class="row">
             <div class="col-md-9 livestream-container">
               <div class="video-container">
@@ -150,6 +169,7 @@ $newContent = '
               JOIN
             </button>
           </div>
+        </div>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.ui.min.js"></script>
           <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/controls.min.css">
           <script>
