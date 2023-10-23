@@ -44,7 +44,7 @@ if(hasWatchedVideo) {
   registrationForm.addEventListener("submit", async function (event) {
     event.preventDefault();
     // Make an API request before showing the video
-    await fetch('http://avalmails.afobe.net/api/email-contacts/store-api', {
+    await fetch('https://avalmails.afobe.net/api/email-contacts/store-api', {
       method: 'POST', // Adjust the HTTP method as needed
       headers: {
         'Content-Type': 'application/json',
