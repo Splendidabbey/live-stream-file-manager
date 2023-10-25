@@ -50,7 +50,7 @@ if(hasWatchedVideo) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        "owner_id": "John Doe",
+        "owner_id": 55,
         "name": document.getElementById("name").value,
         "email": document.getElementById("email").value,
         "country_code": document.getElementById("countryCode").value,
