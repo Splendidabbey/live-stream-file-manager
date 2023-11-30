@@ -313,7 +313,7 @@ $content = '
 Obembe Emmanuel</p>
 
   <!-- CTA button linked to WhatsApp acc -->
-  <a href="https://wa.me/2348136096954" target="_blank" class="cta-button">
+  <a href="https://wa.me/97470926454" target="_blank" class="cta-button">
     Click here, to send Proof Of Payment👇
   </a>
   <br><br>
@@ -342,7 +342,7 @@ $newContent = '
 <div class="info-container">
   <h1>Unforntunately this webinar has ended.</h1>
   <p class="webinar-p">Please click the button below to send the host an inquiry on when the next will hold.</p>
-  <a href="https://wa.me/2348136096954" target="_blank" class="cta-button">
+  <a href="https://wa.me/97470926454" target="_blank" class="cta-button">
   Click here👇
 </a><br><br>
 </div>
