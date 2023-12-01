@@ -369,15 +369,16 @@ $newContent = '
           <div class="row">
             <div class="col-md-9 livestream-container">
               <div class="video-container">
-                <div class="video-wrapper">';
+                <div class="video-wrapper" style="height: 100%;">';
     
         // Output the video element with Shaka Player
-        echo '<div data-shaka-player-container style="max-width:80em;" data-shaka-player-cast-receiver-id="8D8C71A7">
-        <video data-shaka-player id="livestream-video" style="width:100%;height:100%"></video>
-        </div>';
+        echo '
+        <div class="youtube-container">
+        <iframe src="https://www.youtube.com/embed/H69g7NB8EeQ?si=ZrBDP7RKAkQAGzLx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>';
         
         echo '<div class="live-box">LIVE</div>
-                    <button id="play-button" class="play-button"><i class="fas fa-play"></i></button>
+                    <!--button id="play-button" class="play-button"><i class="fas fa-play"></i></button-->
                   </div>
                 </div>        
               </div>
