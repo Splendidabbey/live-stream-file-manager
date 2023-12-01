@@ -374,7 +374,13 @@ $newContent = '
         // Output the video element with Shaka Player
         echo '
         <div class="youtube-container">
-        <iframe src="https://www.youtube.com/embed/H69g7NB8EeQ?si=ZrBDP7RKAkQAGzLx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe
+        src="'. $videoURL .'&autoplay=1"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
           </div>';
         
         echo '<div class="live-box">LIVE</div>
