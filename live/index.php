@@ -30,7 +30,7 @@ echo '<!DOCTYPE html>
 <body>';
 
 $registrationForm = "
-<div class='form-container' id='registration-form'>
+<div class='form-container d-none' id='registration-form'>
 <!-- Registration Form -->
 <form class='registration-form-container'>
   <h2>Register to join the livestream</h2>
