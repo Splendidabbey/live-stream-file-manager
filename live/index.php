@@ -377,12 +377,10 @@ $newContent = '
           <!-- Placeholder for the YouTube player -->
           <div id="player"></div>
 
-          <!-- Play button -->
-          <button id="play-button">Play Video</button>
         </div>';
         
         echo '<div class="live-box">LIVE</div>
-                    <!--button id="play-button" class="play-button"><i class="fas fa-play"></i></button-->
+                    <button id="play-button" class="play-button"><i class="fas fa-play"></i></button>
                   </div>
                 </div>        
               </div>
@@ -412,36 +410,12 @@ $newContent = '
               JOIN
             </button>
           </div>
-        </div>
-          <script src="https://www.youtube.com/iframe_api"></script>
-          <script>
-            var player;
+        </div>';
 
-            // Create a YouTube player
-            function onYouTubeIframeAPIReady() {
-              player = new YT.Player("player", {
-                height: "360",
-                width: "640",
-                videoId: "H69g7NB8EeQ", // Replace with your actual video ID
-                playerVars: {
-                  "autoplay": 0,        // Do not autoplay initially
-                  "controls": 0,        // Hide video controls
-                  "showinfo": 0,        // Hide video information
-                  "rel": 0,             // Do not show related videos
-                  "modestbranding": 1,  // Remove YouTube logo
-                  "playsinline": 1,     // Play the video inline on mobile devices
-                  "disablekb": 1        // Disable keyboard controls, including "Watch later" and "Share"
-                }
-              });
+        echo '<script src="https://www.youtube.com/iframe_api"></script>';
+        echo '<script src="js/script.js"></script>';
 
-              // Add click event listener to the play button
-              var playButton = document.getElementById("play-button");
-              playButton.addEventListener("click", function() {
-                player.playVideo();
-              });
-            }
-          </script>
-
+        echo '
         </body>
         </html>';
       } else {
