@@ -374,15 +374,12 @@ $newContent = '
         // Output the video element with Shaka Player
         echo '
         <div class="youtube-container">
-        <iframe
-        src="'. $videoURL .'&autoplay=1"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-        controls="0"
-      ></iframe>
-          </div>';
+          <!-- Placeholder for the YouTube player -->
+          <div id="player"></div>
+
+          <!-- Play button -->
+          <button id="play-button">Play Video</button>
+        </div>';
         
         echo '<div class="live-box">LIVE</div>
                     <!--button id="play-button" class="play-button"><i class="fas fa-play"></i></button-->
@@ -416,56 +413,35 @@ $newContent = '
             </button>
           </div>
         </div>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/shaka-player.ui.min.js"></script>
-          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.0/controls.min.css">
+          <script src="https://www.youtube.com/iframe_api"></script>
           <script>
-            const manifestUri = "../'. $videoURL .'";
+            var player;
 
-            async function init() {
-              const video = document.getElementById("livestream-video");
-              const ui = video["ui"];
-              const controls = ui.getControls();
-              const player = controls.getPlayer();
-              const config = {
-                  "controlPanelElements": ["spacer", "mute", "volume", "quality", "fullscreen"],
-                  "streaming": {
-                    "rebufferingGoal": 2,
-                    "abr": {
-                        "enabled": true // Enable adaptive bitrate selection
-                    }
+            // Create a YouTube player
+            function onYouTubeIframeAPIReady() {
+              player = new YT.Player("player", {
+                height: "360",
+                width: "640",
+                videoId: "H69g7NB8EeQ", // Replace with your actual video ID
+                playerVars: {
+                  "autoplay": 0,        // Do not autoplay initially
+                  "controls": 0,        // Hide video controls
+                  "showinfo": 0,        // Hide video information
+                  "rel": 0,             // Do not show related videos
+                  "modestbranding": 1,  // Remove YouTube logo
+                  "playsinline": 1,     // Play the video inline on mobile devices
+                  "disablekb": 1        // Disable keyboard controls, including "Watch later" and "Share"
                 }
-              }
-              ui.configure(config);
-  
-              window.player = player;
-              window.ui = ui;
-
-              try {
-                await player.load(manifestUri)
-                console.log("The video has now been loaded!");
-
-              } catch (error) {
-                console.error("Error loading video:", error);
-              }
-
-              // Add a click event listener to the play button
-              const playButton = document.getElementById("play-button");
-              playButton.addEventListener("click", () => {
-                // Play the video when the button is clicked
-                video.play();
               });
 
-              video.addEventListener("adaptation", (event) => {
-                const adaptationEvent = event.detail;
-                const currentQuality = adaptationEvent.variants[adaptationEvent.variant];
-                console.log("Selected quality:", currentQuality);
+              // Add click event listener to the play button
+              var playButton = document.getElementById("play-button");
+              playButton.addEventListener("click", function() {
+                player.playVideo();
               });
             }
-
-            // Listen to the custom shaka-ui-loaded event, to wait until the UI is loaded.
-            document.addEventListener("shaka-ui-loaded", init);
           </script>
-          <script src="js/script.js"></script>
+
         </body>
         </html>';
       } else {
