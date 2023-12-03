@@ -415,7 +415,7 @@ $newContent = '
         </div>';
 
         echo '<script src="https://www.youtube.com/iframe_api"></script>';
-        echo '<script src="js/script.js"></script>';
+        //echo '<script src="js/script.js"></script>';
         echo '
         <script>
           var player;
