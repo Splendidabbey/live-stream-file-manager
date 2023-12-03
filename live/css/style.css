@@ -8,7 +8,8 @@ body, html {
 .livestream-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  height: 80vh;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
