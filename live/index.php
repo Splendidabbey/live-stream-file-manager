@@ -427,13 +427,17 @@ $newContent = '
               width: "640",
               videoId: "'. $videoURL .'", // Replace with your actual video ID
               playerVars: {
-                "autoplay": 0,        // Do not autoplay initially
+                "autoplay": 1,        // Do not autoplay initially
                 "controls": 0,        // Hide video controls
                 "showinfo": 0,        // Hide video information
                 "rel": 0,             // Do not show related videos
                 "modestbranding": 1,  // Remove YouTube logo
                 "playsinline": 1,     // Play the video inline on mobile devices
                 "disablekb": 1        // Disable keyboard controls, including "Watch later" and "Share"
+              },
+              events: {
+                "onReady": onPlayerReady,
+                "onStateChange": onPlayerStateChange
               }
             });
 
@@ -442,6 +446,17 @@ $newContent = '
             playButton.addEventListener("click", function() {
               player.playVideo();
             });
+
+            // The API will call this function when the video player is ready.
+            function onPlayerReady(event) {
+              // You can access the video element here using the event.target
+              const videoElement = event.target.getIframe();
+              console.log("Video Element:", videoElement);
+            }
+            
+            function onPlayerStateChange(event) {
+              // You can do something when the player state changes if needed.
+            }
           } 
         </script>
         ';
