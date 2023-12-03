@@ -1,34 +1,5 @@
 
-  var player;
-
-  document.getElementById('player').addEventListener('click', function(event) {
-    event.stopPropagation();
-    console.log('yeah');
-  });
-
-  // Create a YouTube player
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-      height: '360',
-      width: '640',
-      videoId: 'H69g7NB8EeQ', // Replace with your actual video ID
-      playerVars: {
-        'autoplay': 0,        // Do not autoplay initially
-        'controls': 0,        // Hide video controls
-        'showinfo': 0,        // Hide video information
-        'rel': 0,             // Do not show related videos
-        'modestbranding': 1,  // Remove YouTube logo
-        'playsinline': 1,     // Play the video inline on mobile devices
-        'disablekb': 1        // Disable keyboard controls, including "Watch later" and "Share"
-      }
-    });
-
-    // Add click event listener to the play button
-    var playButton = document.getElementById('play-button');
-    playButton.addEventListener('click', function() {
-      player.playVideo();
-    });
-  }
+  
 
 const video = document.getElementById("livestream-video");
 const registrationForm = document.getElementById("registration-form");
