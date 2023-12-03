@@ -1,6 +1,11 @@
 
   var player;
 
+  document.getElementById('player').addEventListener('click', function(event) {
+    event.stopPropagation();
+    console.log('yeah');
+  });
+
   // Create a YouTube player
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
@@ -418,8 +423,8 @@ function checkVideoProgress() {
   localStorage.setItem('videoProgress', video.currentTime);
 }
 
-video.addEventListener("ended", function() {
-  // Redirect to the desired URL when the video ends
-  console.log("Video has ended."); 
-  window.location.href = "./?end=1"; // Replace with your desired URL
-});
+// video.addEventListener("ended", function() {
+//   // Redirect to the desired URL when the video ends
+//   console.log("Video has ended."); 
+//   window.location.href = "./?end=1"; // Replace with your desired URL
+// });

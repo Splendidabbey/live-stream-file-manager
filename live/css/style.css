@@ -97,16 +97,18 @@ body, html {
 
 /* Style for the play button */
 .play-button {
+  width: 80vw;
+  height: 70vh;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 48px;
-  background: rgba(0, 0, 0, 0.5);
+  background: transparent;
   color: white;
   border: none;
-  border-radius: 50%;
-  padding: 20px;
+  /* border-radius: 50%; */
+  /* padding: 20px; */
   cursor: pointer;
   display: none; /* Hide initially */
   z-index: 1;
@@ -270,4 +272,21 @@ iframe {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  /* pointer-events: none; */
+  position: relative;
+}
+
+/* Optional: Make child elements clickable if needed */
+.youtube-container * {
+  pointer-events: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
 }

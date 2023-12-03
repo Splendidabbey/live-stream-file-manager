@@ -377,6 +377,8 @@ $newContent = '
           <!-- Placeholder for the YouTube player -->
           <div id="player"></div>
 
+          <!-- Transparent overlay to capture clicks -->
+          <div class="overlay"></div>
         </div>';
         
         echo '<div class="live-box">LIVE</div>
