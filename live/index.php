@@ -443,10 +443,15 @@ $newContent = '
 
             // Add click event listener to the play button
             var playButton = document.getElementById("play-button");
-            playButton.addEventListener("click", function() {
-              player.playVideo();
-            });
+            const joinButton = document.getElementById("join-button");
+            playButton.addEventListener("click", startVideo);
+            joinButton.addEventListener("click", startVideo);
 
+            function startVideo() {
+              player.playVideo();
+              // playButton.style.display = "none";
+              joinButton.disabled = true;
+            }
             // The API will call this function when the video player is ready.
             function onPlayerReady(event) {
               // You can access the video element here using the event.target
