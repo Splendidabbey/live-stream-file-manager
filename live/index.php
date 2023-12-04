@@ -455,7 +455,7 @@ $newContent = '
             }
             
             function onPlayerStateChange(event) {
-              // You can do something when the player state changes if needed.
+        
             }
           } 
         </script>
