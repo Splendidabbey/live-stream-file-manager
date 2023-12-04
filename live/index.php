@@ -456,7 +456,8 @@ $newContent = '
             function onPlayerReady(event) {
               // You can access the video element here using the event.target
               const videoElement = event.target.getIframe();
-              console.log("Video Element:", videoElement);
+              // Add click event listener to the video element to pause the video;
+              // videoElement.addEventListener("click", pauseVideo);
             }
             
             function onPlayerStateChange(event) {

@@ -31,12 +31,12 @@ updateViewerCount(); // Initial update
 setInterval(addRandomComment, 3000); // Add random comment every 3 second
 // video.addEventListener("timeupdate", checkVideoProgress); // Check video progress
 
-function startVideo() {
-  video.play();
-  playButton.style.display = "none";
-  joinButton.disabled = true;
-  setInterval(updateViewerCount, 5000); // Update every 5 seconds
-}
+// function startVideo() {
+//   video.play();
+//   playButton.style.display = "none";
+//   joinButton.disabled = true;
+//   setInterval(updateViewerCount, 5000); // Update every 5 seconds
+// }
 
 // const hasWatchedVideo = localStorage.getItem('hasWatchedVideo')
 
@@ -89,8 +89,8 @@ function startVideo() {
 //   });
 // }
 
-playButton.addEventListener("click", startVideo);
-joinButton.addEventListener("click", startVideo);
+// playButton.addEventListener("click", startVideo);
+// joinButton.addEventListener("click", startVideo);
 
 commentButton.addEventListener("click", function() {
   if(joinButton.disabled !== false) {
