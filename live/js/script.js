@@ -384,15 +384,15 @@ function updateViewerCount() {
 }
 
 
-function checkVideoProgress() {
-  const videoProgress = (video.currentTime / video.duration) * 100;
-  if (videoProgress >= 30 && !commentButton.disabled) {
-    addNiceComment(); // Add comments at 30% towards the end
-  }
+//function checkVideoProgress() {
+  //const videoProgress = (video.currentTime / video.duration) * 100;
+  //if (videoProgress >= 30 && !commentButton.disabled) {
+    //addNiceComment(); // Add comments at 30% towards the end
+//  }
 
   // Store the video progress in local storage
-  localStorage.setItem('videoProgress', video.currentTime);
-}
+  //localStorage.setItem('videoProgress', video.currentTime);
+//}
 
 // video.addEventListener("ended", function() {
 //   // Redirect to the desired URL when the video ends
