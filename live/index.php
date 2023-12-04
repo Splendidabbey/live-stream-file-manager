@@ -449,7 +449,6 @@ $newContent = '
 
             // The API will call this function when the video player is ready.
             function onPlayerReady(event) {
-              // You can access the video element here using the event.target
               const videoElement = event.target.getIframe();
               console.log("Video Element:", videoElement);
             }
