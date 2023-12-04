@@ -435,10 +435,7 @@ $newContent = '
                 "playsinline": 1,     // Play the video inline on mobile devices
                 "disablekb": 1        // Disable keyboard controls, including "Watch later" and "Share"
               },
-              events: {
-                "onReady": onPlayerReady,
-                "onStateChange": onPlayerStateChange
-              }
+              
             });
 
             // Add click event listener to the play button
