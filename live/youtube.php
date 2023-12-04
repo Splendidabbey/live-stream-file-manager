@@ -322,7 +322,9 @@ Obembe Emmanuel</p>
   </html>
 ';
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
+
+if (isset($_GET['id'])) {
+
   $id = $_GET['id'] ? $_GET['id'] : "";
   // Get the user's timezone using JavaScript and add it as a GET parameter
   echo '<script>
@@ -336,6 +338,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
   }
 </script>
 ';
+
 $viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
 
 $newContent = '
@@ -352,143 +355,78 @@ $newContent = '
   $queryResult = queryVideoById($mysqli, $id);
 
   if (!empty($queryResult)) {
-      // Process the query result, e.g., display it or perform actions
-      foreach ($queryResult as $row) {
-          // Access table columns using $row['column_name']
-          $videoName = $row['videoName'];
-          $liveOn = $row['liveOn'];
-          $scheduledAt = $row['scheduledAt'];
-          $userTimezone = $row['userTimezone'];
-          $videoURL = $row['videoURL'];
-      }
-      if(isLiveOn($liveOn, $userTimezone) == true) {
-        echo $registrationForm;
-        echo '
-        <div style="" class="video-container">
+    // Process the query result, e.g., display it or perform actions
+    foreach ($queryResult as $row) {
+        // Access table columns using $row['column_name']
+        $videoName = $row['videoName'];
+        $liveOn = $row['liveOn'];
+        $scheduledAt = $row['scheduledAt'];
+        $userTimezone = $row['userTimezone'];
+        $videoURL = $row['videoURL'];
+    }
+    if(isLiveOn($liveOn, $userTimezone) == true) {
+      echo $registrationForm;
+      echo '
+      <div style="display:none;" class="video-container">
         <div class="container">
           <div class="row">
             <div class="col-md-9 livestream-container">
               <div class="video-container">
-                <div class="video-wrapper" style="height: 100%;">';
-    
-        // Output the video element with Shaka Player
-        echo '
-        <div class="youtube-container">
-          <!-- Placeholder for the YouTube player -->
-          <div id="player"></div>
-
-          <!-- Transparent overlay to capture clicks -->
-          <div class="overlay"></div>
-        </div>';
-        
-        echo '<div class="live-box">LIVE</div>
-                    <button id="play-button" class="play-button"><i class="fas fa-play"></i></button>
-                  </div>
-                </div>        
-              </div>
-              <div class="col-md-3 comments-container">
-                <div class="stream-info">
-                  <h2>Live Stream Title</h2>
-                  <div class="streamers-info d-flex">
-                    <div class="comment-avatar me-2">
-                      <img src="img/apostle.png" alt="Apostle\'s profile picture">
-                    </div>
-                    <p class="me-1 mt-2 text-primary">Apostle </p>
-                    <p class="mt-2"> is Live now!</p>
-                  </div>
-                  <p>Viewers: <span id="viewer-count">0</span></p>
-                </div>
-                <div class="comments-panel">
-                  <ul id="comments-list"></ul>
-                  <input type="text" id="comment-input" placeholder="Write a comment...">
-                  <button id="comment-button">Comment</button>
+                <div class="video-wrapper" style="height: 100%;">
                 </div>
               </div>
             </div>
           </div>
-          <div class="under-div d-grid gap-2 d-md-flex justify-content-md-end">
-            <button id="join-button" class="btn btn-success btn-lg m-2" type="button">
-              <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
-              JOIN
-            </button>
-          </div>
-        </div>';
+        </div>    
+      </div>
+      ';
 
-        echo '<script src="https://www.youtube.com/iframe_api"></script>';
-        echo '<script src="js/script.js"></script>';
-        echo '
+
+      echo "
+        <!-- Placeholder for the YouTube player -->
+        <div id='player'></div>
+      
+        <!-- Play button -->
+        <button id='play-button'>Play Video</button>
+      
+        <!-- YouTube iframe API script -->
+        <script src='https://www.youtube.com/iframe_api'></script>
+      
         <script>
           var player;
-
+      
           // Create a YouTube player
           function onYouTubeIframeAPIReady() {
-            player = new YT.Player("player", {
-              height: "360",
-              width: "640",
-              videoId: "'. $videoURL .'", // Replace with your actual video ID
+            player = new YT.Player('player', {
+              height: '360',
+              width: '640',
+              videoId: 'H69g7NB8EeQ', // Replace with your actual video ID
               playerVars: {
-                "autoplay": 1,        // Do not autoplay initially
-                "controls": 0,        // Hide video controls
-                "showinfo": 0,        // Hide video information
-                "rel": 0,             // Do not show related videos
-                "modestbranding": 1,  // Remove YouTube logo
-                "playsinline": 1,     // Play the video inline on mobile devices
-                "disablekb": 1        // Disable keyboard controls, including "Watch later" and "Share"
-              },
-              events: {
-                "onReady": onPlayerReady,
-                "onStateChange": onPlayerStateChange
+                'autoplay': 0,        // Do not autoplay initially
+                'controls': 0,        // Hide video controls
+                'showinfo': 0,        // Hide video information
+                'rel': 0,             // Do not show related videos
+                'modestbranding': 1,  // Remove YouTube logo
+                'playsinline': 1,     // Play the video inline on mobile devices
+                'disablekb': 1        // Disable keyboard controls, including Watch later and Share
               }
             });
-
+      
             // Add click event listener to the play button
-            var playButton = document.getElementById("play-button");
-            playButton.addEventListener("click", function() {
+            var playButton = document.getElementById('play-button');
+            playButton.addEventListener('click', function() {
               player.playVideo();
             });
-
-            // The API will call this function when the video player is ready.
-            function onPlayerReady(event) {
-              // You can access the video element here using the event.target
-              const videoElement = event.target.getIframe();
-              console.log("Video Element:", videoElement);
-            }
-            
-            function onPlayerStateChange(event) {
-              // You can do something when the player state changes if needed.
-            }
-          } 
-        </script>
-        ';
-        echo '
-        </body>
-        </html>';
-      } else {
-        echo $newContent;
-        if(hasBeenScheduleBydId($mysqli, $id)) {
-          if (!empty($queryResult)) {
-            // Process the query result, e.g., display it or perform actions
-            foreach ($queryResult as $row) {
-                // Access table columns using $row['column_name']
-                $videoName = $row['videoName'];
-                $liveOn = $row['liveOn'];
-                $scheduledAt = $row['scheduledAt'];
-                $userTimezone = $row['userTimezone'];
-            }
           }
-          echo '<p class="webinar-p">This Webinar has been scheduled to hold on <span style="color: #000000;">'. convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) .'</span></p>';
-        }
-        echo ' 
+        </script>
+      
         </body>
-        </html>';
+        </html>
+      
+        "
+        ;
       }
-  } else {
-    echo $newContent;
-    echo ' 
-    </body>
-    </html>';
+    }
   }
-} elseif ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['end'])) {
-  echo $content;
-}
+
 ?>
