@@ -418,42 +418,32 @@ $newContent = '
         echo '<script src="js/script.js"></script>';
         echo '
         <script>
-          var player;
+        var player;
 
-          // Create a YouTube player
-          function onYouTubeIframeAPIReady() {
-            player = new YT.Player("player", {
-              height: "360",
-              width: "640",
-              videoId: "'. $videoURL .'", // Replace with your actual video ID
-              playerVars: {
-                "autoplay": 1,        // Do not autoplay initially
-                "controls": 0,        // Hide video controls
-                "showinfo": 0,        // Hide video information
-                "rel": 0,             // Do not show related videos
-                "modestbranding": 1,  // Remove YouTube logo
-                "playsinline": 1,     // Play the video inline on mobile devices
-                "disablekb": 1        // Disable keyboard controls, including "Watch later" and "Share"
-              },
-              
-            });
+// Create a YouTube player
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player("player", {
+    height: "360",
+    width: "640",
+    videoId: "H69g7NB8EeQ", // Replace with your actual video ID
+    playerVars: {
+      "autoplay": 0,        // Do not autoplay initially
+      "controls": 0,        // Hide video controls
+      "showinfo": 0,        // Hide video information
+      "rel": 0,             // Do not show related videos
+      "modestbranding": 1,  // Remove YouTube logo
+      "playsinline": 1,     // Play the video inline on mobile devices
+      "disablekb": 1        // Disable keyboard controls, including "Watch later" and "Share"
+    }
+  });
 
-            // Add click event listener to the play button
-            var playButton = document.getElementById("play-button");
-            playButton.addEventListener("click", function() {
-              player.playVideo();
-            });
+  // Add click event listener to the play button
+  var playButton = document.getElementById("play-button");
+  playButton.addEventListener("click", function() {
+    player.playVideo();
+  });
+}
 
-            // The API will call this function when the video player is ready.
-            function onPlayerReady(event) {
-              const videoElement = event.target.getIframe();
-              console.log("Video Element:", videoElement);
-            }
-            
-            function onPlayerStateChange(event) {
-        
-            }
-          } 
         </script>
         ';
         echo '
