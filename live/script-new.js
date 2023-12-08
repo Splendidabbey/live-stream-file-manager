@@ -58,7 +58,6 @@ registrationSubmitBtn.addEventListener("click", function(event) {
         .then(response => {
           if (response.ok) {
             alert("Registration successful!");
-
             // API call successful, proceed with the following steps
             localStorage.setItem('hasWatchedVideo', true);
             registrationForm.style.display = "none";
