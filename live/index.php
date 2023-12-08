@@ -18,6 +18,7 @@ echo'
   <link rel="stylesheet" href="./style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome CDN link -->
 </head>
 <body>';
 
@@ -410,9 +411,10 @@ if (!empty($queryResult)) {
      </div>
    </div>
    <div class="app-main">
-     <div class="video-call-wrapper">
-       <div id="player"></div>
-      </div>
+   <div class="video-call-wrapper">
+      <button id="play-button" class="play-button"><i class="fas fa-play"></i></button>
+      <div id="player"></div>
+    </div>
      <div class="video-call-actions ">
        <button class="video-action-button mic"></button>
        <button class="video-action-button camera"></button>
