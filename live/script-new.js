@@ -2,6 +2,9 @@ const commentList = document.getElementById("comments-list");
 const commentInput = document.getElementById("comment-input");
 const commentButton = document.getElementById("comment-button");
 const joinButton = document.getElementById("join-button");
+const mainContent = document.getElementById("app-container");
+const registrationForm = document.getElementById("registration-form");
+const registrationSubmitBtn = document.getElementById("register-submit");
 const viewerCount = document.getElementById("viewer-count");
 const maxComments = 5; // Maximum number of displayed comments
 const estimatedViewers = 1000;
@@ -19,6 +22,55 @@ function startVideo() {
   joinButton.disabled = true;
   setInterval(updateViewerCount, 5000); // Update every 5 seconds
 }
+
+registrationSubmitBtn.addEventListener("click", function(event) {
+  event.preventDefault();
+  registrationForm.setAttribute("hidden", true);
+  console.log(registrationForm);
+  mainContent.removeAttribute("hidden");
+  const firstName = document.getElementById("first-name").value;
+  const lastName = document.getElementById("last-name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const country = document.getElementById("country").value;
+  const state = document.getElementById("state").value;
+  const city = document.getElementById("city").value;
+  const address = document.getElementById("address").value;
+  const zip = document.getElementById("zip").value;
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirm-password").value;
+  const terms = document.getElementById("terms").checked;
+
+  if (firstName === "") {
+    alert("Please enter your first name.");
+  } else if (lastName === "") {
+    alert("Please enter your last name.");
+  } else if (email === "") {
+    alert("Please enter your email address.");
+  } else if (phone === "") {
+    alert("Please enter your phone number.");
+  } else if (country === "") {
+    alert("Please select your country.");
+  } else if (state === "") {
+    alert("Please select your state.");
+  } else if (city === "") {
+    alert("Please enter your city.");
+  } else if (address === "") {
+    alert("Please enter your address.");
+  } else if (zip === "") {
+    alert("Please enter your zip code.");
+  } else if (password === "") {
+    alert("Please enter your password.");
+  } else if (confirmPassword === "") {
+    alert("Please confirm your password.");
+  } else if (password !== confirmPassword) {
+    alert("Your passwords don't match.");
+  } else if (!terms) {
+    alert("Please agree to the terms and conditions.");
+  } else {
+    alert("Registration successful!");
+  }
+});
 
 commentButton.addEventListener("click", function() {
   if(joinButton.disabled !== false) {
