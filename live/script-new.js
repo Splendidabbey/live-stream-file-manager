@@ -1,13 +1,24 @@
 const commentList = document.getElementById("comments-list");
 const commentInput = document.getElementById("comment-input");
 const commentButton = document.getElementById("comment-button");
+const joinButton = document.getElementById("join-button");
 const viewerCount = document.getElementById("viewer-count");
 const maxComments = 5; // Maximum number of displayed comments
 const estimatedViewers = 1000;
 guestRandomNumber = Math.floor(Math.random() * (estimatedViewers - 99 + 1)) + 99; 
 let commentCount = 0;
 
+updateViewerCount(); // Initial update
 setInterval(addRandomComment, 3000);
+
+joinButton.addEventListener("click", startVideo);
+
+function startVideo() {
+  // video.play();
+  // playButton.style.display = "none";
+  joinButton.disabled = true;
+  setInterval(updateViewerCount, 5000); // Update every 5 seconds
+}
 
 commentButton.addEventListener("click", function() {
   if(joinButton.disabled !== false) {
@@ -20,6 +31,14 @@ commentButton.addEventListener("click", function() {
     alert("You've to join first!");
   }
 });
+
+function updateViewerCount() {
+  const userSuppliedNumber = estimatedViewers; // Example user-supplied number
+  const lowerRange = Math.floor(userSuppliedNumber * 0.9); // 90% of user-supplied number
+  const upperRange = Math.ceil(userSuppliedNumber * 1.2); // 120% of user-supplied number
+  const randomViewers = Math.floor(Math.random() * (upperRange - lowerRange + 1)) + lowerRange;
+  viewerCount.textContent = randomViewers;
+}
 
 function addComment(text) {
   const profilePics = [
@@ -35,16 +54,17 @@ function addComment(text) {
   const randomProfilePic = profilePics[Math.floor(Math.random() * profilePics.length)];
   const randomName = names[Math.floor(Math.random() * names.length)];
 
-  const commentItem = document.createElement("li");
-  commentItem.className = "comment-item";
+  const commentItem = document.createElement("div");
+  commentItem.className = "message-wrapper";
   commentItem.innerHTML = `
-    <div class="comment-avatar">
-      <img src="img/${randomProfilePic}" alt="${randomName}'s profile picture">
-    </div>
-    <div class="comment-content">
-      <p class="comment-name">${randomName}</p>
-      <p class="comment-text">${text}</p>
-    </div>
+  <div class="profile-picture">
+    <img src="img/${randomProfilePic}" alt="pp${randomName}'s profile picture">
+  </div>
+
+  <div class="message-content">
+    <p class="name">${randomName}</p>
+    <div class="message">${text}</div>
+  </div>
   `;
 
   commentList.appendChild(commentItem);
