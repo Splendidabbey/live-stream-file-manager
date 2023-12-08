@@ -40,54 +40,54 @@ setInterval(addRandomComment, 3000); // Add random comment every 3 second
 
 // const hasWatchedVideo = localStorage.getItem('hasWatchedVideo')
 
-// if(hasWatchedVideo) {
-//   registrationForm.style.display = "none";
-//   videoContainer.style.display = "block";
-// } else {
-//   registrationForm.addEventListener("submit", async function (event) {
-//     event.preventDefault();
-//     // Make an API request before showing the video
-//     try {
+if(hasWatchedVideo) {
+  registrationForm.style.display = "none";
+  videoContainer.style.display = "block";
+} else {
+  registrationForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    // Make an API request before showing the video
+    try {
       
-//       await fetch('https://avalmails.afobe.net/api/email-contacts/store-api', {
-//         method: 'POST', // Adjust the HTTP method as needed
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           "owner_id": 55,
-//           "name": document.getElementById("name").value,
-//           "email": document.getElementById("email").value,
-//           "country_code": document.getElementById("countryCode").value,
-//           "phone": document.getElementById("phoneNumber").value,
-//           "tags": "one_webinar"
-//         }),    
-//       })
-//       .then(response => {
-//         if (response.ok) {
-//           // API call successful, proceed with the following steps
-//           localStorage.setItem('hasWatchedVideo', true);
-//           registrationForm.style.display = "none";
-//           videoContainer.style.display = "block";
-//           startVideo();
-//         } else if (response.status === 422) {
-//           // API returns a specific error status (422 in this case)
-//           return response.json()
-//           .then(errorData => {
-//             // Log the error message received from the API
-//             console.error('API error:', errorData.error);
-//             return Promise.reject('API error'); // Return a rejected Promise
-//           });
-//         } else {
-//           // Handle API error here, e.g., show an error message
-//           console.error('API request failed');
-//         }
-//       })
-//     } catch (error) {
-//       console.error('Network error:', error);
-//     }
-//   });
-// }
+      await fetch('https://avalmails.afobe.net/api/email-contacts/store-api', {
+        method: 'POST', // Adjust the HTTP method as needed
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "owner_id": 55,
+          "name": document.getElementById("name").value,
+          "email": document.getElementById("email").value,
+          "country_code": document.getElementById("countryCode").value,
+          "phone": document.getElementById("phoneNumber").value,
+          "tags": "one_webinar"
+        }),    
+      })
+      .then(response => {
+        if (response.ok) {
+          // API call successful, proceed with the following steps
+          localStorage.setItem('hasWatchedVideo', true);
+          registrationForm.style.display = "none";
+          videoContainer.style.display = "block";
+          startVideo();
+        } else if (response.status === 422) {
+          // API returns a specific error status (422 in this case)
+          return response.json()
+          .then(errorData => {
+            // Log the error message received from the API
+            console.error('API error:', errorData.error);
+            return Promise.reject('API error'); // Return a rejected Promise
+          });
+        } else {
+          // Handle API error here, e.g., show an error message
+          console.error('API request failed');
+        }
+      })
+    } catch (error) {
+      console.error('Network error:', error);
+    }
+  });
+}
 
 // playButton.addEventListener("click", startVideo);
 // joinButton.addEventListener("click", startVideo);

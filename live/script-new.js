@@ -28,47 +28,59 @@ registrationSubmitBtn.addEventListener("click", function(event) {
   registrationForm.setAttribute("hidden", true);
   console.log(registrationForm);
   mainContent.removeAttribute("hidden");
-  const firstName = document.getElementById("first-name").value;
-  const lastName = document.getElementById("last-name").value;
+  const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
-  const phone = document.getElementById("phone").value;
-  const country = document.getElementById("country").value;
-  const state = document.getElementById("state").value;
-  const city = document.getElementById("city").value;
-  const address = document.getElementById("address").value;
-  const zip = document.getElementById("zip").value;
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("confirm-password").value;
-  const terms = document.getElementById("terms").checked;
+  const phone = document.getElementById("phoneNumber").value;
+  const country = document.getElementById("countryCode").value;
 
-  if (firstName === "") {
+  if (name === "") {
     alert("Please enter your first name.");
-  } else if (lastName === "") {
-    alert("Please enter your last name.");
-  } else if (email === "") {
-    alert("Please enter your email address.");
-  } else if (phone === "") {
-    alert("Please enter your phone number.");
-  } else if (country === "") {
-    alert("Please select your country.");
-  } else if (state === "") {
-    alert("Please select your state.");
-  } else if (city === "") {
-    alert("Please enter your city.");
-  } else if (address === "") {
-    alert("Please enter your address.");
-  } else if (zip === "") {
-    alert("Please enter your zip code.");
-  } else if (password === "") {
-    alert("Please enter your password.");
-  } else if (confirmPassword === "") {
-    alert("Please confirm your password.");
-  } else if (password !== confirmPassword) {
-    alert("Your passwords don't match.");
-  } else if (!terms) {
-    alert("Please agree to the terms and conditions.");
   } else {
-    alert("Registration successful!");
+    registrationForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      // Make an API request before showing the video
+      try {
+        
+        await fetch('https://avalmails.afobe.net/api/email-contacts/store-api', {
+          method: 'POST', // Adjust the HTTP method as needed
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "owner_id": 55,
+            "name": document.getElementById("name").value,
+            "email": document.getElementById("email").value,
+            "country_code": document.getElementById("countryCode").value,
+            "phone": document.getElementById("phoneNumber").value,
+            "tags": "one_webinar"
+          }),    
+        })
+        .then(response => {
+          if (response.ok) {
+            alert("Registration successful!");
+
+            // API call successful, proceed with the following steps
+            localStorage.setItem('hasWatchedVideo', true);
+            registrationForm.style.display = "none";
+            videoContainer.style.display = "block";
+            startVideo();
+          } else if (response.status === 422) {
+            // API returns a specific error status (422 in this case)
+            return response.json()
+            .then(errorData => {
+              // Log the error message received from the API
+              console.error('API error:', errorData.error);
+              return Promise.reject('API error'); // Return a rejected Promise
+            });
+          } else {
+            // Handle API error here, e.g., show an error message
+            console.error('API request failed');
+          }
+        })
+      } catch (error) {
+        console.error('Network error:', error);
+      }
+    });
   }
 });
 
