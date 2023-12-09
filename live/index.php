@@ -508,7 +508,7 @@ if (!empty($queryResult)) {
       player = new YT.Player("player", {
         height: "100%",
         width: "100%",
-        videoId: "H69g7NB8EeQ", // Replace with your actual video ID
+        videoId: "'. $videoURL .'", // Replace with your actual video ID
         playerVars: {
           "autoplay": 1,        // Do not autoplay initially
           "controls": 0,        // Hide video controls
