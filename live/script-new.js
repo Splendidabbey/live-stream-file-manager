@@ -303,5 +303,46 @@ function addRandomComment() {
   `;
 
   commentList.appendChild(commentItem);
-  // viewerCount.textContent = parseInt(viewerCount.textContent) + 1; // Increase viewer count
+  viewerCount.textContent = parseInt(viewerCount.textContent) + 1; // Increase viewer count
+
+  const contentDivs = document.getElementById('scrolling-container');
+
+  const contentDiv = document.createElement("div");
+  contentDiv.className = "scrolling-content";
+
+  contentDiv.innerHTML = `
+    <img src="img/${randomProfilePic}" alt="${randomName}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+    <strong>${randomName}</strong>: ${randomComment}
+  `;
+
+  // contentDiv.style.animationDelay = `${commentCount * 2}s`;
+  contentDivs.appendChild(contentDiv);
+
+  if(commentCount > 2) {
+    contentDivs.removeChild(contentDivs.firstElementChild);
+  }
+ }
+
+
+// Sample data (replace with your actual data)
+const peopleData = [
+  { name: "John Doe", profileImage: "profile1.jpg", comment: "Lorem ipsum dolor sit amet." },
+  { name: "Jane Smith", profileImage: "profile2.jpg", comment: "Consectetur adipiscing elit." },
+  // Add more data objects as needed
+];
+
+// Function to populate content in scrolling divs
+function populateContent() {
+  const contentDivs = document.querySelectorAll('.scrolling-content');
+
+  peopleData.forEach((person, index) => {
+      const contentDiv = contentDivs[index];
+      contentDiv.innerHTML = `
+          <img src="${person.profileImage}" alt="${person.name}" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+          <strong>${person.name}</strong>: ${person.comment}
+      `;
+  });
 }
+
+// Call the function to populate initial content
+// populateContent();
