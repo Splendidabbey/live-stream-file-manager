@@ -415,7 +415,7 @@ if (!empty($queryResult)) {
      </div>
    </div>
    <div class="app-main">
-   <div class="d-none" id="notification">Registration Successful! Enjoy the video!</div>
+   <div class="d-none" id="notification">Thanks for watching, click here</div>
    <div class="video-call-wrapper">
       <button id="play-button" class="play-button d-none"><i class="fas fa-play"></i></button>
       <div id="player"></div>
@@ -549,8 +549,24 @@ if (!empty($queryResult)) {
       }
       
       function onPlayerStateChange(event) {
-        // You can do something when the player state changes if needed.
+        if (event.data == YT.PlayerState.PLAYING) {
+          // Set an interval to check the video progress
+          const progressCheckInterval = setInterval(function () {
+            const currentTime = player.getCurrentTime();
+            const duration = player.getDuration();
+            const progress = (currentTime / duration) * 100;
+      
+            if (progress >= 99) {
+              // Remove the "d-none" class from the notification div
+              $("#notification").removeClass("d-none");
+      
+              // Clear the interval to stop checking the progress
+              clearInterval(progressCheckInterval);
+            }
+          }, 1000); // Check every second
+        }
       }
+      
     } 
   </script>
 </body>
