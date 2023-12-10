@@ -12,4 +12,7 @@ $(document).ready(function(){
     $(".right-side").addClass("show");
     $(this).removeClass("show");
   });
+
+  // Disable pointer events for the #player div
+  $("#player").css("pointer-events", "none");
 });

@@ -566,8 +566,8 @@ a {
 
   /* Style for the play button */
   .play-button {
-    width: 80vw;
-    height: 70vh;
+    width: 70vw;
+    height: 60vh;
     /* position: absolute; */
     top: 50%;
     left: 40%;
@@ -746,8 +746,8 @@ h1 {
 
 /* Style for the play button */
 .play-button {
-  width: 60vw;
-  height: 80vh;
+  width: 100vw;
+  height: 85vh;
   position: absolute;
   top: 50%;
   left: 40%;
@@ -800,4 +800,33 @@ body {
   100% {
       transform: translateX(-100%);
   }
+}
+
+
+  /* Add your styles for the notification here */
+  #notification {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    top: 15;
+    left: 40%;
+    transform: translateX(-50%);
+    /* display: none; */
+    z-index: 1000;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 8px;
+    animation: slideInDown 0.5s ease-in-out;
+}
+
+/* Animation keyframes */
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }

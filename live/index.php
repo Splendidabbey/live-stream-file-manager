@@ -415,8 +415,9 @@ if (!empty($queryResult)) {
      </div>
    </div>
    <div class="app-main">
+   <div class="d-none" id="notification">Registration Successful! Enjoy the video!</div>
    <div class="video-call-wrapper">
-      <button id="play-button" class="play-button"><i class="fas fa-play"></i></button>
+      <button id="play-button" class="play-button d-none"><i class="fas fa-play"></i></button>
       <div id="player"></div>
     </div>
      <div class="video-call-actions ">
