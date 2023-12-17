@@ -259,7 +259,7 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                 <div class="modal-header">
                     <h5 class="modal-title" id="liveURLModalLabel">Live URL</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -269,6 +269,7 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
             </div>
         </div>
     </div>
+
 
     <script>
         function showLiveURLModal(url) {
