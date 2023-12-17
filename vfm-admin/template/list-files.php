@@ -243,9 +243,9 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                         <td>
                             <?php
                                 if(isLiveOn($liveOn, $userTimezone) == true) {
-                                    echo '<button class="btn btn-success" onclick="showLiveURLModal(\'' . $pageURL . 'live/?id=' . $row['id'] . '\')">Show Live URL</button>';
+                                    echo '<button class="btn btn-success" onclick="showLiveURLModal(\'https://live.onewebinar.net/live/?id=' . $row['id'] . '\')">Show Live URL</button>';
                                 }   else {
-                                    echo '<button class="btn btn-danger" onclick="showLiveURLModal(\'' . $pageURL . 'live/?id=' . $row['id'] . '\')">Show Live URL</button>';
+                                    echo '<button class="btn btn-danger" onclick="showLiveURLModal(\'https://live.onewebinar.net/live/?id=' . $row['id'] . '\')">Show Live URL</button>';
                                 }
                             ?>
                         </td>
