@@ -12,6 +12,8 @@
  * @license   Exclusively sold on CodeCanyon
  * @link      http://filemanager.veno.it/
  */
+require_once(__DIR__ . '/../../live/includes/conndb.php');
+require_once(__DIR__ . '/../../live/includes/function.php');
 if (!defined('VFM_APP')) {
     return;
 }
