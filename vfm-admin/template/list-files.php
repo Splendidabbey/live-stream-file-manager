@@ -193,31 +193,107 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
         cursor: pointer;
         }
     </style>
+
+    <?php
+    // Assuming you have a database connection file included (e.g., conndb.php)
+
+    // Include the database connection file
+    require_once(__DIR__ . '/../../live/includes/conndb.php');
+
+    // Check if the delete form is submitted
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+        $deleteId = $_POST['delete_id'];
+        $deleteQuery = "DELETE FROM scheduled_videos WHERE id = $deleteId";
+        mysqli_query($mysqli, $deleteQuery);
+    }
+
+    // Query to fetch video information from the database
+    $query = "SELECT * FROM scheduled_videos";
+    $result = mysqli_query($mysqli, $query);
+
+    ?>
+
     <section class="tableblock ghost bg-light-lighter p-3 shadow-sm">
         <h1 style="color: black;">Videos</h1>
         <table>
             <thead>
-            <tr>
-                <th>File Name</th>
-                <th>Live URL</th>
-                <th>Schedule Live</th>
-            </tr>
+                <tr>
+                    <th>File Name</th>
+                    <th>Live URL</th>
+                    <th>Schedule Live</th>
+                    <th>Delete</th> <!-- New column for delete icon -->
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>example_file1.mp4</td>
-                <td><a href="http://example.com/live1" class="button" target="_blank">Watch Live</a></td>
-                <td><button class="button" onclick="scheduleLive('2023-01-01 12:00 PM')">Schedule</button></td>
-            </tr>
-            <tr>
-                <td>example_file2.mp4</td>
-                <td><a href="http://example.com/live2" class="button" target="_blank">Watch Live</a></td>
-                <td><button class="button" onclick="scheduleLive('2023-01-02 02:30 PM')">Schedule</button></td>
-            </tr>
-            <!-- Add more rows as needed -->
+                <?php
+                // Loop through the database results and generate table rows
+                while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                    <tr>
+                        <td><?php echo $row['videoName']; ?></td>
+                        <td>
+                            <button class="button" onclick="showLiveURLModal('<?php echo $row['videoURL']; ?>')">Show Live URL</button>
+                        </td>
+                        <td><button class="button" onclick="scheduleLive('<?php echo $row['scheduledAt']; ?>')">Schedule</button></td>
+                        <td>
+                            <form method="post" onsubmit="return confirm('Are you sure you want to delete this video?');">
+                                <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
+                                <button type="submit" class="button" style="background-color: #dc3545; border-color: #dc3545;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
+
+                <!-- Add more rows as needed -->
+
             </tbody>
         </table>
     </section>
+
+    <!-- Modal for displaying live URL -->
+    <div class="modal fade" id="liveURLModal" tabindex="-1" role="dialog" aria-labelledby="liveURLModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="liveURLModalLabel">Live URL</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="liveURLInput" readonly>
+                    <button class="button" onclick="copyToClipboard('liveURLInput')">Copy URL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showLiveURLModal(url) {
+            // Set the live URL in the modal input
+            document.getElementById('liveURLInput').value = url;
+            // Show the modal
+            $('#liveURLModal').modal('show');
+        }
+
+        function copyToClipboard(elementId) {
+            var inputElement = document.getElementById(elementId);
+            inputElement.select();
+            document.execCommand('copy');
+            // You can provide user feedback here, e.g., alert('URL copied to clipboard!');
+        }
+    </script>
+
+    <?php
+    // Close the database connection
+    mysqli_close($mysqli);
+    ?>
+
+
+
+
     <div class="position-absolute w-100 h-100 start-0 top-0 d-flex align-items-center justify-content-center overload">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
