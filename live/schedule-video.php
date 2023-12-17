@@ -165,10 +165,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     <h3>Upload Your videos</h3>
     <h4>fill in all necessary fields</h4>
     <fieldset>
-      <input name="videoName" placeholder="video name" type="text" tabindex="1" required autofocus>
+      <input name="videoName" placeholder="video name" type="text" required>
     </fieldset>
     <fieldset>
-      <input name="url" placeholder="video url" type="tel" tabindex="3" required>
+      <input name="url" placeholder="video url" type="text" required>
     </fieldset>
     <fieldset>
       <h2>Select Live date and time</h2>
