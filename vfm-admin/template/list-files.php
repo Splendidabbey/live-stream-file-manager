@@ -29,7 +29,7 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
             $switchclass = 'list';
         } ?>
     <div class="vfmblock col-12 mb-3">
-    <section class="tableblock ghost ghost-hidden bg-light-lighter p-3 shadow-sm">
+    <section hidden class="tableblock ghost ghost-hidden bg-light-lighter p-3 shadow-sm">
         <div class="action-group d-flex flex-wrap mb-3">
         <?php
 
@@ -162,6 +162,60 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
         </form>
     </section>
 
+    <style>
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        }
+
+        th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        }
+
+        th {
+        background-color: #f2f2f2;
+        }
+
+        .button {
+        display: inline-block;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        background-color: #4caf50;
+        color: white;
+        border: 1px solid #4caf50;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+    </style>
+    <section class="tableblock ghost bg-light-lighter p-3 shadow-sm">
+        <h1 style="color: black;">Videos</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Live URL</th>
+                <th>Schedule Live</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>example_file1.mp4</td>
+                <td><a href="http://example.com/live1" class="button" target="_blank">Watch Live</a></td>
+                <td><button class="button" onclick="scheduleLive('2023-01-01 12:00 PM')">Schedule</button></td>
+            </tr>
+            <tr>
+                <td>example_file2.mp4</td>
+                <td><a href="http://example.com/live2" class="button" target="_blank">Watch Live</a></td>
+                <td><button class="button" onclick="scheduleLive('2023-01-02 02:30 PM')">Schedule</button></td>
+            </tr>
+            <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+    </section>
     <div class="position-absolute w-100 h-100 start-0 top-0 d-flex align-items-center justify-content-center overload">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
