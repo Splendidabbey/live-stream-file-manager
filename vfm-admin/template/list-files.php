@@ -250,7 +250,7 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                             ?>
                         </td>
                         <td>
-                            <a href='<?php echo $pageURL.'live/schedule-video.php?id='.$row['id']; ?>'>
+                            <a href='<?php echo 'https://live.onewebinar.net/live/schedule-video.php?id='.$row['id']; ?>'>
                                 <button class="button">Edit</button>
                             </a>
                         </td>
