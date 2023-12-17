@@ -217,9 +217,9 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
 
     <section class="tableblock ghost bg-light-lighter p-3 shadow-sm">
         <div class="d-flex align-items-center justify-content-between">
-            <h1 style="color: black;">Videos</h1>
+            <h1 style="color: black;">Events</h1>
             <a href="live/schedule-video.php">
-                <button class="btn btn-sm btn-primary rounded">Add videos</button>
+                <button class="btn btn-sm btn-primary rounded">Add Events</button>
             </a>
         </div>
         <table>
