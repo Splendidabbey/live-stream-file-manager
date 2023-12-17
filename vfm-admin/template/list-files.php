@@ -210,17 +210,24 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
     // Query to fetch video information from the database
     $query = "SELECT * FROM scheduled_videos";
     $result = mysqli_query($mysqli, $query);
+    // Get the base URL of the current page
+    $pageURL = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
     ?>
 
     <section class="tableblock ghost bg-light-lighter p-3 shadow-sm">
-        <h1 style="color: black;">Videos</h1>
+        <div class="d-flex align-items-center justify-content-between">
+            <h1 style="color: black;">Videos</h1>
+            <a href="live/schedule-video.php">
+                <button class="btn btn-sm btn-primary rounded">Add videos</button>
+            </a>
+        </div>
         <table>
             <thead>
                 <tr>
-                    <th>File Name</th>
+                    <th>Event Name</th>
                     <th>Live URL</th>
-                    <th>Schedule Live</th>
+                    <th>Edit</th>
                     <th>Delete</th> <!-- New column for delete icon -->
                 </tr>
             </thead>
@@ -232,13 +239,15 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                     <tr>
                         <td><?php echo $row['videoName']; ?></td>
                         <td>
-                            <button class="button" onclick="showLiveURLModal('<?php echo $row['videoURL']; ?>')">Show Live URL</button>
+                            <button class="button" onclick="showLiveURLModal('<?php echo $pageURL.'live/?id='.$row['id']; ?>')">Show Live URL</button>
                         </td>
-                        <td><button class="button" onclick="scheduleLive('<?php echo $row['scheduledAt']; ?>')">Schedule</button></td>
+                        <td><button class="button" onclick="scheduleLive('<?php echo $row['scheduledAt']; ?>')">Edit</button></td>
                         <td>
                             <form method="post" onsubmit="return confirm('Are you sure you want to delete this video?');">
                                 <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
-                                <button type="submit" class="button" style="background-color: #dc3545; border-color: #dc3545;">Delete</button>
+                                <button type="submit" class="button" style="background-color: #dc3545; border-color: #dc3545;">
+                                    <i style="color:#ffffff" class="bi bi-trash"></i>
+                                </button>
                             </form>
                         </td>
                     </tr>
