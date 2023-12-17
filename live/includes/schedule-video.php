@@ -70,6 +70,6 @@ echo '<script type="text/javascript">
 // Delay the redirection after the alert is closed
 echo '<script type="text/javascript">
     setTimeout(function() {
-        window.location.href = "' . $_SERVER['HTTP_REFERER'] . '";
+        window.history.go(-2);
     }, 1000); // Delay in milliseconds (1 second in this example)
 </script>';

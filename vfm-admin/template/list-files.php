@@ -241,7 +241,11 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                         <td>
                             <button class="button" onclick="showLiveURLModal('<?php echo $pageURL.'live/?id='.$row['id']; ?>')">Show Live URL</button>
                         </td>
-                        <td><button class="button" onclick="scheduleLive('<?php echo $row['scheduledAt']; ?>')">Edit</button></td>
+                        <td>
+                            <a href='<?php echo $pageURL.'live/schedule-video.php?id='.$row['id']; ?>'>
+                                <button class="button">Edit</button>
+                            </a>
+                        </td>
                         <td>
                             <form method="post" onsubmit="return confirm('Are you sure you want to delete this video?');">
                                 <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">

@@ -1,25 +1,6 @@
 <?
 require_once('includes/conndb.php');
 require_once('includes/function.php');
-
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-  $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-
-  $videoName = $_GET['video_name'] ? $_GET['video_name'] : "";
-  $url = $_GET['url'] ? $_GET['url'] : "";
-  // Get the user's timezone using JavaScript and add it as a GET parameter
-  echo '<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const userTimezone = urlParams.get("userTimezone");
-
-  if (!userTimezone) {
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const newUrl = window.location.href + (window.location.search ? "&" : "?") + "userTimezone=" + encodeURIComponent(timezone);
-    window.location.href = newUrl;
-  }
-</script>
-';
-}
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -154,6 +135,27 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         document.getElementById("userTimezone").value = timezone;
     }
   </script>
+  <?php
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+  $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+
+  // $videoName = $_GET['video_name'] ? $_GET['video_name'] : "";
+  // $url = $_GET['url'] ? $_GET['url'] : "";
+  // Get the user's timezone using JavaScript and add it as a GET parameter
+  echo '<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const userTimezone = urlParams.get("userTimezone");
+
+  if (!userTimezone) {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const newUrl = window.location.href + (window.location.search ? "&" : "?") + "userTimezone=" + encodeURIComponent(timezone);
+    window.location.href = newUrl;
+  }
+</script>
+';
+}
+  ?>
   <script>
     document.addEventListener("contextmenu", event => event.preventDefault());
   </script>
