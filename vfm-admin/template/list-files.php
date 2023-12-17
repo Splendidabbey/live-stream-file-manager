@@ -235,11 +235,19 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                 <?php
                 // Loop through the database results and generate table rows
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $liveOn = $row['liveOn'];
+                    $userTimezone = $row['userTimezone'];
                 ?>
                     <tr>
                         <td><?php echo $row['videoName']; ?></td>
                         <td>
-                            <button class="button" onclick="showLiveURLModal('<?php echo $pageURL.'live/?id='.$row['id']; ?>')">Show Live URL</button>
+                            <?php
+                                if(isLiveOn($liveOn, $userTimezone) == true) {
+                                    echo '<button class="btn btn-success" onclick="showLiveURLModal(\'' . $pageURL . 'live/?id=' . $row['id'] . '\')">Show Live URL</button>';
+                                }   else {
+                                    echo '<button class="btn btn-danger" onclick="showLiveURLModal(\'' . $pageURL . 'live/?id=' . $row['id'] . '\')">Show Live URL</button>';
+                                }
+                            ?>
                         </td>
                         <td>
                             <a href='<?php echo $pageURL.'live/schedule-video.php?id='.$row['id']; ?>'>

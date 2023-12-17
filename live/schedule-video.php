@@ -1,7 +1,3 @@
-<?
-require_once('includes/conndb.php');
-require_once('includes/function.php');
-?>
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -136,11 +132,13 @@ require_once('includes/function.php');
     }
   </script>
   <?php
+  require_once('includes/conndb.php');
+  require_once('includes/function.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
   $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
 
-  // $videoName = $_GET['video_name'] ? $_GET['video_name'] : "";
+  $id = $_GET['id'] ? $_GET['id'] : "";
   // $url = $_GET['url'] ? $_GET['url'] : "";
   // Get the user's timezone using JavaScript and add it as a GET parameter
   echo '<script>
@@ -154,6 +152,26 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   }
 </script>
 ';
+
+$queryResult = queryVideoById($mysqli, $id);
+
+$viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
+
+if (!empty($queryResult)) {
+    // Process the query result, e.g., display it or perform actions
+    foreach ($queryResult as $row) {
+        // Access table columns using $row['column_name']
+        $videoName = $row['videoName'];
+        $liveOn = $row['liveOn'];
+        $scheduledAt = $row['scheduledAt'];
+        $userTimezone = $row['userTimezone'];
+        $videoURL = $row['videoURL'];
+        $shortCTA = $row['shortCTA'];
+        $longCTA = $row['longCTA'];
+    }
+} else {
+    http_response_code(404);
+}
 }
   ?>
   <script>
@@ -167,22 +185,28 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     <h3>Upload Your videos</h3>
     <h4>fill in all necessary fields</h4>
     <fieldset>
-      <input name="videoName" placeholder="video name" type="text" required>
+      <input name="videoName" placeholder="video name" value="<?php echo $videoName; ?>" type="text" required>
     </fieldset>
     <fieldset>
-      <input name="url" placeholder="video url" type="text" required>
+      <input name="url" placeholder="video url" value="<?php echo $videoURL; ?>" type="text" required>
     </fieldset>
     <fieldset>
+      <?php
+      if(hasBeenScheduled($mysqli, $videoName)) {
+        echo '
+            <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"' . $videoName . '"</em> has been scheduled to start ' . convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) . '. You can update it below.</h1>';
+      }
+      ?>
       <h2>Select Live date and time</h2>
       <input name="liveOn" type="datetime-local" name="liveOn" required>
     </fieldset>
     <input type="hidden" name="userTimezone" id="userTimezone" value="">
     <fieldset>
-      <textarea placeholder="Type in short CTA Here...." tabindex="5"></textarea>
+      <textarea placeholder="Type in short CTA Here...." tabindex="5"><?php echo $shortCTA; ?></textarea>
     </fieldset>
 
     <fieldset>
-      <textarea placeholder="Type in long CTA Here...." tabindex="5" rows="8"></textarea>
+      <textarea placeholder="Type in long CTA Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
     </fieldset>
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending" value="Schedule/Update" onclick="captureTimezone()">Submit</button>
