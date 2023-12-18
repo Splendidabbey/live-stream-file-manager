@@ -353,6 +353,8 @@ if (!empty($queryResult)) {
         $scheduledAt = $row['scheduledAt'];
         $userTimezone = $row['userTimezone'];
         $videoURL = $row['videoURL'];
+        $shortCTA = $row['shortCTA'];
+        $longCTA = $row['longCTA'];
     }
     if(isLiveOn($liveOn, $userTimezone) == true) {
       echo $registrationForm;
@@ -415,8 +417,8 @@ if (!empty($queryResult)) {
      </div>
    </div>
    <div class="app-main">
-   <div class="d-none" id="notification">Thanks for watching, click here</div>
-   <div class="video-call-wrapper">
+   <div class="d-none" id="notification">'. $shortCTA.'</div>
+   <div class="video-call-wrapper" id="video-call-wrapper">
       <button id="play-button" class="play-button d-none"><i class="fas fa-play"></i></button>
       <div id="player"></div>
     </div>
@@ -556,10 +558,14 @@ if (!empty($queryResult)) {
             const duration = player.getDuration();
             const progress = (currentTime / duration) * 100;
       
-            if (progress >= 99) {
-              // Remove the "d-none" class from the notification div
+            if (progress >= 85) {
+              // Remove the "d-none" class from the notification div 
               $("#notification").removeClass("d-none");
-      
+            }
+            if (progress >= 100) { //100
+              var newContent = "<div class="info-container" style="text-align: center">'. $longCTA .'</div>";
+              $("#video-call-wrapper").html(newContent);
+
               // Clear the interval to stop checking the progress
               clearInterval(progressCheckInterval);
             }
