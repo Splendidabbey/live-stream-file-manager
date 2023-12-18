@@ -563,7 +563,7 @@ if (!empty($queryResult)) {
               $("#notification").removeClass("d-none");
             }
             if (progress >= 100) { //100
-              var newContent = "<div>'. $longCTA .'</div>";
+              var newContent = `<div>'. $longCTA .'</div>`;
               $("#video-call-wrapper").html(newContent);
 
               // Clear the interval to stop checking the progress
