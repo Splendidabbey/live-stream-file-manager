@@ -26,7 +26,6 @@ function startVideo() {
 registrationSubmitBtn.addEventListener("click", function(event) {
   event.preventDefault();
   registrationForm.setAttribute("hidden", true);
-  console.log(registrationForm);
   mainContent.removeAttribute("hidden");
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
