@@ -8,6 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
     $liveOn = $_POST['liveOn'];
     $userTimezone = $_POST['userTimezone'];
     $videoURL = $_POST['url'];
+    $shortCTA = $_POST['shortCTA'];
+    $longCTA = $_POST['longCTA'];
 
     // Convert the "liveOn" datetime to UTC before storing it in the database
     $userTimezoneObj = new DateTimeZone($userTimezone);
@@ -24,18 +26,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
 
     if ($result->num_rows > 0) {
         // Video already exists, update the liveOn datetime, userTimezone, and videoURL
-        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoURL = ? WHERE videoName = ?";
+        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoURL = ? WHERE videoName = ?, shortCTA = ?, longCTA = ?";
         $stmt = $mysqli->prepare($updateQuery);
-        $stmt->bind_param("ssss", $liveOn, $userTimezone, $videoURL, $videoName);
+        $stmt->bind_param("ssssss", $liveOn, $userTimezone, $videoURL, $videoName, $shortCTA, $longCTA);
         $stmt->execute();
         $stmt->close();
         $message = "Video scheduling updated successfully!";
     } else {
         // Video doesn't exist, insert a new record
         // Insert the user's timezone, converted "liveOn" datetime, and videoURL into the database
-        $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL) VALUES (?, ?, NOW(), ?, ?)";
+        $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL, shortCTA, longCTA) VALUES (?, ?, NOW(), ?, ?, ?, ?)";
         $stmt = $mysqli->prepare($insertQuery);
-        $stmt->bind_param("ssss", $videoName, $liveOn, $userTimezone, $videoURL);
+        $stmt->bind_param("ssssss", $videoName, $liveOn, $userTimezone, $videoURL, $shortCTA, $longCTA);
         $stmt->execute();
         $stmt->close();
         $message = "Video scheduled successfully!";
