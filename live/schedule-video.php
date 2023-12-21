@@ -168,6 +168,7 @@ if (!empty($queryResult)) {
         $videoURL = $row['videoURL'];
         $shortCTA = $row['shortCTA'];
         $longCTA = $row['longCTA'];
+        $id = $row['id'];
     }
 } else {
     http_response_code(404);
@@ -201,6 +202,7 @@ if (!empty($queryResult)) {
       <input name="liveOn" type="datetime-local" name="liveOn" required>
     </fieldset>
     <input type="hidden" name="userTimezone" id="userTimezone" value="">
+    <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
     <fieldset>
       <textarea name="shortCTA" placeholder="Type in short CTA Here...." tabindex="5"><?php echo $shortCTA; ?></textarea>
     </fieldset>

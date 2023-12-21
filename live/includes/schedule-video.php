@@ -1,7 +1,7 @@
 <?php
 require_once('conndb.php');
 // Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Details
     $message = "";
     $videoName = $_POST['videoName'];
@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
     $videoURL = $_POST['url'];
     $shortCTA = $_POST['shortCTA'];
     $longCTA = $_POST['longCTA'];
+    $id =$_POST['id'] ? $_POST['id'] : "";
 
     // Convert the "liveOn" datetime to UTC before storing it in the database
     $userTimezoneObj = new DateTimeZone($userTimezone);
@@ -18,17 +19,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
     $liveOnUTC = $liveOnObj->format('Y-m-d H:i:s');
 
     // Check if the videoName exists
-    $query = "SELECT * FROM scheduled_videos WHERE videoName = ?";
+    $query = "SELECT * FROM scheduled_videos WHERE id = ?";
     $stmt = $mysqli->prepare($query);
-    $stmt->bind_param("s", $videoName);
+    $stmt->bind_param("s", $id);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         // Video already exists, update the liveOn datetime, userTimezone, and videoURL
-        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoURL = ?, shortCTA = ?, longCTA = ? WHERE videoName = ?";
+        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoURL = ?, shortCTA = ?, longCTA = ? WHERE id = ?";
         $stmt = $mysqli->prepare($updateQuery);
-        $stmt->bind_param("ssssss", $liveOnUTC, $userTimezone, $videoURL, $shortCTA, $longCTA, $videoName);
+        $stmt->bind_param("ssssss", $liveOnUTC, $userTimezone, $videoURL, $shortCTA, $longCTA, $id);
         $stmt->execute();
         $stmt->close();
         $message = "Video scheduling updated successfully!";
@@ -44,11 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
     }
 }   else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     $message = "";
-    $videoName = $_POST['videoName'];
+    $id = $_POST['id'];
 
-    $deleteQuery = "DELETE FROM scheduled_videos WHERE videoName = ?";
+    $deleteQuery = "DELETE FROM scheduled_videos WHERE id = ?";
     $stmt = $mysqli->prepare($deleteQuery);
-    $stmt->bind_param("s", $videoName);
+    $stmt->bind_param("s", $id);
     $stmt->execute();
 
     // Check the affected rows before closing the statement
