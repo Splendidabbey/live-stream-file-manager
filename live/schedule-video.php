@@ -199,7 +199,7 @@ if (!empty($queryResult)) {
       }
       ?>
       <h2>Select Live date and time</h2>
-      <input name="liveOn" type="datetime-local" name="liveOn" required>
+      <input name="liveOn" type="datetime-local" name="liveOn">
     </fieldset>
     <input type="hidden" name="userTimezone" id="userTimezone" value="">
     <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
