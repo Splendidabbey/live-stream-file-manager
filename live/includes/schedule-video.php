@@ -26,9 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
 
     if ($result->num_rows > 0) {
         // Video already exists, update the liveOn datetime, userTimezone, and videoURL
-        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoURL = ? WHERE videoName = ?, shortCTA = ?, longCTA = ?";
+        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoURL = ?, shortCTA = ?, longCTA = ? WHERE videoName = ?";
         $stmt = $mysqli->prepare($updateQuery);
-        $stmt->bind_param("ssssss", $liveOn, $userTimezone, $videoURL, $videoName, $shortCTA, $longCTA);
+        $stmt->bind_param("ssssss", $liveOnUTC, $userTimezone, $videoURL, $shortCTA, $longCTA, $videoName);
         $stmt->execute();
         $stmt->close();
         $message = "Video scheduling updated successfully!";
@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['submit'])) {
         $stmt->close();
         $message = "Video scheduled successfully!";
     }
-}   else if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['delete'])) {
+}   else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     $message = "";
     $videoName = $_POST['videoName'];
 

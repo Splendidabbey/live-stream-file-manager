@@ -206,7 +206,7 @@ if (!empty($queryResult)) {
     </fieldset>
 
     <fieldset>
-      <textarea name="lonCTA" placeholder="Type in long CTA Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
+      <textarea name="longCTA" placeholder="Type in long CTA Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
     </fieldset>
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending" value="Schedule/Update" onclick="captureTimezone()">Submit</button>
