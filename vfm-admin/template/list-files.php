@@ -227,7 +227,7 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                 <tr>
                     <th>Event Name</th>
                     <th>Live URL</th>
-                    <th>Edit</th>
+                    <th>Settings</th>
                     <th>Delete</th> <!-- New column for delete icon -->
                 </tr>
             </thead>
@@ -251,7 +251,7 @@ if ($gateKeeper->isAccessAllowed() && $location->editAllowed()) {
                         </td>
                         <td>
                             <a href='<?php echo 'https://live.onewebinar.net/live/schedule-video.php?id='.$row['id']; ?>'>
-                                <button class="button">Edit</button>
+                                <button class="button">Settings</button>
                             </a>
                         </td>
                         <td>
