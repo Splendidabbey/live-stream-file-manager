@@ -226,7 +226,7 @@ if (!empty($queryResult)) {
           <!-- Add more time zones as needed -->
       </select>
     </fieldset>
-    <input type="hidden" name="userTimezone" id="userTimezone" value="">
+    <input type="hidden" name="" id="userTimezone" value="">
     <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
     <script>
       tinymce.init({
