@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         // Video already exists, update the liveOn datetime, userTimezone, and videoURL
         $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoName = ?, videoURL = ?, shortCTA = ?, longCTA = ? WHERE id = ?";
         $stmt = $mysqli->prepare($updateQuery);
-        $stmt->bind_param("sssssss", $liveOnUTC, $userTimezone, $videoName, $videoURL, $shortCTA, $longCTA, $id);
+        $stmt->bind_param("sssssss", $liveOn, $userTimezone, $videoName, $videoURL, $shortCTA, $longCTA, $id);
         $stmt->execute();
         $stmt->close();
         $message = "Video scheduling updated successfully!";

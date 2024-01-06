@@ -205,7 +205,7 @@ if (!empty($queryResult)) {
     </fieldset>
     <fieldset>
       <label for="timezone">Select Time Zone:</label>
-      <select id="timezone" name="userTimezone'">
+      <select id="timezone" name="userTimezone">
           <option value="Africa/Lagos" selected>Africa/Lagos (Default)</option>
           <option value="Asia/Qatar">Asia/Qatar</option>
           <option value="America/New_York">America/New_York</option>
