@@ -124,6 +124,8 @@
     color:#888;
     }
   </style>
+  <!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/hid5n8nqdv933fhssh9hla40p209874s1i36ttd5edr0xn76/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
     // JavaScript to capture the users timezone and add it to the form
     function captureTimezone() {
@@ -179,10 +181,10 @@ if (!empty($queryResult)) {
     document.addEventListener("contextmenu", event => event.preventDefault());
   </script>
 </head>
-<body>
+<body style="overflow: auto;">
 <!-- partial:index.partial.html -->
 <div class="container">  
-  <form id="contact" action="includes/schedule-video.php" method="post">
+  <form id="contact" action="includes/schedule-video.php" method="post" style="overflow-x: auto;">
     <h3>Upload Your videos</h3>
     <h4>fill in all necessary fields</h4>
     <fieldset>
@@ -201,14 +203,65 @@ if (!empty($queryResult)) {
       <h2>Select Live date and time</h2>
       <input name="liveOn" type="datetime-local" name="liveOn">
     </fieldset>
+    <fieldset>
+      <label for="timezone">Select Time Zone:</label>
+      <select id="timezone">
+          <option value="Africa/Lagos" selected>Africa/Lagos (Default)</option>
+          <option value="Asia/Qatar">Asia/Qatar</option>
+          <option value="America/New_York">America/New_York</option>
+          <option value="Europe/London">Europe/London</option>
+          <option value="Asia/Tokyo">Asia/Tokyo</option>
+          <option value="Australia/Sydney">Australia/Sydney</option>
+          <option value="America/Los_Angeles">America/Los_Angeles</option>
+          <option value="Europe/Paris">Europe/Paris</option>
+          <option value="Asia/Dubai">Asia/Dubai</option>
+          <option value="America/Chicago">America/Chicago</option>
+          <option value="Asia/Hong_Kong">Asia/Hong_Kong</option>
+          <option value="Europe/Berlin">Europe/Berlin</option>
+          <option value="America/Toronto">America/Toronto</option>
+          <option value="Asia/Singapore">Asia/Singapore</option>
+          <option value="Pacific/Auckland">Pacific/Auckland</option>
+          <option value="Africa/Johannesburg">Africa/Johannesburg</option>
+          <option value="Asia/Kolkata">Asia/Kolkata</option>
+          <!-- Add more time zones as needed -->
+      </select>
+    </fieldset>
     <input type="hidden" name="userTimezone" id="userTimezone" value="">
     <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
+    <script>
+      tinymce.init({
+        selector: '#shortCTA',
+        plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+          { value: 'First.Name', title: 'First Name' },
+          { value: 'Email', title: 'Email' },
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+      });
+    </script>
     <fieldset>
-      <textarea name="shortCTA" placeholder="Type in short CTA Here...." tabindex="5"><?php echo $shortCTA; ?></textarea>
+      <textarea id="shortCTA" name="shortCTA" placeholder="Type in short CTA Here...." tabindex="5"><?php echo $shortCTA; ?></textarea>
     </fieldset>
 
+    <script>
+      tinymce.init({
+        selector: '#longCta',
+        plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+          { value: 'First.Name', title: 'First Name' },
+          { value: 'Email', title: 'Email' },
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+      });
+    </script>
     <fieldset>
-      <textarea name="longCTA" placeholder="Type in long CTA Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
+      <textarea id="longCta" name="longCTA" placeholder="Type in long CTA Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
     </fieldset>
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending" value="Schedule/Update" onclick="captureTimezone()">Submit</button>
