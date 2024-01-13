@@ -123,6 +123,34 @@
     :-ms-input-placeholder {
     color:#888;
     }
+
+    #copyButton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        #copyButton:hover {
+            background-color: #2980b9;
+        }
+
+        #copyIcon {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        #copyMessage, #copyMessageLong {
+            display: none;
+            color: #27ae60;
+            margin-left: 10px;
+        }
   </style>
   <!-- Place the first <script> tag in your HTML's <head> -->
 <script src="https://cdn.tiny.cloud/1/hid5n8nqdv933fhssh9hla40p209874s1i36ttd5edr0xn76/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
@@ -242,6 +270,14 @@ if (!empty($queryResult)) {
         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
       });
     </script>
+    <div id="copyButton" onclick="copyText()">
+        <svg id="copyIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M9 1V9H1"></path>
+        </svg>
+        Copy Short CTA
+        <span id="copyMessage">Copied!</span>
+    </div>
     <fieldset>
       <textarea id="shortCTA" name="shortCTA" placeholder="Type in short CTA Here...." tabindex="5"><?php echo $shortCTA; ?></textarea>
     </fieldset>
@@ -260,6 +296,14 @@ if (!empty($queryResult)) {
         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
       });
     </script>
+    <div id="copyButton" onclick="copyTextLong()">
+        <svg id="copyIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M9 1V9H1"></path>
+        </svg>
+        Copy Long CTA
+        <span id="copyMessageLong">Copied!</span>
+    </div>
     <fieldset>
       <textarea id="longCta" name="longCTA" placeholder="Type in long CTA Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
     </fieldset>
@@ -271,6 +315,42 @@ if (!empty($queryResult)) {
   
 </div>
 <!-- partial -->
-  
+  <script>
+     function copyText() {
+            const textToCopy = document.getElementById('shortCTA').value; // Replace with your desired text
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                showCopyMessage();
+            }).catch(function(err) {
+                console.error('Unable to copy text', err);
+            });
+        }
+
+      function showCopyMessage() {
+          const copyMessage = document.getElementById('copyMessage');
+          copyMessage.style.display = 'inline-block';
+
+          setTimeout(function() {
+              copyMessage.style.display = 'none';
+          }, 1500); // Display "Copied!" message for 1.5 seconds
+      }
+
+      function copyTextLong() {
+            const textToCopy = document.getElementById('longCta').value; // Replace with your desired text
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                showCopyMessageLong();
+            }).catch(function(err) {
+                console.error('Unable to copy text', err);
+            });
+        }
+
+      function showCopyMessageLong() {
+          const copyMessage = document.getElementById('copyMessageLong');
+          copyMessage.style.display = 'inline-block';
+
+          setTimeout(function() {
+              copyMessage.style.display = 'none';
+          }, 1500); // Display "Copied!" message for 1.5 seconds
+      }
+  </script>
 </body>
 </html>
