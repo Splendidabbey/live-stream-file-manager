@@ -30,6 +30,31 @@
       background:#0CF;
     }
 
+    select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: 250px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        select:hover {
+            border-color: #3498db;
+        }
+
+        option {
+            background-color: #fff;
+            color: #333;
+        }
+
+        option:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
     .container {
       max-width:400px;
       width:100%;
@@ -85,6 +110,20 @@
       height:100px;
       max-width:100%;
       resize:none;
+    }
+
+    input[type="datetime-local"] {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 10px;
+        width: 200px;
+        outline: none;
+    }
+
+    input[type="datetime-local"]:focus {
+        border-color: #3498db;
     }
 
     #contact button[type="submit"] {
@@ -228,11 +267,7 @@ if (!empty($queryResult)) {
             <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"' . $videoName . '"</em> has been scheduled to start ' . convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) . '. You can update it below.</h1>';
       }
       ?>
-      <h2>Select Live date and time</h2>
-      <input name="liveOn" type="datetime-local" name="liveOn">
-    </fieldset>
-    <fieldset>
-      <label for="timezone">Select Time Zone:</label>
+      <b><label for="timezone">Select Time Zone:</label></b>
       <select id="timezone" name="userTimezone">
           <option value="Africa/Lagos" selected>Africa/Lagos (Default)</option>
           <option value="Asia/Qatar">Asia/Qatar</option>
@@ -252,6 +287,19 @@ if (!empty($queryResult)) {
           <option value="Africa/Johannesburg">Africa/Johannesburg</option>
           <option value="Asia/Kolkata">Asia/Kolkata</option>
           <!-- Add more time zones as needed -->
+      </select><br>
+      <b><label>Select Live Date</label></b>
+      <input name="liveOn" type="date" name="liveOn"><br>
+      <b><label>Start Time</label></b>
+      <input name="liveOn" type="time" name="liveOn">
+      <b><label>End Time</label></b>
+      <input name="liveOn" type="time" name="liveOn"><br>
+      <b><label>Frequency</label></b>
+      <select name="" id="">
+        <option value="">Daily</option>
+        <option>Weekly</option>
+        <option value="">Monthly</option>
+        <option value="">Yearly</option>
       </select>
     </fieldset>
     <input type="hidden" name="" id="userTimezone" value="">
