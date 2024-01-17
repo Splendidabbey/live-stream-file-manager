@@ -185,7 +185,7 @@
             margin-right: 5px;
         }
 
-        #copyMessage, #copyMessageLong {
+        #copyMessage, #copyMessageLong, #copyMessageThird {
             display: none;
             color: #27ae60;
             margin-left: 10px;
@@ -377,7 +377,7 @@ if (!empty($queryResult)) {
             <path d="M9 1V9H1"></path>
         </svg>
         Copy CTA 3
-        <span id="copyMessageLong">Copied!</span>
+        <span id="copyMessageThird">Copied!</span>
     </div>
     <fieldset>
       <textarea id="thirdCta" name="longCTA" placeholder="Type in CTA 2 Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
@@ -428,17 +428,17 @@ if (!empty($queryResult)) {
           }, 1500); // Display "Copied!" message for 1.5 seconds
       }
 
-      function copyTextLong() {
-            const textToCopy = document.getElementById('longCta').value; // Replace with your desired text
+      function copyTextThird() {
+            const textToCopy = document.getElementById('thirdCta').value; // Replace with your desired text
             navigator.clipboard.writeText(textToCopy).then(function() {
-                showCopyMessageLong();
+                showCopyMessageThird();
             }).catch(function(err) {
                 console.error('Unable to copy text', err);
             });
         }
 
-      function showCopyMessageLong() {
-          const copyMessage = document.getElementById('copyMessageLong');
+      function showCopyMessageThird() {
+          const copyMessage = document.getElementById('copyMessageThird');
           copyMessage.style.display = 'inline-block';
 
           setTimeout(function() {
