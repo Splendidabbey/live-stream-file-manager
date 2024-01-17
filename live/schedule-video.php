@@ -296,6 +296,7 @@ if (!empty($queryResult)) {
       <input name="liveOn" type="time" name="liveOn"><br>
       <b><label>Frequency</label></b>
       <select name="" id="">
+        <option value="">One Time</option>
         <option value="">Daily</option>
         <option>Weekly</option>
         <option value="">Monthly</option>
@@ -323,13 +324,13 @@ if (!empty($queryResult)) {
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M9 1V9H1"></path>
         </svg>
-        Copy Short CTA
+        Copy CTA 1
         <span id="copyMessage">Copied!</span>
     </div>
     <fieldset>
-      <textarea id="shortCTA" name="shortCTA" placeholder="Type in short CTA Here...." tabindex="5"><?php echo $shortCTA; ?></textarea>
+      <textarea id="shortCTA" name="shortCTA" placeholder="Type in CTA 1 Here...." tabindex="5"><?php echo $shortCTA; ?></textarea>
     </fieldset>
-
+    <input name="cta1Link" type="text" placeholder="type in CTA 1 button link">
     <script>
       tinymce.init({
         selector: '#longCta',
@@ -349,12 +350,39 @@ if (!empty($queryResult)) {
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M9 1V9H1"></path>
         </svg>
-        Copy Long CTA
+        Copy CTA 2
         <span id="copyMessageLong">Copied!</span>
     </div>
     <fieldset>
-      <textarea id="longCta" name="longCTA" placeholder="Type in long CTA Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
+      <textarea id="longCta" name="longCTA" placeholder="Type in CTA 2 Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
     </fieldset>
+    <input name="cta2Link" type="text" placeholder="type in CTA 2 button link">
+    <script>
+      tinymce.init({
+        selector: '#thirdCta',
+        plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+          { value: 'First.Name', title: 'First Name' },
+          { value: 'Email', title: 'Email' },
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+      });
+    </script>
+    <div id="copyButton" onclick="copyTextThird()">
+        <svg id="copyIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M9 1V9H1"></path>
+        </svg>
+        Copy CTA 3
+        <span id="copyMessageLong">Copied!</span>
+    </div>
+    <fieldset>
+      <textarea id="thirdCta" name="longCTA" placeholder="Type in CTA 2 Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
+    </fieldset>
+    <input name="cta3Link" type="text" placeholder="type in CTA 3 button link">
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending" value="Schedule/Update" onclick="captureTimezone()">Submit</button>
     </fieldset>
@@ -375,6 +403,24 @@ if (!empty($queryResult)) {
 
       function showCopyMessage() {
           const copyMessage = document.getElementById('copyMessage');
+          copyMessage.style.display = 'inline-block';
+
+          setTimeout(function() {
+              copyMessage.style.display = 'none';
+          }, 1500); // Display "Copied!" message for 1.5 seconds
+      }
+
+      function copyTextLong() {
+            const textToCopy = document.getElementById('longCta').value; // Replace with your desired text
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                showCopyMessageLong();
+            }).catch(function(err) {
+                console.error('Unable to copy text', err);
+            });
+        }
+
+      function showCopyMessageLong() {
+          const copyMessage = document.getElementById('copyMessageLong');
           copyMessage.style.display = 'inline-block';
 
           setTimeout(function() {
