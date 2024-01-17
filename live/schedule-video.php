@@ -238,6 +238,10 @@ if (!empty($queryResult)) {
         $shortCTA = $row['shortCTA'];
         $longCTA = $row['longCTA'];
         $id = $row['id'];
+        $thirdCTA = $row['thirdCTA'];
+        $shortCTA_BTN = $row['shortCTA_BTN'];
+        $longCTA_BTN = $row['longCTA_BTN'];
+        $thirdCTA_BTN = $row['thirdCTA_BTN'];
     }
 } else {
     http_response_code(404);
@@ -330,7 +334,7 @@ if (!empty($queryResult)) {
     <fieldset>
       <textarea id="shortCTA" name="shortCTA" placeholder="Type in CTA 1 Here...." tabindex="5"><?php echo $shortCTA; ?></textarea>
     </fieldset>
-    <input name="cta1Link" type="text" placeholder="type in CTA 1 button link">
+    <input value="<?php echo $shortCTA_BTN; ?>" name="cta1Link" type="text" placeholder="type in CTA 1 button link">
     <script>
       tinymce.init({
         selector: '#longCta',
@@ -356,7 +360,7 @@ if (!empty($queryResult)) {
     <fieldset>
       <textarea id="longCta" name="longCTA" placeholder="Type in CTA 2 Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
     </fieldset>
-    <input name="cta2Link" type="text" placeholder="type in CTA 2 button link">
+    <input value="<?php echo $longCTA_BTN; ?>" name="cta2Link" type="text" placeholder="type in CTA 2 button link">
     <script>
       tinymce.init({
         selector: '#thirdCta',
@@ -380,9 +384,9 @@ if (!empty($queryResult)) {
         <span id="copyMessageThird">Copied!</span>
     </div>
     <fieldset>
-      <textarea id="thirdCta" name="longCTA" placeholder="Type in CTA 2 Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
+      <textarea id="thirdCta" name="thirdCTA" placeholder="Type in CTA 3 Here...." tabindex="5" rows="8"><?php echo $thirdCTA; ?></textarea>
     </fieldset>
-    <input name="cta3Link" type="text" placeholder="type in CTA 3 button link">
+    <input value="<?php echo $thirdCTA_BTN; ?>" name="cta3Link" type="text" placeholder="type in CTA 3 button link">
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending" value="Schedule/Update" onclick="captureTimezone()">Submit</button>
     </fieldset>
