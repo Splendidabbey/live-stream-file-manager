@@ -3,7 +3,28 @@ require_once('includes/function.php');
 require_once('includes/conndb.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
-    echo "hello";
+    $id = $_GET['id'] ? $_GET['id'] : "";
+    $queryResult = queryVideoById($mysqli, $id);
+
+    if (!empty($queryResult)) {
+        // Process the query result, e.g., display it or perform actions
+        foreach ($queryResult as $row) {
+            // Access table columns using $row['column_name']
+            $videoName = $row['videoName'];
+            $liveOn = $row['liveOn'];
+            $scheduledAt = $row['scheduledAt'];
+            $userTimezone = $row['userTimezone'];
+            $videoURL = $row['videoURL'];
+            $shortCTA = $row['shortCTA'];
+            $longCTA = $row['longCTA'];
+            $id = $row['id'];
+            $thirdCTA = $row['thirdCTA'];
+            $shortCTA_BTN = $row['shortCTA_BTN'];
+            $longCTA_BTN = $row['longCTA_BTN'];
+            $thirdCTA_BTN = $row['thirdCTA_BTN'];
+            $CTA_video = $row['CTA_video'];
+        }
+    }
 }
 ?>
 
@@ -14,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Product/Service Landing Page</title>
+    <title>One OneWebinar- <?php echo $videoName; ?></title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -95,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 
     <!-- Header Section -->
     <header>
-        <h1 style="color: #e74c3c;">Unlock Your Success with [Your Product/Service]</h1>
+        <h1 style="color: #e74c3c;"><?php echo $videoName; ?></h1>
         <!-- <p style="color: #777;">Discover the [Key Benefits] that will transform your [Specific Outcome].</p> -->
     </header>
 
@@ -103,29 +124,34 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     <section id="video">
         <div class="video-container">
             <!-- Replace 'your-video-url' with the actual URL of your video -->
-            <iframe width="auto" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+            <iframe width="auto" height="100%" src="https://www.youtube.com/embed/<?php echo $videoURL; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <p style="color: #777;">Watch the video to learn more.</p>
     </section>
 
     <!-- CTA Section 1 -->
     <section class="cta-section">
-        <button class="cta-button">Get Started Now</button>
-        <p style="color: #777;">Take the first step towards [specific benefit]. Click the button below to get started on your journey to success!</p>
+        <a href="<?php echo $shortCTA_BTN; ?>">
+            <button class="cta-button">Get Started Now</button>
+        </a>
+        <p style="color: #777;"><?php echo $shortCTA; ?></p>
     </section>
 
     <!-- CTA Section 2 -->
     <section class="cta-section">
-        <button class="cta-button">Explore Our Packages</button>
-        <p style="color: #777;">Discover the perfect plan for your needs. Click below to explore our packages and find the one that fits you best!</p>
+        <a href="<?php echo $longCTA_BTN; ?>">
+            <button class="cta-button">Get Started Now</button>
+        </a>
+        <p style="color: #777;"><?php echo $longCTA; ?></p>
     </section>
 
-    <!-- CTA Section 3 -->
+    <!-- CTA Section 1 -->
     <section class="cta-section">
-        <button class="cta-button">See Results for Yourself</button>
-        <p style="color: #777;">Curious about the results our customers have achieved? Click below to see real-life success stories and testimonials.</p>
+        <a href="<?php echo $thirdCTA_BTN; ?>">
+            <button class="cta-button">Get Started Now</button>
+        </a>
+        <p style="color: #777;"><?php echo $thirdCTA; ?></p>
     </section>
-
 </body>
 
 </html>
