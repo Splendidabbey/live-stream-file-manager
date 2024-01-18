@@ -242,6 +242,7 @@ if (!empty($queryResult)) {
         $shortCTA_BTN = $row['shortCTA_BTN'];
         $longCTA_BTN = $row['longCTA_BTN'];
         $thirdCTA_BTN = $row['thirdCTA_BTN'];
+        $CTA_video = $row['CTA_video'];
     }
 } else {
     http_response_code(404);
@@ -387,6 +388,7 @@ if (!empty($queryResult)) {
       <textarea id="thirdCta" name="thirdCTA" placeholder="Type in CTA 3 Here...." tabindex="5" rows="8"><?php echo $thirdCTA; ?></textarea>
     </fieldset>
     <input value="<?php echo $thirdCTA_BTN; ?>" name="cta3Link" type="text" placeholder="type in CTA 3 button link">
+    <input value="<?php echo $CTA_video; ?>" name="cta3Link" type="text" placeholder="type youtube video id">
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending" value="Schedule/Update" onclick="captureTimezone()">Submit</button>
     </fieldset>

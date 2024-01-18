@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $shortCTA_BTN = $_POST['shortCTA_BTN'] ? $_POST['shortCTA_BTN'] : "";
     $longCTA_BTN = $_POST['longCTA_BTN'] ? $_POST['longCTA_BTN'] : "";
     $thirdCTA_BTN = $_POST['thirdCTA_BTN'] ? $_POST['thirdCTA_BTN'] : "";
+    $CTA_video = $_POST['CTA_video'] ? $_POST['CTA_video'] : "";
 
     // Convert the "liveOn" datetime to UTC before storing it in the database
     $userTimezoneObj = new DateTimeZone($userTimezone);
