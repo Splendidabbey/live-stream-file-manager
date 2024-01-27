@@ -294,19 +294,25 @@ if (!empty($queryResult)) {
           <!-- Add more time zones as needed -->
       </select><br>
       <b><label>Select Live Date</label></b>
-      <input name="liveOn" type="date" name="liveOn"><br>
+      <input name="liveDate" type="date" name="liveOn"><br>
       <b><label>Start Time</label></b>
-      <input name="liveOn" type="time" name="liveOn">
+      <input name="liveStartTime" type="time" name="liveOn">
       <b><label>End Time</label></b>
-      <input name="liveOn" type="time" name="liveOn"><br>
+      <input name="liveEndDate" type="time" name="liveOn"><br>
       <b><label>Frequency</label></b>
-      <select name="" id="">
-        <option value="">One Time</option>
-        <option value="">Daily</option>
-        <option>Weekly</option>
-        <option value="">Monthly</option>
-        <option value="">Yearly</option>
+      <select name="liveFrequency" id="">
+        <option value="once">Once</option>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
       </select>
+    </fieldset>
+    <fieldset>
+    <label for="videoToggle">Turn On/Off Video</label>
+    <input type="checkbox" id="videoToggle" onchange="toggleVideo()">
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" onchange="adjustVolume()">
+
     </fieldset>
     <input type="hidden" name="" id="userTimezone" value="">
     <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">

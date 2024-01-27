@@ -5,11 +5,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Details
     $message = "";
     $videoName = $_POST['videoName'];
-    $liveOn = $_POST['liveOn'];
-    $userTimezone = $_POST['userTimezone'];
-    $videoURL = $_POST['url'];
-    $shortCTA = $_POST['shortCTA'];
-    $longCTA = $_POST['longCTA'];
+    $liveOn = $_POST['liveOn'] ? $_POST['liveOn'] : "";
+    $userTimezone = $_POST['userTimezone'] ? $_POST['userTimezone'] : "";
+    $videoURL = $_POST['url'] ? $_POST['url'] : "";
+    $shortCTA = $_POST['shortCTA'] ? $_POST['shortCTA'] : "";
+    $longCTA = $_POST['longCTA'] ? $_POST['longCTA'] : "";
     $id =$_POST['id'] ? $_POST['id'] : "";
     $thirdCTA = $_POST['thirdCTA'] ? $_POST['thirdCTA'] : "";
     $shortCTA_BTN = $_POST['shortCTA_BTN'] ? $_POST['shortCTA_BTN'] : "";
@@ -17,11 +17,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $thirdCTA_BTN = $_POST['thirdCTA_BTN'] ? $_POST['thirdCTA_BTN'] : "";
     $CTA_video = $_POST['CTA_video'] ? $_POST['CTA_video'] : "";
 
+    // Combine date, start time, and end time into a single datetime
+    $liveDate = $_POST['liveDate'];
+    $liveStartTime = $_POST['liveStartTime'];
+    $liveEndTime = $_POST['liveEndTime'];
+
+    // Assuming the date and times are in the correct format, you can concatenate them
+    $combinedDateTime = $liveDate . ' ' . $liveStartTime;
+
+    // Convert the combined datetime to a DateTime object
+    $liveOnObj = new DateTime($combinedDateTime);
+    
+    // Format it as needed (e.g., to UTC)
+    $liveOnObj->setTimezone(new DateTimeZone($userTimezone));
+    $liveOn = $liveOnObj->format('Y-m-d H:i:s');
     // Convert the "liveOn" datetime to UTC before storing it in the database
-    $userTimezoneObj = new DateTimeZone($userTimezone);
-    $liveOnObj = new DateTime($liveOn);
-    $liveOnObj->setTimezone(new DateTimeZone('UTC'));
-    $liveOnUTC = $liveOnObj->format('Y-m-d H:i:s');
+    // $userTimezoneObj = new DateTimeZone($userTimezone);
+    // $liveOnObj = new DateTime($liveOn);
+    // $liveOnObj->setTimezone(new DateTimeZone('UTC'));
+    // $liveOnUTC = $liveOnObj->format('Y-m-d H:i:s');
 
     // Check if the videoName exists
     $query = "SELECT * FROM scheduled_videos WHERE id = ?";
