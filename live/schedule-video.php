@@ -56,7 +56,7 @@
         }
 
     .container {
-      max-width:400px;
+      max-width:500px;
       width:100%;
       margin:0 auto;
       position:relative;
@@ -294,13 +294,16 @@ if (!empty($queryResult)) {
           <!-- Add more time zones as needed -->
       </select><br>
       <b><label>Select Live Date</label></b>
-      <input name="liveDate" type="date" name="liveOn"><br>
+      <input name="liveDate" type="date" name="liveOn">
       <b><label>Start Time</label></b>
-      <input name="liveStartTime" type="time" name="liveOn">
+      <input name="liveStartTime" type="time" name="liveOn"><br>
+      <b><label>End Date</label></b>
+      <input name="liveEndDate" type="date" name="liveOn">
       <b><label>End Time</label></b>
-      <input name="liveEndDate" type="time" name="liveOn"><br>
+      <input name="liveEndTime" type="time" name="liveOn"><br>
       <b><label>Frequency</label></b>
       <select name="liveFrequency" id="">
+        <option value="none">None</option>
         <option value="once">Once</option>
         <option value="daily">Daily</option>
         <option value="weekly">Weekly</option>

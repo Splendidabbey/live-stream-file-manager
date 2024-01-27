@@ -16,14 +16,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $longCTA_BTN = $_POST['longCTA_BTN'] ? $_POST['longCTA_BTN'] : "";
     $thirdCTA_BTN = $_POST['thirdCTA_BTN'] ? $_POST['thirdCTA_BTN'] : "";
     $CTA_video = $_POST['CTA_video'] ? $_POST['CTA_video'] : "";
+    $liveEndTime = $_POST['liveEndTime'] ? $_POST['liveEndTime'] : "";
+    $liveEndDate = $_POST['liveEndDate'] ? $_POST['liveEndDate'] : "";
+    $frequency = $_POST['liveFrequency'] ? $_POST['liveFrequency'] : "";
 
     // Combine date, start time, and end time into a single datetime
     $liveDate = $_POST['liveDate'];
     $liveStartTime = $_POST['liveStartTime'];
-    $liveEndTime = $_POST['liveEndTime'];
-
+    
     // Assuming the date and times are in the correct format, you can concatenate them
     $combinedDateTime = $liveDate . ' ' . $liveStartTime;
+    $liveEndDateTime = $liveEndDate . ' ' . $liveEndTime;
 
     // Convert the combined datetime to a DateTime object
     $liveOnObj = new DateTime($combinedDateTime);
@@ -31,6 +34,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Format it as needed (e.g., to UTC)
     $liveOnObj->setTimezone(new DateTimeZone($userTimezone));
     $liveOn = $liveOnObj->format('Y-m-d H:i:s');
+
+    // Convert the combined end datetime to a DateTime object
+    $endDateTimeObj = new DateTime($liveEndDateTime);
+    // Format it as needed (e.g., to UTC)
+    $endDateTimeObj->setTimezone(new DateTimeZone($userTimezone));
+    $endDate = $endDateTimeObj->format('Y-m-d H:i:s');
     // Convert the "liveOn" datetime to UTC before storing it in the database
     // $userTimezoneObj = new DateTimeZone($userTimezone);
     // $liveOnObj = new DateTime($liveOn);
@@ -46,18 +55,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     if ($result->num_rows > 0) {
         // Video already exists, update the liveOn datetime, userTimezone, and videoURL
-        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoName = ?, videoURL = ?, shortCTA = ?, longCTA = ? WHERE id = ?";
+        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoName = ?, videoURL = ?, shortCTA = ?, longCTA = ?, endDate = ?, frequency = ? WHERE id = ?";
         $stmt = $mysqli->prepare($updateQuery);
-        $stmt->bind_param("sssssss", $liveOn, $userTimezone, $videoName, $videoURL, $shortCTA, $longCTA, $id);
-        $stmt->execute();
-        $stmt->close();
-        $message = "Video scheduling updated successfully!";
+        $stmt->bind_param("sssssssss", $liveOn, $userTimezone, $videoName, $videoURL, $shortCTA, $longCTA, $endDate, $frequency, $id);
+        // ... (rest of your existing code)
     } else {
         // Video doesn't exist, insert a new record
         // Insert the user's timezone, converted "liveOn" datetime, and videoURL into the database
-        $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL, shortCTA, longCTA) VALUES (?, ?, NOW(), ?, ?, ?, ?)";
+        $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL, shortCTA, longCTA, endDate, frequency) VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
         $stmt = $mysqli->prepare($insertQuery);
-        $stmt->bind_param("ssssss", $videoName, $liveOn, $userTimezone, $videoURL, $shortCTA, $longCTA);
+        $stmt->bind_param("ssssssss", $videoName, $liveOn, $userTimezone, $videoURL, $shortCTA, $longCTA, $endDate, $frequency);
         $stmt->execute();
         $stmt->close();
         $message = "Video scheduled successfully!";
