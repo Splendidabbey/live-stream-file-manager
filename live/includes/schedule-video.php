@@ -1,5 +1,6 @@
 <?php
 require_once('conndb.php');
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Details
@@ -10,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $videoURL = $_POST['url'] ? $_POST['url'] : "";
     $shortCTA = $_POST['shortCTA'] ? $_POST['shortCTA'] : "";
     $longCTA = $_POST['longCTA'] ? $_POST['longCTA'] : "";
-    $id =$_POST['id'] ? $_POST['id'] : "";
+    $id = $_POST['id'] ? $_POST['id'] : "";
     $thirdCTA = $_POST['thirdCTA'] ? $_POST['thirdCTA'] : "";
     $shortCTA_BTN = $_POST['shortCTA_BTN'] ? $_POST['shortCTA_BTN'] : "";
     $longCTA_BTN = $_POST['longCTA_BTN'] ? $_POST['longCTA_BTN'] : "";
@@ -23,14 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Combine date, start time, and end time into a single datetime
     $liveDate = $_POST['liveDate'];
     $liveStartTime = $_POST['liveStartTime'];
-    
+
     // Assuming the date and times are in the correct format, you can concatenate them
     $combinedDateTime = $liveDate . ' ' . $liveStartTime;
     $liveEndDateTime = $liveEndDate . ' ' . $liveEndTime;
 
     // Convert the combined datetime to a DateTime object
     $liveOnObj = new DateTime($combinedDateTime);
-    
+
     // Format it as needed (e.g., to UTC)
     $liveOnObj->setTimezone(new DateTimeZone($userTimezone));
     $liveOn = $liveOnObj->format('Y-m-d H:i:s');
@@ -40,11 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Format it as needed (e.g., to UTC)
     $endDateTimeObj->setTimezone(new DateTimeZone($userTimezone));
     $endDate = $endDateTimeObj->format('Y-m-d H:i:s');
-    // Convert the "liveOn" datetime to UTC before storing it in the database
-    // $userTimezoneObj = new DateTimeZone($userTimezone);
-    // $liveOnObj = new DateTime($liveOn);
-    // $liveOnObj->setTimezone(new DateTimeZone('UTC'));
-    // $liveOnUTC = $liveOnObj->format('Y-m-d H:i:s');
 
     // Check if the videoName exists
     $query = "SELECT * FROM scheduled_videos WHERE id = ?";
@@ -58,7 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoName = ?, videoURL = ?, shortCTA = ?, longCTA = ?, endDate = ?, frequency = ? WHERE id = ?";
         $stmt = $mysqli->prepare($updateQuery);
         $stmt->bind_param("sssssssss", $liveOn, $userTimezone, $videoName, $videoURL, $shortCTA, $longCTA, $endDate, $frequency, $id);
-        // ... (rest of your existing code)
+        $stmt->execute();
+
+        // Check if the update query was successful
+        if ($stmt->affected_rows > 0) {
+            $message = "Video updated successfully!";
+        } else {
+            $message = "Failed to update video.";
+        }
     } else {
         // Video doesn't exist, insert a new record
         // Insert the user's timezone, converted "liveOn" datetime, and videoURL into the database
@@ -66,10 +69,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         $stmt = $mysqli->prepare($insertQuery);
         $stmt->bind_param("ssssssss", $videoName, $liveOn, $userTimezone, $videoURL, $shortCTA, $longCTA, $endDate, $frequency);
         $stmt->execute();
-        $stmt->close();
-        $message = "Video scheduled successfully!";
+
+        // Check if the insert query was successful
+        if ($stmt->affected_rows > 0) {
+            $message = "Video scheduled successfully!";
+        } else {
+            $message = "Failed to schedule video.";
+        }
     }
-}   else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
+
+    // Close the statement
+    $stmt->close();
+} else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     $message = "";
     $id = $_POST['id'];
 
@@ -87,8 +98,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         $message = "No matching video found for deletion.";
     }
 
+    // Close the statement
     $stmt->close();
-
 }
 
 // Display the message in an alert
