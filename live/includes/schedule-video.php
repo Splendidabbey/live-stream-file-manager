@@ -1,5 +1,7 @@
 <?php
 require_once('conndb.php');
+date_default_timezone_set('UTC'); // Set the default timezone to UTC or your desired timezone
+
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
@@ -26,28 +28,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $liveStartTime = $_POST['liveStartTime'];
     $liveEndTime = $_POST['liveEndTime'];
 
-    // Combine date and time for start
-    $combinedStartDateTime = $liveDate . ' ' . $liveStartTime;
+// Combine date and time for start
+$combinedStartDateTime = $_POST['liveDate'] . ' ' . $_POST['liveStartTime'];
 
-    // Combine date and time for end
-    $combinedEndDateTime = $liveEndDate . ' ' . $liveEndTime;
+// Combine date and time for end
+$combinedEndDateTime = $_POST['liveEndDate'] . ' ' . $_POST['liveEndTime'];
 
-    // Assuming the date and times are in the correct format, you can concatenate them
-    $combinedDateTime = $liveDate . ' ' . $liveStartTime;
-    $liveEndDateTime = $liveEndDate . ' ' . $liveEndTime;
+// Convert to DateTime objects
+$liveOnObj = new DateTime($combinedStartDateTime, new DateTimeZone($userTimezone));
+$endDateTimeObj = new DateTime($combinedEndDateTime, new DateTimeZone($userTimezone));
 
-    // Convert the combined datetime to a DateTime object
-    $liveOnObj = new DateTime($combinedStartDateTime);
+// Format as needed
+$liveOn = $liveOnObj->format('Y-m-d H:i:s');
+$endDate = $endDateTimeObj->format('Y-m-d H:i:s');
 
-    // Format it as needed (e.g., to UTC)
-    $liveOnObj->setTimezone(new DateTimeZone($userTimezone));
-    $liveOn = $liveOnObj->format('Y-m-d H:i:s');
-
-    // Convert the combined end datetime to a DateTime object
-    $endDateTimeObj = new DateTime($combinedEndDateTime);
-    // Format it as needed (e.g., to UTC)
-    $endDateTimeObj->setTimezone(new DateTimeZone($userTimezone));
-    $endDate = $endDateTimeObj->format('Y-m-d H:i:s');
 
 
     // Check if the videoName exists
