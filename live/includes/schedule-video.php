@@ -24,23 +24,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Combine date, start time, and end time into a single datetime
     $liveDate = $_POST['liveDate'];
     $liveStartTime = $_POST['liveStartTime'];
+    $liveEndTime = $_POST['liveEndTime'];
+
+    // Combine date and time for start
+    $combinedStartDateTime = $liveDate . ' ' . $liveStartTime;
+
+    // Combine date and time for end
+    $combinedEndDateTime = $liveEndDate . ' ' . $liveEndTime;
 
     // Assuming the date and times are in the correct format, you can concatenate them
     $combinedDateTime = $liveDate . ' ' . $liveStartTime;
     $liveEndDateTime = $liveEndDate . ' ' . $liveEndTime;
 
     // Convert the combined datetime to a DateTime object
-    $liveOnObj = new DateTime($combinedDateTime);
+    $liveOnObj = new DateTime($combinedStartDateTime);
 
     // Format it as needed (e.g., to UTC)
     $liveOnObj->setTimezone(new DateTimeZone($userTimezone));
     $liveOn = $liveOnObj->format('Y-m-d H:i:s');
 
     // Convert the combined end datetime to a DateTime object
-    $endDateTimeObj = new DateTime($liveEndDateTime);
+    $endDateTimeObj = new DateTime($combinedEndDateTime);
     // Format it as needed (e.g., to UTC)
     $endDateTimeObj->setTimezone(new DateTimeZone($userTimezone));
     $endDate = $endDateTimeObj->format('Y-m-d H:i:s');
+
 
     // Check if the videoName exists
     $query = "SELECT * FROM scheduled_videos WHERE id = ?";
