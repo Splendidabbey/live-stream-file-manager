@@ -28,19 +28,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $liveStartTime = $_POST['liveStartTime'];
     $liveEndTime = $_POST['liveEndTime'];
 
-// Combine date and time for start
-$combinedStartDateTime = $_POST['liveDate'] . ' ' . $_POST['liveStartTime'];
+    // Combine date and time for start
+    $combinedStartDateTime = $_POST['liveDate'] . ' ' . $_POST['liveStartTime'];
 
-// Combine date and time for end
-$combinedEndDateTime = $_POST['liveEndDate'] . ' ' . $_POST['liveEndTime'];
+    // Combine date and time for end
+    $combinedEndDateTime = $_POST['liveEndDate'] . ' ' . $_POST['liveEndTime'];
 
-// Convert to DateTime objects
-$liveOnObj = new DateTime($combinedStartDateTime, new DateTimeZone($userTimezone));
-$endDateTimeObj = new DateTime($combinedEndDateTime, new DateTimeZone($userTimezone));
+    // Convert to DateTime objects
+    $liveOnObj = new DateTime($combinedStartDateTime, new DateTimeZone($userTimezone));
+    $endDateTimeObj = new DateTime($combinedEndDateTime, new DateTimeZone($userTimezone));
 
-// Format as needed
-$liveOn = $liveOnObj->format('Y-m-d H:i:s');
-$endDate = $endDateTimeObj->format('Y-m-d H:i:s');
+    // Format as needed
+    $liveOn = $liveOnObj->format('Y-m-d H:i:s');
+    $endDate = $endDateTimeObj->format('Y-m-d H:i:s');
 
 
 
