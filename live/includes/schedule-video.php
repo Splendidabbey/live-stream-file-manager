@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Combine date and time for start
     $combinedStartDateTime = $_POST['liveDate'] . ' ' . $_POST['liveStartTime'];
 
-    // Combine date and time for end
+    // Combine date and time for end 
     $combinedEndDateTime = $_POST['liveEndDate'] . ' ' . $_POST['liveEndTime'];
 
     // Convert to DateTime objects

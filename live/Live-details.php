@@ -143,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         <p style="color: #777;"><?php echo $longCTA; ?></p>
     </section>
 
-    <!-- CTA Section 3 -->
+    <!-- CTA Section 3 --> 
     <section class="cta-section">
         <a href="<?php echo $thirdCTA_BTN; ?>">
             <button class="cta-button">Get Started Now</button>
