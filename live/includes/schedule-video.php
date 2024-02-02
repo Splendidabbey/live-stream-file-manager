@@ -11,6 +11,7 @@ date_default_timezone_set('UTC');
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $id = $_POST['id'] ? $_POST['id'] : "";
     $message = "";
+    $liveOn = "";
     // Details
     $videoName = $_POST['videoName'];
     $userTimezone = $_POST['userTimezone'] ? $_POST['userTimezone'] : "";
