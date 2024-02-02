@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $frequency = $_POST['liveFrequency'] ? $_POST['liveFrequency'] : "";
 
     // Check if date and time are selected
-    if (isset($_POST['liveDate']) && isset($_POST['liveStartTime'])) {
+    if (!empty($_POST['liveDate']) || !empty($_POST['liveStartTime'])) {
         // Combine date, start time, and end time into a single datetime
         $liveDate = $_POST['liveDate'];
         $liveStartTime = $_POST['liveStartTime'];
