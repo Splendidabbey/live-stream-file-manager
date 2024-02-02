@@ -578,7 +578,6 @@ if (!empty($queryResult)) {
 </body>
 </html>';
 } else {
-  header("Location: live-details.php?id=$id");
   echo $newContent;
   if(hasBeenScheduleBydId($mysqli, $id)) {
     if (!empty($queryResult)) {
