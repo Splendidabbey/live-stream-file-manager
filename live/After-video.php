@@ -220,7 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     window.location.href = newUrl;
   }
 </script>
-';
+'; 
 
 $queryResult = queryVideoByIdAfterWatch($mysqli, $id);
 
