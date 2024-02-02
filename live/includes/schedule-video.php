@@ -1,11 +1,16 @@
 <?php
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once('conndb.php');
-date_default_timezone_set('UTC'); // Set the default timezone to UTC or your desired timezone
+date_default_timezone_set('UTC');
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Details
     $message = "";
+
+    // Details
     $videoName = $_POST['videoName'];
     $liveOn = $_POST['liveOn'] ? $_POST['liveOn'] : "";
     $userTimezone = $_POST['userTimezone'] ? $_POST['userTimezone'] : "";
@@ -58,11 +63,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         if ($stmt->affected_rows > 0) {
             $message = "Video updated successfully!";
         } else {
-            $message = "Failed to update video.";
+            $message = "Failed to update video. SQL Error: " . $stmt->error;
         }
     } else {
         // Video doesn't exist, insert a new record
-        // Insert the user's timezone, converted "liveOn" datetime, and videoURL into the database
         $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL, shortCTA, longCTA, thirdCTA, shortCTA_BTN, longCTA_BTN, thirdCTA_BTN, CTA_video, endDate, frequency) VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $mysqli->prepare($insertQuery);
         $stmt->bind_param("ssssssssssssss", $videoName, $liveOn, $userTimezone, $videoURL, $shortCTA, $longCTA, $thirdCTA, $shortCTA_BTN, $longCTA_BTN, $thirdCTA_BTN, $CTA_video, $endDate, $frequency);
@@ -72,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         if ($stmt->affected_rows > 0) {
             $message = "Video scheduled successfully!";
         } else {
-            $message = "Failed to schedule video.";
+            $message = "Failed to schedule video. SQL Error: " . $stmt->error;
         }
     }
 
@@ -80,24 +84,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $stmt->close();
 } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
     $message = "";
-    $id = $_POST['id'];
+    $id = isset($_POST['id']) ? $_POST['id'] : '';
 
-    $deleteQuery = "DELETE FROM scheduled_videos WHERE id = ?";
-    $stmt = $mysqli->prepare($deleteQuery);
-    $stmt->bind_param("s", $id);
-    $stmt->execute();
+    if (!empty($id)) {
+        // Continue with the delete process
+        $deleteQuery = "DELETE FROM scheduled_videos WHERE id = ?";
+        $stmt = $mysqli->prepare($deleteQuery);
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
 
-    // Check the affected rows before closing the statement
-    if ($stmt->affected_rows > 0) {
-        // Rows were deleted, you can set a success message
-        $message = "Video deleted successfully!";
+        // Check the affected rows before closing the statement
+        if ($stmt->affected_rows > 0) {
+            // Rows were deleted, you can set a success message
+            $message = "Video deleted successfully!";
+        } else {
+            // No rows were deleted, you can set an error message
+            $message = "No matching video found for deletion. SQL Error: " . $stmt->error;
+        }
+
+        // Close the statement
+        $stmt->close();
     } else {
-        // No rows were deleted, you can set an error message
-        $message = "No matching video found for deletion.";
+        $message = "Invalid ID for deletion.";
     }
-
-    // Close the statement
-    $stmt->close();
 }
 
 // Display the message in an alert
@@ -111,5 +120,4 @@ echo '<script type="text/javascript">
         window.history.go(-2);
     }, 1000); // Delay in milliseconds (1 second in this example)
 </script>';
-"includes/schedule-video.php";
 ?>
