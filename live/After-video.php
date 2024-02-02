@@ -222,7 +222,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 </script>
 ';
 
-$queryResult = queryVideoById($mysqli, $id);
+$queryResult = queryVideoByIdAfterWatch($mysqli, $id);
 
 $viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
 

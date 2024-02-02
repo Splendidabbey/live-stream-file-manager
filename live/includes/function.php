@@ -81,6 +81,23 @@ function queryVideoById($mysqli, $id) {
     return $rows; // Return the array containing the query result
 }
 
+function queryVideoByIdAfterWatch($mysqli, $id) {
+    $query = "SELECT * FROM scheduled_videos WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("i", $id); // Assuming $id is an integer
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $rows = array(); // Initialize an array to store the query result
+
+    while ($row = $result->fetch_assoc()) {
+        // Append each row to the result array
+        $rows[] = $row;
+    }
+
+    return $rows; // Return the array containing the query result
+}
+
 function hasBeenScheduleBydId($mysqli, $id) {
     $query = "SELECT * FROM scheduled_videos WHERE id = ?";
     $stmt = $mysqli->prepare($query);
