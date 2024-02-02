@@ -252,7 +252,7 @@ if (!empty($queryResult)) {
   <script>
     document.addEventListener("contextmenu", event => event.preventDefault());
   </script>
-</head>
+</head> 
 <body style="overflow: auto;">
 <!-- partial:index.partial.html -->
 <div class="container">  
