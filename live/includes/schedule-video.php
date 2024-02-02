@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     } else {
         // Video doesn't exist, insert a new record
         $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL, shortCTA, longCTA, thirdCTA, shortCTA_BTN, longCTA_BTN, thirdCTA_BTN, CTA_video, endDate, frequency) VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $mysqli->prepare($insertQuery);
+        $stmt = $mysqli->prepare($insertQuery); 
         $stmt->bind_param("ssssssssssssss", $videoName, $liveOn, $userTimezone, $videoURL, $shortCTA, $longCTA, $thirdCTA, $shortCTA_BTN, $longCTA_BTN, $thirdCTA_BTN, $CTA_video, $endDate, $frequency);
         $stmt->execute();
 
