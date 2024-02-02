@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     // Details
     $videoName = $_POST['videoName'];
-    $liveOn = $_POST['liveOn'] ? $_POST['liveOn'] : "";
+    // $liveOn = $_POST['liveOn'] ? $_POST['liveOn'] : "";
     $userTimezone = $_POST['userTimezone'] ? $_POST['userTimezone'] : "";
     $videoURL = $_POST['url'] ? $_POST['url'] : "";
     $shortCTA = $_POST['shortCTA'] ? $_POST['shortCTA'] : "";
