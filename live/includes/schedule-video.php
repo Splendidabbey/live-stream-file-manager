@@ -18,10 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $shortCTA = $_POST['shortCTA'] ? $_POST['shortCTA'] : "";
     $longCTA = $_POST['longCTA'] ? $_POST['longCTA'] : "";
     $thirdCTA = $_POST['thirdCTA'] ? $_POST['thirdCTA'] : "";
-    $shortCTA_BTN = $_POST['shortCTA_BTN'] ? $_POST['shortCTA_BTN'] : "";
-    $longCTA_BTN = $_POST['longCTA_BTN'] ? $_POST['longCTA_BTN'] : "";
-    $thirdCTA_BTN = $_POST['thirdCTA_BTN'] ? $_POST['thirdCTA_BTN'] : "";
-    $CTA_video = $_POST['CTA_video'] ? $_POST['CTA_video'] : "";
+    $shortCTA_BTN = $_POST['cta1Link'] ? $_POST['cta1Link'] : "";
+    $longCTA_BTN = $_POST['cta2Link'] ? $_POST['cta2Link'] : "";
+    $thirdCTA_BTN = $_POST['cta3Link'] ? $_POST['cta3Link'] : "";
+    $CTA_video = $_POST['cta3Link'] ? $_POST['cta3Link'] : "";
     $liveEndTime = $_POST['liveEndTime'] ? $_POST['liveEndTime'] : "";
     $liveEndDate = $_POST['liveEndDate'] ? $_POST['liveEndDate'] : "";
     $frequency = $_POST['liveFrequency'] ? $_POST['liveFrequency'] : "";
