@@ -345,7 +345,7 @@ if (!empty($queryResult)) {
     <fieldset>
       <textarea id="shortCTA" name="shortCTA" placeholder="Type in CTA 1 Here...." tabindex="5"><?php echo $shortCTA; ?></textarea>
     </fieldset>
-    <input value="<?php echo $shortCTA_BTN; ?>" name="cta1Link" type="text" placeholder="type in CTA 1 button link">
+    <input value="<?php echo $shortCTA_BTN; ?>" name="shortCTA_BTN" type="text" placeholder="type in CTA 1 button link">
     <script>
       tinymce.init({
         selector: '#longCta',
@@ -371,7 +371,7 @@ if (!empty($queryResult)) {
     <fieldset>
       <textarea id="longCta" name="longCTA" placeholder="Type in CTA 2 Here...." tabindex="5" rows="8"><?php echo $longCTA; ?></textarea>
     </fieldset>
-    <input value="<?php echo $longCTA_BTN; ?>" name="cta2Link" type="text" placeholder="type in CTA 2 button link">
+    <input value="<?php echo $longCTA_BTN; ?>" name="longCTA_BTN" type="text" placeholder="type in CTA 2 button link">
     <script>
       tinymce.init({
         selector: '#thirdCta',
@@ -397,8 +397,8 @@ if (!empty($queryResult)) {
     <fieldset>
       <textarea id="thirdCta" name="thirdCTA" placeholder="Type in CTA 3 Here...." tabindex="5" rows="8"><?php echo $thirdCTA; ?></textarea>
     </fieldset>
-    <input value="<?php echo $thirdCTA_BTN; ?>" name="cta3Link" type="text" placeholder="type in CTA 3 button link">
-    <input value="<?php echo $CTA_video; ?>" name="cta3Link" type="text" placeholder="type youtube video id">
+    <input value="<?php echo $thirdCTA_BTN; ?>" name="thirdCTA_BTN" type="text" placeholder="type in CTA 3 button link">
+    <input value="<?php echo $CTA_video; ?>" name="ctaVideo" type="text" placeholder="type youtube video id">
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending" value="Schedule/Update" onclick="captureTimezone()">Submit</button>
     </fieldset>
