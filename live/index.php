@@ -122,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     <section id="video">
         <div class="video-container">
             <!-- Replace 'your-video-url' with the actual URL of your video -->
-            <iframe width="auto" height="100%" src="https://www.youtube.com/embed/<?php echo $videoURL; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe width="auto" height="100%" src="https://www.youtube.com/embed/<?php echo $CTA_video; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
         <p style="color: #777;">Watch the video to learn more.</p>
     </section>
