@@ -122,4 +122,10 @@ echo '<script type="text/javascript">
     alert("' . $message . '");
 </script>';
 
-// Delay
+// Delay the redirection after the alert is closed
+echo '<script type="text/javascript">
+    setTimeout(function() {
+        window.history.go(-2);
+    }, 1000); // Delay in milliseconds (1 second in this example)
+</script>';
+?>
