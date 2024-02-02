@@ -319,6 +319,7 @@ if (!empty($queryResult)) {
     </fieldset>
     <input type="hidden" name="" id="userTimezone" value="">
     <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
+    <input type="hidden" name="savedLiveOn" value="<?php echo $liveOn; ?>">
     <script>
       tinymce.init({
         selector: '#shortCTA',

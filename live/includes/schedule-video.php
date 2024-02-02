@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $message = "";
     // Details
     $videoName = $_POST['videoName'];
-    // $liveOn = $_POST['liveOn'] ? $_POST['liveOn'] : "";
     $userTimezone = $_POST['userTimezone'] ? $_POST['userTimezone'] : "";
     $videoURL = $_POST['url'] ? $_POST['url'] : "";
     $shortCTA = $_POST['shortCTA'] ? $_POST['shortCTA'] : "";
@@ -27,24 +26,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $liveEndDate = $_POST['liveEndDate'] ? $_POST['liveEndDate'] : "";
     $frequency = $_POST['liveFrequency'] ? $_POST['liveFrequency'] : "";
 
-    // Combine date, start time, and end time into a single datetime
-    $liveDate = $_POST['liveDate'];
-    $liveStartTime = $_POST['liveStartTime'];
-    $liveEndTime = $_POST['liveEndTime'];
+    // Check if date and time are selected
+    if (isset($_POST['liveDate']) && isset($_POST['liveStartTime'])) {
+        // Combine date, start time, and end time into a single datetime
+        $liveDate = $_POST['liveDate'];
+        $liveStartTime = $_POST['liveStartTime'];
+        $liveEndTime = $_POST['liveEndTime'];
 
-    // Combine date and time for start
-    $combinedStartDateTime = $_POST['liveDate'] . ' ' . $_POST['liveStartTime'];
+        // Combine date and time for start
+        $combinedStartDateTime = $liveDate . ' ' . $liveStartTime;
 
-    // Combine date and time for end 
-    $combinedEndDateTime = $_POST['liveEndDate'] . ' ' . $_POST['liveEndTime'];
+        // Combine date and time for end 
+        $combinedEndDateTime = $_POST['liveEndDate'] . ' ' . $_POST['liveEndTime'];
 
-    // Convert to DateTime objects
-    $liveOnObj = new DateTime($combinedStartDateTime, new DateTimeZone($userTimezone));
-    $endDateTimeObj = new DateTime($combinedEndDateTime, new DateTimeZone($userTimezone));
+        // Convert to DateTime objects
+        $liveOnObj = new DateTime($combinedStartDateTime, new DateTimeZone($userTimezone));
+        $endDateTimeObj = new DateTime($combinedEndDateTime, new DateTimeZone($userTimezone));
 
-    // Format as needed
-    $liveOn = $liveOnObj->format('Y-m-d H:i:s');
-    $endDate = $endDateTimeObj->format('Y-m-d H:i:s');
+        // Format as needed
+        $liveOn = $liveOnObj->format('Y-m-d H:i:s');
+        $endDate = $endDateTimeObj->format('Y-m-d H:i:s');
+    } else {
+        // Use the previously saved liveOn value from the database
+        $liveOn = $_POST['savedLiveOn']; // Make sure to replace 'savedLiveOn' with the actual field name
+        // Set $endDate to NULL or any default value as needed
+        $endDate = NULL;
+    }
 
     // Check if the videoName exists
     $query = "SELECT * FROM scheduled_videos WHERE id = ?";
@@ -115,10 +122,4 @@ echo '<script type="text/javascript">
     alert("' . $message . '");
 </script>';
 
-// Delay the redirection after the alert is closed
-echo '<script type="text/javascript">
-    setTimeout(function() {
-        window.history.go(-2);
-    }, 1000); // Delay in milliseconds (1 second in this example)
-</script>';
-?>
+// Delay
