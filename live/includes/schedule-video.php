@@ -2,7 +2,6 @@
 require_once('conndb.php');
 date_default_timezone_set('UTC'); // Set the default timezone to UTC or your desired timezone
 
-
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Details
@@ -13,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $videoURL = $_POST['url'] ? $_POST['url'] : "";
     $shortCTA = $_POST['shortCTA'] ? $_POST['shortCTA'] : "";
     $longCTA = $_POST['longCTA'] ? $_POST['longCTA'] : "";
-    $id = $_POST['id'] ? $_POST['id'] : "";
     $thirdCTA = $_POST['thirdCTA'] ? $_POST['thirdCTA'] : "";
     $shortCTA_BTN = $_POST['shortCTA_BTN'] ? $_POST['shortCTA_BTN'] : "";
     $longCTA_BTN = $_POST['longCTA_BTN'] ? $_POST['longCTA_BTN'] : "";
@@ -42,8 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $liveOn = $liveOnObj->format('Y-m-d H:i:s');
     $endDate = $endDateTimeObj->format('Y-m-d H:i:s');
 
-
-
     // Check if the videoName exists
     $query = "SELECT * FROM scheduled_videos WHERE id = ?";
     $stmt = $mysqli->prepare($query);
@@ -53,9 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
     if ($result->num_rows > 0) {
         // Video already exists, update the liveOn datetime, userTimezone, and videoURL
-        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoName = ?, videoURL = ?, shortCTA = ?, longCTA = ?, endDate = ?, frequency = ? WHERE id = ?";
+        $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoName = ?, videoURL = ?, shortCTA = ?, longCTA = ?, thirdCTA = ?, shortCTA_BTN = ?, longCTA_BTN = ?, thirdCTA_BTN = ?, CTA_video = ?, endDate = ?, frequency = ? WHERE id = ?";
         $stmt = $mysqli->prepare($updateQuery);
-        $stmt->bind_param("sssssssss", $liveOn, $userTimezone, $videoName, $videoURL, $shortCTA, $longCTA, $endDate, $frequency, $id);
+        $stmt->bind_param("sssssssssssss", $liveOn, $userTimezone, $videoName, $videoURL, $shortCTA, $longCTA, $thirdCTA, $shortCTA_BTN, $longCTA_BTN, $thirdCTA_BTN, $CTA_video, $endDate, $frequency, $id);
         $stmt->execute();
 
         // Check if the update query was successful
@@ -67,9 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     } else {
         // Video doesn't exist, insert a new record
         // Insert the user's timezone, converted "liveOn" datetime, and videoURL into the database
-        $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL, shortCTA, longCTA, endDate, frequency) VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
+        $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL, shortCTA, longCTA, thirdCTA, shortCTA_BTN, longCTA_BTN, thirdCTA_BTN, CTA_video, endDate, frequency) VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $mysqli->prepare($insertQuery);
-        $stmt->bind_param("ssssssss", $videoName, $liveOn, $userTimezone, $videoURL, $shortCTA, $longCTA, $endDate, $frequency);
+        $stmt->bind_param("ssssssssssssss", $videoName, $liveOn, $userTimezone, $videoURL, $shortCTA, $longCTA, $thirdCTA, $shortCTA_BTN, $longCTA_BTN, $thirdCTA_BTN, $CTA_video, $endDate, $frequency);
         $stmt->execute();
 
         // Check if the insert query was successful
@@ -115,3 +111,5 @@ echo '<script type="text/javascript">
         window.history.go(-2);
     }, 1000); // Delay in milliseconds (1 second in this example)
 </script>';
+"includes/schedule-video.php";
+?>
