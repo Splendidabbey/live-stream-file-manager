@@ -256,7 +256,7 @@ if (!empty($queryResult)) {
 <body style="overflow: auto;">
 <!-- partial:index.partial.html -->
 <div class="container">  
-  <form id="contact" action="includes/schedule-video.php" method="post" style="overflow-x: auto;">
+  <form id="contact" action="includes/after-video.php" method="post" style="overflow-x: auto;">
     <h3>Upload Your videos</h3>
     <h4>fill in all necessary fields</h4>
     <fieldset>
