@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         // Video already exists, update the liveOn datetime, userTimezone, and videoURL
         $updateQuery = "UPDATE scheduled_videos SET liveOn = ?, userTimezone = ?, videoName = ?, videoURL = ?, shortCTA = ?, longCTA = ?, thirdCTA = ?, shortCTA_BTN = ?, longCTA_BTN = ?, thirdCTA_BTN = ?, CTA_video = ?, endDate = ?, frequency = ? WHERE id = ?";
         $stmt = $mysqli->prepare($updateQuery);
-        $stmt->bind_param("sssssssssssss", $liveOn, $userTimezone, $videoName, $videoURL, $shortCTA, $longCTA, $thirdCTA, $shortCTA_BTN, $longCTA_BTN, $thirdCTA_BTN, $CTA_video, $endDate, $frequency, $id);
+        $stmt->bind_param("ssssssssssssss", $liveOn, $userTimezone, $videoName, $videoURL, $shortCTA, $longCTA, $thirdCTA, $shortCTA_BTN, $longCTA_BTN, $thirdCTA_BTN, $CTA_video, $endDate, $frequency, $id);
         $stmt->execute();
 
         // Check if the update query was successful
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     } else {
         // Video doesn't exist, insert a new record
         $insertQuery = "INSERT INTO scheduled_videos (videoName, liveOn, scheduledAt, userTimezone, videoURL, shortCTA, longCTA, thirdCTA, shortCTA_BTN, longCTA_BTN, thirdCTA_BTN, CTA_video, endDate, frequency) VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $mysqli->prepare($insertQuery); 
+        $stmt = $mysqli->prepare($insertQuery);
         $stmt->bind_param("ssssssssssssss", $videoName, $liveOn, $userTimezone, $videoURL, $shortCTA, $longCTA, $thirdCTA, $shortCTA_BTN, $longCTA_BTN, $thirdCTA_BTN, $CTA_video, $endDate, $frequency);
         $stmt->execute();
 
