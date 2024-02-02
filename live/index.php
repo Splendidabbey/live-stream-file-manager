@@ -566,6 +566,8 @@ if (!empty($queryResult)) {
               var newContent = `<div style="overflow: auto;">'. $longCTA .'</div>`;
               $("#video-call-wrapper").html(newContent);
 
+              window.location.href = `after-video.php?id='. $id .'`;
+
               // Clear the interval to stop checking the progress
               clearInterval(progressCheckInterval);
             }
