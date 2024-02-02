@@ -6,10 +6,10 @@ ini_set('display_errors', 1);
 require_once('conndb.php');
 date_default_timezone_set('UTC');
 
-$id = $_GET['id'] ? $_GET['id'] : "";
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $id = $_POST['id'] ? $_POST['id'] : "";
     $message = "";
     // Details
     $videoName = $_POST['videoName'];
