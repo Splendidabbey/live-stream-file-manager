@@ -82,7 +82,7 @@ function queryVideoById($mysqli, $id) {
 }
 
 function queryVideoByIdAfterWatch($mysqli, $id) {
-    $query = "SELECT * FROM scheduled_videos WHERE id = ?";
+    $query = "SELECT * FROM after_watch WHERE id = ?";
     $stmt = $mysqli->prepare($query);
     $stmt->bind_param("i", $id); // Assuming $id is an integer
     $stmt->execute();
