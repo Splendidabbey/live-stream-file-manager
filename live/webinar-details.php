@@ -2,6 +2,9 @@
 require_once('includes/function.php');
 require_once('includes/conndb.php');
 
+$viewerUserTimezone = $_GET['userTimezone'] ? $_GET['userTimezone'] : "";
+$userTimezone = null;
+
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $id = $_GET['id'] ? $_GET['id'] : "";
     $queryResult = queryVideoById($mysqli, $id);
@@ -421,6 +424,8 @@ $registrationForm = "
 
     <section>
         <p style="color: #777;">This webinar will be live on <?php echo $liveOn; ?> at <?php echo $scheduledAt; ?> in your local time zone (<?php echo $userTimezone; ?>).</p>
+
+
     </section>
 
     <!-- Video Section -->
@@ -455,6 +460,9 @@ $registrationForm = "
         </a>
         <p style="color: #777;"><?php echo $thirdCTA; ?></p>
     </section>
+
+    <script  src="./script.js"></script>
+    <script src="./script-new.js"></script>
 </body>
 
 </html>
