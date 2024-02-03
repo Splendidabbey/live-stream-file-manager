@@ -118,6 +118,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
         <!-- <p style="color: #777;">Discover the [Key Benefits] that will transform your [Specific Outcome].</p> -->
     </header>
 
+    <section>
+        <p style="color: #777;">This webinar will be live on <?php echo $liveOn; ?> at <?php echo $scheduledAt; ?> in your local time zone (<?php echo $userTimezone; ?>).</p>
+    </section>
+
     <!-- Video Section -->
     <section id="video">
         <div class="video-container">
