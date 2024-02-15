@@ -259,12 +259,12 @@ if (!empty($queryResult)) {
   <form id="contact" action="includes/after-video.php" method="post" style="overflow-x: auto;">
     <h3>Upload Your videos</h3>
     <h4>fill in all necessary fields</h4>
-    <fieldset>
+    <!-- <fieldset>
       <input name="videoName" placeholder="video name" value="<?php echo $videoName; ?>" type="text" required>
     </fieldset>
     <fieldset>
       <input name="url" placeholder="video url" value="<?php echo $videoURL; ?>" type="text" required>
-    </fieldset>
+    </fieldset> -->
     <fieldset>
       <?php
       if(hasBeenScheduled($mysqli, $videoName)) {
@@ -272,36 +272,15 @@ if (!empty($queryResult)) {
             <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"' . $videoName . '"</em> has been scheduled to start ' . convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) . '. You can update it below.</h1>';
       }
       ?>
-      <b><label for="timezone">Select Time Zone:</label></b>
-      <select id="timezone" name="userTimezone">
-          <option value="Africa/Lagos" selected>Africa/Lagos (Default)</option>
-          <option value="Asia/Qatar">Asia/Qatar</option>
-          <option value="America/New_York">America/New_York</option>
-          <option value="Europe/London">Europe/London</option>
-          <option value="Asia/Tokyo">Asia/Tokyo</option>
-          <option value="Australia/Sydney">Australia/Sydney</option>
-          <option value="America/Los_Angeles">America/Los_Angeles</option>
-          <option value="Europe/Paris">Europe/Paris</option>
-          <option value="Asia/Dubai">Asia/Dubai</option>
-          <option value="America/Chicago">America/Chicago</option>
-          <option value="Asia/Hong_Kong">Asia/Hong_Kong</option>
-          <option value="Europe/Berlin">Europe/Berlin</option>
-          <option value="America/Toronto">America/Toronto</option>
-          <option value="Asia/Singapore">Asia/Singapore</option>
-          <option value="Pacific/Auckland">Pacific/Auckland</option>
-          <option value="Africa/Johannesburg">Africa/Johannesburg</option>
-          <option value="Asia/Kolkata">Asia/Kolkata</option>
-          <!-- Add more time zones as needed -->
-      </select><br>
-      <b><label>Select Live Date</label></b>
+      <!-- <b><label>Select Live Date</label></b>
       <input name="liveDate" type="date" name="liveOn">
       <b><label>Start Time</label></b>
       <input name="liveStartTime" type="time" name="liveOn"><br>
       <b><label>End Date</label></b>
       <input name="liveEndDate" type="date" name="liveOn">
       <b><label>End Time</label></b>
-      <input name="liveEndTime" type="time" name="liveOn"><br>
-      <b><label>Frequency</label></b>
+      <input name="liveEndTime" type="time" name="liveOn"><br> -->
+      <!-- <b><label>Frequency</label></b>
       <select name="liveFrequency" id="">
         <option value="none">None</option>
         <option value="once">Once</option>
@@ -309,12 +288,12 @@ if (!empty($queryResult)) {
         <option value="weekly">Weekly</option>
         <option value="monthly">Monthly</option>
         <option value="yearly">Yearly</option>
-      </select>
+      </select> -->
     </fieldset>
     <fieldset>
-    <label for="videoToggle">Turn On/Off Video</label>
+    <!-- <label for="videoToggle">Turn On/Off Video</label>
     <input type="checkbox" id="videoToggle" onchange="toggleVideo()">
-    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" onchange="adjustVolume()">
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" onchange="adjustVolume()"> -->
 
     </fieldset>
     <input type="hidden" name="" id="userTimezone" value="">
