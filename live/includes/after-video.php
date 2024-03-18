@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $message = "";
     $liveOn = "";
     // Details
-    $videoName = $_POST['videoName'];
+    $videoName = $_POST['videoName'] ? $_POST['videoName'] : "";
     $userTimezone = $_POST['userTimezone'] ? $_POST['userTimezone'] : "";
     $videoURL = $_POST['url'] ? $_POST['url'] : "";
     $shortCTA = $_POST['shortCTA'] ? $_POST['shortCTA'] : "";
@@ -45,11 +45,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         $endDateTimeObj = new DateTime($combinedEndDateTime, new DateTimeZone($userTimezone));
 
         // Format as needed
-        $liveOn = $liveOnObj->format('Y-m-d H:i:s');
+        // $liveOn = $liveOnObj->format('Y-m-d H:i:s');
+        $liveOn = '0000-00-00 00:00:00';
         $endDate = $endDateTimeObj->format('Y-m-d H:i:s');
     } else {
         // Use the previously saved liveOn value from the database
-        $liveOn = $_POST['savedLiveOn']; // Make sure to replace 'savedLiveOn' with the actual field name
+        // $liveOn = $_POST['savedLiveOn']; // Make sure to replace 'savedLiveOn' with the actual field name
+        $liveOn = '0000-00-00 00:00:00';
         // Set $endDate to NULL or any default value as needed
         $endDate = NULL;
     }

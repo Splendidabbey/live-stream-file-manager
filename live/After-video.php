@@ -192,7 +192,7 @@
         }
   </style>
   <!-- Place the first <script> tag in your HTML's <head> -->
-<script src="https://cdn.tiny.cloud/1/hid5n8nqdv933fhssh9hla40p209874s1i36ttd5edr0xn76/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="https://cdn.tiny.cloud/1/hid5n8nqdv933fhssh9hla40p209874s1i36ttd5edr0xn76/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
     // JavaScript to capture the users timezone and add it to the form
     function captureTimezone() {
@@ -259,20 +259,11 @@ if (!empty($queryResult)) {
   <form id="contact" action="includes/after-video.php" method="post" style="overflow-x: auto;">
     <h3>Upload Your videos</h3>
     <h4>fill in all necessary fields</h4>
-    <fieldset>
-      <?php
-      if(hasBeenScheduled($mysqli, $videoName)) {
-        echo '
-            <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"' . $videoName . '"</em> has been scheduled to start ' . convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) . '. You can update it below.</h1>';
-      }
-      ?>
-      
-    </fieldset>
     <script>
       tinymce.init({
         selector: '#shortCTA',
-        plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
         mergetags_list: [
@@ -297,8 +288,8 @@ if (!empty($queryResult)) {
     <script>
       tinymce.init({
         selector: '#longCta',
-        plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
         mergetags_list: [
@@ -323,8 +314,8 @@ if (!empty($queryResult)) {
     <script>
       tinymce.init({
         selector: '#thirdCta',
-        plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
         mergetags_list: [
@@ -347,6 +338,7 @@ if (!empty($queryResult)) {
     </fieldset>
     <input value="<?php echo $thirdCTA_BTN; ?>" name="thirdCTA_BTN" type="text" placeholder="type in CTA 3 button link">
     <input value="<?php echo $CTA_video; ?>" name="ctaVideo" type="text" placeholder="type youtube video id">
+    <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending" value="Schedule/Update" onclick="captureTimezone()">Submit</button>
     </fieldset>
