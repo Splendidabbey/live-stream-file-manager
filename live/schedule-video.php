@@ -237,6 +237,7 @@ if (!empty($queryResult)) {
         $videoURL = $row['videoURL'];
         $shortCTA = $row['shortCTA'];
         $longCTA = $row['longCTA'];
+        $frequency = $row['frequency'];
         $id = $row['id'];
         $thirdCTA = $row['thirdCTA'];
         $shortCTA_BTN = $row['shortCTA_BTN'];
@@ -266,12 +267,19 @@ if (!empty($queryResult)) {
       <input name="url" placeholder="video url" value="<?php echo $videoURL; ?>" type="text" required>
     </fieldset>
     <fieldset>
-      <?php
+    <?php
       if(hasBeenScheduled($mysqli, $videoName)) {
-        echo '
-            <h1><span style="color: #198754;">Live</span></live> for <em style="color: #007bff;">"' . $videoName . '"</em> has been scheduled to start ' . convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) . '. You can update it below.</h1>';
+          echo '<h1><span style="color: #198754;">Live</span> for <em style="color: #007bff;">"' . $videoName . '"</em> has been scheduled to start ' . convertToUserTimezone($liveOn, $userTimezone, $viewerUserTimezone) . '. You can update it below.';
+
+          // Check if frequency is set and display it
+          if ($frequency !== 'none') {
+              echo ' This video has been scheduled for ' . $frequency;
+          }
+
+          echo '</h1>';
       }
-      ?>
+    ?>
+
       <b><label for="timezone">Select Time Zone:</label></b>
       <select id="timezone" name="userTimezone">
           <option value="Africa/Lagos" selected>Africa/Lagos (Default)</option>
